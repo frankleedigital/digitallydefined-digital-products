@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legacy OS · Phase 1 MVP</title>
+  <meta name="description" content="The Legacy OS Phase 1 MVP for Gen X women: Financial Autonomy Planner, Caregiver's Survival Kit, and Legacy Command Center in one self-contained product.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dd-bg: #FFFCF9;
+      --dd-white: #FFFFFF;
+      --dd-ink: #111111;
+      --dd-text: #111111;
+      --dd-blue: #47B7D4;
+      --dd-orange: #F18B25;
+      --dd-red: #C20F0A;
+      --dd-frame: #111111;
+      --dd-frame-sm: #111111;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; box-shadow: none; text-shadow: none; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dd-bg); color: var(--dd-text); font-family:"DM Sans", sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, h4, .eyebrow, .section-label, .btn, .price, .score-value, .tab { font-family:"Inter", sans-serif; font-weight: 900; letter-spacing: -0.02em; color: var(--dd-ink); }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    /* TOPBAR */
+    .topbar { border-bottom: 1px solid var(--dd-frame); padding: 16px 0; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark { width: 34px; height: 34px; background: var(--dd-ink); color: var(--dd-white); display: grid; place-items: center; font-weight: 900; font-size: 13px; font-family:"Inter", sans-serif; }
+    .brand-title { font-size: 17px; font-weight: 900; letter-spacing: -0.02em; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .brand-title span { color: var(--dd-orange); font-style: italic; }
+    .topbar-note { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* HERO */
+    .hero { padding: 44px 0 36px; border-bottom: 1px solid var(--dd-frame); text-align: center; }
+    .eyebrow { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dd-orange); border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 7px 14px; margin-bottom: 20px; font-family:"Inter", sans-serif; }
+    h1 { font-size: clamp(40px, 6vw, 68px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 900; color: var(--dd-ink); margin-bottom: 18px; }
+    h1 span { color: var(--dd-orange); }
+    .hero-sub { font-size: 18px; color: var(--dd-text); max-width: 640px; margin: 0 auto 26px; line-height: 1.55; }
+
+    .tabs { display: flex; justify-content: center; gap: 0; border: 1px solid var(--dd-frame); background: var(--dd-white); width: fit-content; margin: 0 auto 28px; overflow: hidden; }
+    .tab { padding: 14px 22px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border-right: 1px solid var(--dd-frame); color: var(--dd-ink); background: var(--dd-white); transition: background 0.15s, color 0.15s; }
+    .tab:last-child { border-right: none; }
+    .tab:hover { background: var(--dd-bg); }
+    .tab.active { background: var(--dd-ink); color: var(--dd-white); }
+    .tab.active[data-tab="planner"] { background: var(--dd-blue); color: var(--dd-ink); }
+    .tab.active[data-tab="survival"] { background: var(--dd-orange); color: var(--dd-white); }
+    .tab.active[data-tab="command"] { background: var(--dd-red); color: var(--dd-white); }
+
+    .cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+    .btn { display: inline-block; border: 1px solid var(--dd-frame); background: var(--dd-orange); color: var(--dd-white); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; padding: 16px 30px; text-decoration: none; cursor: pointer; font-family:"Inter", sans-serif; transition: background 0.15s, color 0.15s; }
+    .btn:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .btn--ghost { background: var(--dd-white); color: var(--dd-ink); }
+    .btn--ghost:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .btn-sub { display: block; text-align: center; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* SECTION */
+    .section { padding: 40px 0; border-bottom: 1px solid var(--dd-frame); }
+    .section-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dd-ink); border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 6px 12px; margin-bottom: 14px; font-family:"Inter", sans-serif; }
+    .section-title { font-size: clamp(24px, 3.4vw, 36px); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 12px; }
+    .section-sub { font-size: 15px; color: var(--dd-text); max-width: 560px; }
+    .section-head { margin-bottom: 28px; }
+
+    /* PANELS */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* PLANNER */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+    .card { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 20px; text-align: left; }
+    .card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5F5F5F; font-family:"Inter", sans-serif; margin-bottom: 8px; display: block; }
+    .card h3 { font-size: 18px; font-weight: 900; color: var(--dd-ink); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .card p { font-size: 13px; color: var(--dd-text); margin-bottom: 10px; }
+    .card ul { list-style: none; display: grid; gap: 6px; }
+    .card li { font-size: 12px; color: var(--dd-text); padding-left: 14px; position: relative; }
+    .card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 5px; height: 5px; background: var(--dd-orange); border: 1px solid var(--dd-ink); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { text-align: left; }
+    .field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5F5F5F; margin-bottom: 6px; font-family:"Inter", sans-serif; }
+    .field input, .field select { width: 100%; border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 12px 14px; font-family:"DM Sans", sans-serif; font-size: 14px; color: var(--dd-ink); outline: none; }
+    .field input:focus, .field select:focus { background: var(--dd-bg); }
+    .field-full { grid-column: 1 / -1; }
+
+    .result-card { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-blue); background: var(--dd-white); padding: 24px; text-align: center; }
+    .result-value { font-size: 48px; font-weight: 900; color: var(--dd-blue); line-height: 1; letter-spacing: -0.03em; font-family:"Inter", sans-serif; margin-bottom: 6px; }
+    .result-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* SLIDER ROWS */
+    .slider-row { text-align: left; margin-bottom: 18px; }
+    .slider-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .slider-head span { font-size: 12px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .slider-head b { font-size: 14px; font-weight: 900; color: var(--dd-orange); font-family:"Inter", sans-serif; }
+    input[type="range"] { width: 100%; accent-color: var(--dd-orange); }
+
+    /* SURVIVAL KIT */
+    .kit-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+    .kit-tab { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 14px; text-align: left; cursor: pointer; }
+    .kit-tab.active { background: var(--dd-ink); color: var(--dd-white); }
+    .kit-tab h4 { font-size: 13px; font-weight: 900; color: var(--dd-ink); font-family:"Inter", sans-serif; margin-bottom: 4px; }
+    .kit-tab.active h4 { color: var(--dd-white); }
+    .kit-tab p { font-size: 11px; color: #B8B8B8; font-family:"DM Sans", sans-serif; }
+    .kit-tab.active p { color: #B8B8B8; }
+    .kit-panel { display: none; border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 24px; text-align: left; }
+    .kit-panel.active { display: block; }
+    .kit-panel h3 { font-size: 20px; font-weight: 900; color: var(--dd-ink); margin-bottom: 12px; }
+    .kit-list { list-style: none; display: grid; gap: 10px; }
+    .kit-list li { border: 1px solid var(--dd-frame-sm); background: var(--dd-bg); padding: 14px 16px; font-size: 14px; color: var(--dd-text); }
+    .kit-list li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; display: block; margin-bottom: 4px; }
+    .fact-flag { display: inline-block; border: 1px solid var(--dd-ink); background: var(--dd-orange); color: var(--dd-white); font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; font-family:"Inter", sans-serif; margin-right: 8px; vertical-align: middle; }
+    .fact-flag--verify { background: var(--dd-red); }
+
+    /* COMMAND CENTER */
+    .cc-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .cc-item { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 16px; text-align: left; }
+    .cc-item .cc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .cc-item .cc-title { font-size: 14px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .cc-item .cc-sub { font-size: 11px; color: #5F5F5F; font-family:"DM Sans", sans-serif; }
+    .cc-item .cc-status { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--dd-frame); font-family:"Inter", sans-serif; }
+    .cc-status--now { background: var(--dd-orange); color: var(--dd-white); }
+    .cc-status--pending { background: var(--dd-white); color: var(--dd-ink); }
+    .cc-status--done { background: var(--dd-blue); color: var(--dd-ink); }
+
+    .cc-log { list-style: none; display: grid; gap: 8px; }
+    .cc-log li { font-size: 13px; color: var(--dd-text); border-left: 1px solid var(--dd-red); padding: 6px 12px; background: var(--dd-white); }
+    .cc-log li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 12px; }
+
+    /* BUDGET MINI */
+    .budget-bar { height: 12px; background: var(--dd-white); border: 1px solid var(--dd-frame); margin-top: 10px; }
+    .budget-bar > div { height: 100%; background: var(--dd-blue); }
+
+    /* GUARDRAILS */
+    .guardrail { border: 1px solid var(--dd-frame); border-left: 1px solid var(--dd-red); background: var(--dd-white); padding: 18px 20px; text-align: left; margin-top: 20px; }
+    .guardrail h4 { font-size: 14px; font-weight: 900; color: var(--dd-red); font-family:"Inter", sans-serif; margin-bottom: 8px; }
+    .guardrail p { font-size: 13px; color: var(--dd-text); line-height: 1.55; }
+
+    /* ONBOARDING MODAL */
+    .onboarding-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17,17,17,0.78);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .onboarding-overlay.active { display: flex; }
+    .onboarding {
+      width: 100%;
+      max-width: 560px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      text-align: left;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    .onb-head {
+      border-bottom: 1px solid var(--dd-frame);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      background: var(--dd-white);
+    }
+    .onb-head .onb-title {
+      font-family:"Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--dd-ink);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .onb-close {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      color: var(--dd-ink);
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-family:"Inter", sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .onb-close:hover { background: var(--dd-ink); color: var(--dd-white); }
+
+    .onb-progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+    }
+    .onb-progress .step {
+      padding: 12px 8px;
+      text-align: center;
+      font-family:"Inter", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5F5F5F;
+      border-right: 1px solid var(--dd-frame);
+      position: relative;
+    }
+    .onb-progress .step:last-child { border-right: none; }
+    .onb-progress .step .n {
+      display: block;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 3px;
+      color: #5F5F5F;
+    }
+    .onb-progress .step.active { color: var(--dd-ink); background: var(--dd-bg); }
+    .onb-progress .step.active .n { color: var(--dd-orange); }
+    .onb-progress .step.done { color: var(--dd-blue); }
+    .onb-progress .step.done .n { color: var(--dd-blue); }
+
+    .onb-body { padding: 24px; }
+    .onb-screen { display: none; }
+    .onb-screen.active { display: block; }
+    .onb-screen .onb-eyebrow {
+      display: inline-block;
+      font-family:"Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dd-orange);
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 5px 10px;
+      margin-bottom: 12px;
+    }
+    .onb-screen h3 {
+      font-family:"Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--dd-ink);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .onb-screen > p {
+      font-size: 14px;
+      color: var(--dd-text);
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+    .onb-field { text-align: left; margin-bottom: 14px; }
+    .onb-field label {
+      display: block;
+      font-family:"Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5F5F5F;
+      margin-bottom: 6px;
+    }
+    .onb-field input, .onb-field select {
+      width: 100%;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      padding: 12px 14px;
+      font-family:"DM Sans", sans-serif;
+      font-size: 15px;
+      color: var(--dd-ink);
+      outline: none;
+    }
+    .onb-field input:focus, .onb-field select:focus { background: var(--dd-bg); }
+    .onb-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .onb-checklist { list-style: none; display: grid; gap: 10px; margin-bottom: 18px; }
+    .onb-checklist li {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--dd-text);
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      cursor: pointer;
+    }
+    .onb-checklist li .box {
+      width: 18px; height: 18px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      margin-top: 2px;
+      display: grid;
+      place-items: center;
+      font-family:"Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--dd-ink);
+    }
+    .onb-checklist li.checked { background: var(--dd-white); border-left: 1px solid var(--dd-blue); }
+    .onb-checklist li.checked .box { background: var(--dd-blue); color: var(--dd-ink); }
+    .onb-checklist li.checked span:last-child { color: var(--dd-ink); font-weight: 700; }
+
+    .onb-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; }
+    .onb-nav .btn { padding: 13px 24px; font-size: 12px; }
+    .onb-nav .btn--back { background: var(--dd-white); color: var(--dd-ink); }
+    .onb-nav .btn--back:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .onb-nav .spacer { flex: 1; }
+
+    .onb-complete { text-align: center; }
+    .onb-complete .check {
+      width: 56px; height: 56px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-blue);
+      color: var(--dd-ink);
+      display: grid;
+      place-items: center;
+      font-family:"Inter", sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      margin: 0 auto 16px;
+    }
+    .onb-complete h3 { margin-bottom: 8px; }
+    .onb-completion-summary {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 16px;
+      text-align: left;
+      margin: 16px 0;
+      font-size: 13px;
+      color: var(--dd-text);
+    }
+    .onb-completion-summary div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid #111111;
+    }
+    .onb-completion-summary div:last-child { border-bottom: none; }
+    .onb-completion-summary span { color: #5F5F5F; font-family:"Inter", sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+    .onb-completion-summary b { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; font-weight: 900; }
+
+    /* CHECKOUT */
+    .checkout-box { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-orange); background: var(--dd-white); padding: 28px; text-align: left; }
+    .checkout-box h3 { font-size: 20px; font-weight: 900; color: var(--dd-ink); margin-bottom: 10px; font-family:"Inter", sans-serif; }
+    .checkout-box p { font-size: 14px; color: var(--dd-text); margin-bottom: 16px; }
+    .checkout-url { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 12px 14px; font-family:"Inter", sans-serif; font-size: 13px; font-weight: 700; color: var(--dd-ink); word-break: break-all; margin-bottom: 14px; display: block; cursor: pointer; }
+    .checkout-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .checkout-row .btn { padding: 14px 26px; font-size: 13px; }
+    .checkout-note { font-size: 11px; color: #5F5F5F; font-family:"DM Sans", sans-serif; }
+
+    /* DELIVERY */
+    .delivery { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-blue); background: var(--dd-white); padding: 24px; text-align: left; }
+    .delivery h3 { font-size: 18px; font-weight: 900; color: var(--dd-ink); margin-bottom: 10px; font-family:"Inter", sans-serif; }
+    .delivery ol { padding-left: 20px; display: grid; gap: 8px; margin-bottom: 14px; }
+    .delivery li { font-size: 14px; color: var(--dd-text); }
+    .delivery li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; }
+    .delivery-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .delivery-links a { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 10px 16px; font-size: 12px; font-weight: 700; color: var(--dd-ink); text-decoration: none; font-family:"Inter", sans-serif; }
+    .delivery-links a:hover { background: var(--dd-ink); color: var(--dd-white); }
+
+    /* FOOTER */
+    .footer { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+
+    @media (max-width: 760px) {
+      .grid-2, .grid-3, .cc-grid { grid-template-columns: 1fr; }
+      .kit-tabs { grid-template-columns: repeat(2, 1fr); }
+      .tabs { width: 100%; flex-wrap: wrap; }
+      .tab { flex: 1 1 30%; border-right: none; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+<!-- DigitallyDefined Canonical Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- DigitallyDefined Brand Standards (Strict 0px Soft-Brutalism) -->
+<style id="dd-brand-standard">
+/* ============================================================================
+   DigitallyDefined — Official Brand Standard v2.0
+   Source of truth for every digital product. See brand/README.md.
+   Inlined into each product's <style id="dd-brand-standard"> by
+   scripts/apply_brand.py — do not hand-edit the copies.
+
+   Spec (from the official brand file):
+     • 3-colour system: #F18B25 primary, #47B7D4 secondary, #C20F0A important
+     • 1px solid #111111 frame on every card, button, badge, input
+     • rounded-none: 0px radius everywhere
+     • flat: no box-shadows, no gradients-as-decoration
+     • Inter 900 italic "DEFINED." logotype beside upright "DIGITALLY"
+     • Inter for headings / UI / buttons, DM Sans for body copy
+     • Outcome-first, non-technical, Gen X voice
+   ========================================================================= */
+
+:root {
+  /* ── 1. Brand roles ─────────────────────────────────────────────────── */
+  --dd-orange: #F18B25 !important;   /* PRIMARY   — CTAs, active state, default accent */
+  --dd-blue:   #47B7D4 !important;   /* SECONDARY — supporting modules, metrics, tech */
+  --dd-red:    #C20F0A !important;   /* IMPORTANT — alerts, security, critical only  */
+
+  /* ── 2. Surfaces ────────────────────────────────────────────────────── */
+  --dd-bg:             #FFFCF9 !important;  /* page */
+  --dd-card:           #FFFFFF !important;  /* card / panel face */
+  --dd-panel:          #FFFAF5 !important;  /* inset well */
+  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+
+  /* Derived washes — tints of the 3 roles, no new hues introduced */
+  --dd-wash-orange: #FFF0DE !important;
+  --dd-wash-blue:   #E6F5F9 !important;
+  --dd-wash-red:    #FBEAEA !important;
+
+  /* ── 3. Ink & line ──────────────────────────────────────────────────── */
+  --dd-ink:   #111111 !important;
+  --dd-muted: #5F5F5F !important;
+  --dd-line:  #111111 !important;
+  --dd-bdr:   #111111 !important;   /* colour only — pair with `1px solid` */
+
+  /* ── 4. Structure: always square, always flat ───────────────────────── */
+  --dd-radius: 0px !important;
+  --dd-shadow: none !important;
+
+  /* ── 5. Type ────────────────────────────────────────────────────────── */
+  --dd-font-head: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  --dd-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+
+  /* ── 6. Legacy aliases ──────────────────────────────────────────────────
+     Every variable name used across the catalogue, pointing at the token
+     it should have been. Colour tokens only — structural vars are colours,
+     and every `border:` declaration is rewritten to `1px solid var(...)`
+     so the shorthand can never resolve to an invalid value.              */
+  --bg: var(--dd-bg) !important;
+  --cream-bg: var(--dd-bg) !important;
+  --cream: var(--dd-bg) !important;
+  --card-bg: var(--dd-card) !important;
+  --card: var(--dd-card) !important;
+  --dd-card-bg: var(--dd-card) !important;
+  --pure-white: #FFFFFF !important;
+  --white: #FFFFFF !important;
+  --dd-white: #FFFFFF !important;
+  --panel: var(--dd-panel) !important;
+  --light-gray: var(--dd-panel) !important;
+
+  --text: var(--dd-ink) !important;
+  --dd-text: var(--dd-ink) !important;
+  --ink: var(--dd-ink) !important;
+  --dk: var(--dd-ink) !important;
+  --black: var(--dd-ink) !important;
+  --dark-grey: var(--dd-ink) !important;
+  --medium-grey: var(--dd-muted) !important;
+  --muted: var(--dd-muted) !important;
+
+  --border: var(--dd-line) !important;
+  --dd-border: var(--dd-line) !important;
+  --bdr: var(--dd-line) !important;
+  --line: var(--dd-line) !important;
+  --frame: var(--dd-line) !important;
+  --dd-frame: var(--dd-line) !important;
+  --dd-frame-sm: var(--dd-line) !important;
+  --black-border: var(--dd-line) !important;
+  --border-gray: var(--dd-line) !important;
+
+  --or: var(--dd-orange) !important;
+  --orange: var(--dd-orange) !important;
+  --orange-highlight: var(--dd-orange) !important;
+  --accent: var(--dd-orange) !important;
+  --primary: var(--dd-orange) !important;
+
+  --bl: var(--dd-blue) !important;
+  --aqua: var(--dd-blue) !important;
+  --dd-aqua: var(--dd-blue) !important;
+  --aqua-blue: var(--dd-blue) !important;
+  --secondary: var(--dd-blue) !important;
+  --dd-accent-primary: var(--dd-orange) !important;
+  --dd-accent-secondary: var(--dd-blue) !important;
+
+  --rd: var(--dd-red) !important;
+  --red: var(--dd-red) !important;
+  --deep-red-warning: var(--dd-red) !important;
+  --tertiary: var(--dd-red) !important;
+  --dd-accent-tertiary: var(--dd-red) !important;
+
+  --dark: var(--dd-dark) !important;
+
+  --font-head: var(--dd-font-head) !important;
+  --font-body: var(--dd-font-body) !important;
+  --font-sans: var(--dd-font-body) !important;
+  --font-mono: var(--dd-font-head) !important;
+}
+
+/* ── Flat + square: the two non-negotiable brutalist rules ─────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ── Type system ───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--dd-bg) !important;
+  color: var(--dd-ink) !important;
+  font-family: var(--dd-font-body) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6, .dd-h {
+  font-family: var(--dd-font-head) !important;
+  color: var(--dd-ink) !important;
+  letter-spacing: -0.025em !important;
+}
+
+h1, h2, h3 { font-weight: 900 !important; }
+h4, h5, h6 { font-weight: 800 !important; }
+
+/* Body copy stays DM Sans — inputs included, so nothing falls back to Arial */
+p, li, td, dd, dt, blockquote, figcaption,
+input, select, textarea, optgroup, option {
+  font-family: var(--dd-font-body);
+}
+
+/* Action controls are Inter, 800 — per spec */
+button,
+.btn,
+.cta,
+.dd-btn,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Third typefaces retired: Inter covers metric / label duty */
+code, pre, kbd, samp,
+.mono, .font-mono, .dd-badge, .badge, .tag, .eyebrow {
+  font-family: var(--dd-font-head) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em !important;
+}
+
+/* ── 1px frame for every Tailwind border-width utility ─────────────────── */
+.border-2, .border-4, .border-8 { border-width: 1px !important; }
+.border-t-2, .border-t-4 { border-top-width: 1px !important; }
+.border-b-2, .border-b-4 { border-bottom-width: 1px !important; }
+.border-l-2, .border-l-4 { border-left-width: 1px !important; }
+.border-r-2, .border-r-4 { border-right-width: 1px !important; }
+.border-x-2, .border-x-4 { border-left-width: 1px !important; border-right-width: 1px !important; }
+.border-y-2, .border-y-4 { border-top-width: 1px !important; border-bottom-width: 1px !important; }
+
+/* ── Focus state: brand orange, always visible (shadows are gone) ─────── */
+:focus-visible,
+input:focus, select:focus, textarea:focus, button:focus, a:focus {
+  outline: 2px solid var(--dd-orange) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Official brand bar ───────────────────────────────────────────────── */
+.dd-brandbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  padding: 10px 16px !important;
+  background: var(--dd-card) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--dd-line) !important;
+  font-family: var(--dd-font-head) !important;
+}
+
+.dd-brandmark {
+  display: inline-block;
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  text-decoration: none;
+}
+
+.dd-brandmark em {
+  font-style: italic;
+  color: var(--dd-orange);
+}
+
+.dd-brandbar-label {
+  font-family: var(--dd-font-head) !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dd-muted);
+  text-align: right;
+}
+
+/* Existing in-page logo slots are upgraded to the official lockup */
+.dd-logo-name,
+.logo-text {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: uppercase;
+}
+
+.dd-logo-name em,
+.logo-text em {
+  font-style: italic !important;
+  color: var(--dd-orange) !important;
+}
+
+@media print {
+  .dd-brandbar { display: none !important; }
+}
+
+</style>
+</head>
+<body>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">Legacy OS · Phase 1 MVP</span></header>
+<!-- DigitallyDefined Official Header -->
+<nav class="dd-brand-topbar" style="background:#FFFCF9; border-bottom:1px solid #5F5F5F; padding:0.9rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; font-family:'Inter', sans-serif; position:sticky; top:0; z-index:9999;">
+  <div style="display:flex; align-items:center; gap:0.6rem;">
+    <a href="https://dashboard.digitallydefined.agency" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:#B8B8B8;">
+      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">Digitally<em style="color:#F18B25; font-style:italic;">Defined</em></span>
+    </a>
+    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#B8B8B8; display:none;">Faceless Digital Real Estate</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:0.6rem;">
+    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.3rem 0.6rem; font-family:'Inter', monospace;">Legacy Os Phase1 Mvp</span>
+    <a href="https://dashboard.digitallydefined.agency/quiz" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; background:#F18B25; color:#B8B8B8; border:1px solid #5F5F5F; padding:0.3rem 0.7rem; text-decoration:none;">Take Free Quiz →</a>
+  </div>
+</nav>
+
+
+  <div class="shell">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">DD</div>
+        <div class="brand-title">DIGITALLY<span>DEFINED.</span></div>
+      </div>
+      <div class="topbar-note">Phase 1 MVP · Legacy OS</div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="eyebrow">One System · Three Layers · Self-Contained</div>
+      <h1>Plan. Protect. Operate.<br><span>All in One Place.</span></h1>
+      <p class="hero-sub">
+        The Legacy OS MVP is the smallest sellable version of the system: your Financial Autonomy Planner,
+        Caregiver's Survival Kit, and Legacy Command Center — no backend, no subscription, just the working product.
+      </p>
+
+      <div class="tabs">
+        <div class="tab active" data-tab="planner">01 · Planner</div>
+        <div class="tab" data-tab="survival">02 · Survival Kit</div>
+        <div class="tab" data-tab="command">03 · Command Center</div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="#checkout">Start Checkout</a>
+        <a class="btn btn--ghost" href="#delivery">I Already Own It</a>
+      </div>
+      <span class="btn-sub">One-time purchase · No subscription · Instant access</span>
+    </section>
+
+    <!-- 01 PLANNER -->
+    <section class="section panel active" id="planner">
+      <div class="section-head">
+        <div class="section-label">Layer 01 · Strategy</div>
+        <h2 class="section-title">Financial Autonomy Planner</h2>
+        <p class="section-sub">Define your Freedom Number, map the gap, and choose the digital asset mix that closes it.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="card-label">Step 1 · Your Freedom Number</span>
+          <h3>What does "free" actually look like?</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label>Monthly expenses (base)</label>
+              <input type="number" id="pl-expense" placeholder="4500">
+            </div>
+            <div class="field">
+              <label>Monthly caregiver cost</label>
+              <input type="number" id="pl-care" placeholder="1200">
+            </div>
+            <div class="field">
+              <label>Social security / pension (est. monthly)</label>
+              <input type="number" id="pl-income" placeholder="1800">
+            </div>
+            <div class="field">
+              <label>Exit multiple target</label>
+              <select id="pl-exit">
+                <option value="25">25x annual (4% rule)</option>
+                <option value="30">30x annual</option>
+                <option value="35">35x annual (safer)</option>
+                <option value="40">40x annual (most conservative)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn--ghost" id="pl-calc" style="margin-top:14px; width:100%;">Calculate My Freedom Number</button>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Step 2 · Your Gap</span>
+          <h3>How far are you really?</h3>
+          <div class="result-card" style="border-top-color: var(--dd-orange); margin-bottom:14px;">
+            <div class="result-value" id="pl-gap">$0/mo</div>
+            <div class="result-label">Monthly Income Gap</div>
+          </div>
+          <div class="result-card" style="border-top-color: var(--dd-blue);">
+            <div class="result-value" id="pl-target">$0</div>
+            <div class="result-label">Freedom Number Target</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <span class="card-label">Step 3 · Your Digital Asset Mix</span>
+        <h3>What do you actually need to build?</h3>
+        <div class="slider-row">
+          <div class="slider-head"><span>Faceless content (YouTube / TikTok)</span><b id="sl-content-v">40%</b></div>
+          <input type="range" min="0" max="100" value="40" id="sl-content">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Digital products (templates, guides)</span><b id="sl-product-v">30%</b></div>
+          <input type="range" min="0" max="100" value="30" id="sl-product">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>SEO / blog / list building</span><b id="sl-seo-v">20%</b></div>
+          <input type="range" min="0" max="100" value="20" id="sl-seo">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Recurring SaaS / membership</span><b id="sl-saas-v">10%</b></div>
+          <input type="range" min="0" max="100" value="10" id="sl-saas">
+        </div>
+        <p style="font-size:12px; color:#B8B8B8; text-align:left; margin-top:8px;">
+          Tip: slide each bar to your comfort level. They don't have to add to 100% — the planner normalizes them for you.
+        </p>
+      </div>
+
+      <div class="guardrail">
+        <h4>Reality Check</h4>
+        <p>
+          The Freedom Number assumes a passive exit. It does not account for inflation, healthcare changes,
+          or caregiving escalation. Treat it as a working target, not a crystal ball. Revisit quarterly.
+        </p>
+      </div>
+    </section>
+
+    <!-- 02 SURVIVAL KIT -->
+    <section class="section panel" id="survival">
+      <div class="section-head">
+        <div class="section-label">Layer 02 · Protection</div>
+        <h2 class="section-title">Caregiver's Financial Survival Kit</h2>
+        <p class="section-sub">Turn the caregiving crisis into a financial map. Understand the benefit paths. Stop guessing.</p>
+      </div>
+
+      <div class="kit-tabs">
+        <div class="kit-tab active" data-kit="medicaid">
+          <h4>Medicaid</h4>
+          <p>Nursing home & home care eligibility</p>
+        </div>
+        <div class="kit-tab" data-kit="fmla">
+          <h4>FMLA</h4>
+          <p>Protected leave for family care</p>
+        </div>
+        <div class="kit-tab" data-kit="pfl">
+          <h4>Paid Family Leave</h4>
+          <p>State PFL wage replacement</p>
+        </div>
+        <div class="kit-tab" data-kit="va">
+          <h4>VA Aid & Attendance</h4>
+          <p>Monthly supplement for caregivers</p>
+        </div>
+      </div>
+
+      <div class="kit-panel active" id="kit-medicaid">
+        <h3>Medicaid · The Map</h3>
+        <ul class="kit-list">
+          <li><strong><span class="fact-flag">Verify</span>Asset limits are state-specific</strong>Medicaid eligibility for long-term care depends heavily on your state's asset cap. Some states have a few thousand dollars of countable assets; others allow more. The planner's Medicaid tab shows your state's current threshold when you enter your state.</li>
+          <li><strong><span class="fact-flag">Verify</span>The 5-year lookback</strong>If you transfer assets to qualify, Medicaid can look back five years. Document every gift. Some states have a Medicaid lookback exception for spouses; not all.</li>
+          <li><strong><span class="fact-flag">Verify</span>Spousal protection</strong>A married applicant can shelter the healthy spouse's home and a portion of assets. Single caregivers don't get the same spousal buffer — plan for a tighter squeeze.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-fmla">
+        <h3>FMLA · The Rules</h3>
+        <ul class="kit-list">
+          <li><strong>128 hours — that's it</strong>FMLA gives you 12 work weeks per year to care for a parent, child, or spouse. You get paid time only if your employer offers PTO on top — FMLA itself is unpaid.</li>
+          <li><strong>Coverage threshold</strong>You qualify if you work 1,250+ hours/year and your employer has 50+ employees within 75 miles.</li>
+          <li><strong>Not transferable</strong>You cannot use FMLA on someone who isn't an eligible family member. A friend's parent, a neighbor's mom, a non-dependent parent — not covered.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-pfl">
+        <h3>State Paid Family Leave</h3>
+        <ul class="kit-list">
+          <li><strong>Wage replacement, not your paycheck</strong>Most PFL states replace ~60–67% of your wages for a set number of weeks. California, New York, New Jersey, Washington, Rhode Island, Massachusetts, Colorado, and Connecticut all have PFL programs.</li>
+          <li><strong>Stacks on top of FMLA</strong>PFL is paid; FMLA is unpaid. You can use PFL weeks while also holding FMLA status at the same time.</li>
+          <li><strong><span class="fact-flag">Verify</span>Check your specific state</strong>Each state's weeks, replacement rate, and eligibility criteria differ. The planner's PFL tab lists the state's current program when you enter it.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-va">
+        <h3>VA Aid & Attendance</h3>
+        <ul class="kit-list">
+          <li><strong>Monthly supplement for caregivers</strong>VA A&A pays the veteran (or surviving spouse) extra compensation when in-home care or assisted living is needed. The current monthly supplement is a specific dollar amount — the planner pulls the current figure when you enter your state and eligibility.</li>
+          <li><strong>The caregiver gets a bonus</strong>Under certain conditions, an eligible caregiver may receive a small monthly care bonus on top of the veteran's A&A. This is separate from the veteran's benefit.</li>
+          <li><strong><span class="fact-flag">Verify</span>Benefit amounts change with cost-of-living adjustments</strong>Aid & Attendance rates are adjusted annually. Use the planner's live lookup rather than memorizing the number.</li>
+        </ul>
+      </div>
+
+      <div class="guardrail">
+        <h4>Guardrail · Verify Before You File</h4>
+        <p>
+          Benefit eligibility, asset limits, and dollar amounts all change with state and with federal updates.
+          The kit gives you the logic and the map. Before you file or transfer assets, run your specific case
+          through a Medicaid planner or elder-law attorney in your state. This product is a planning framework,
+          not legal advice.
+        </p>
+      </div>
+    </section>
+
+    <!-- 03 COMMAND CENTER -->
+    <section class="section panel" id="command">
+      <div class="section-head">
+        <div class="section-label">Layer 03 · Operations</div>
+        <h2 class="section-title">Legacy Command Center</h2>
+        <p class="section-sub">Run the day-to-day without losing control. Appointments, delegation, budgets, and firm communication in one place.</p>
+      </div>
+
+      <div class="cc-grid">
+        <div class="card">
+          <span class="card-label">Today's Operations</span>
+          <h3>Care Calendar & Delegation</h3>
+          <div style="display:grid; gap:10px; margin-top:12px;">
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Dr. Calloway — 10:00 AM</div><div class="cc-sub">Memory care follow-up · Medicaid pre-auth required</div></div>
+                <span class="cc-status cc-status--now">Now</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Pharmacy — refill on Tuesday</div><div class="cc-sub">Marta can handle · confirm by Friday</div></div>
+                <span class="cc-status cc-status--pending">Pending</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Insurance claim #4412 — filed</div><div class="cc-sub">Submitted 10/15 · ETA 5 business days</div></div>
+                <span class="cc-status cc-status--done">Done</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Weekly budget review</div><div class="cc-sub">Saturday 6pm · 20 minutes</div></div>
+                <span class="cc-status cc-status--pending">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Budget Tracker</span>
+          <h3>Caregiving Spend</h3>
+          <div style="text-align:left; margin-top:10px;">
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8;">
+              <span>Medications</span><b style="color:var(--dd-ink); font-family:'Inter';">$412</b>
+            </div>
+            <div class="budget-bar"><div style="width:34%;"></div></div>
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8; margin-top:14px;">
+              <span>Home care hours</span><b style="color:var(--dd-ink); font-family:'Inter';">$1,240</b>
+            </div>
+            <div class="budget-bar"><div style="width:72%; background:var(--dd-orange);"></div></div>
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8; margin-top:14px;">
+              <span>Transportation</span><b style="color:var(--dd-ink); font-family:'Inter';">$86</b>
+            </div>
+            <div class="budget-bar"><div style="width:14%; background:var(--dd-red);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Communication Log</span>
+        <h3>Diplomat Drafting</h3>
+        <ul class="cc-log" style="margin-top:12px;">
+          <li><strong>Parent — 10/16</strong>Requested second opinion from neurologist. Agreed to schedule. No conflict.</li>
+          <li><strong>Sibling Marta — 10/14</strong>Confirmed she takes Saturday. No backup needed next week.</li>
+          <li><strong>Insurance — 10/10</strong>Pre-auth for memory care accepted. Coverage active through 12/31.</li>
+        </ul>
+      </div>
+
+      <div class="guardrail">
+        <h4>Guardrail · Firm, Not Cold</h4>
+        <p>
+          The Command Center is a delegation tool, not a confrontation tool. Set the expectation in writing,
+          one sentence, one commitment at a time. If a family member says no, the log records it — it does
+          not escalate. Escalation is a separate decision.
+        </p>
+      </div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section class="section" id="checkout">
+      <div class="section-head">
+        <div class="section-label">Get Access</div>
+        <h2 class="section-title">One Price. One System.</h2>
+      </div>
+
+      <div class="checkout-box">
+        <h3>The Legacy OS Bundle · $297</h3>
+        <p>
+          Includes the Financial Autonomy Planner, Caregiver's Survival Kit, and Legacy Command Center,
+          plus instant delivery and setup guide. One-time price. No subscription.
+        </p>
+        <span class="checkout-url" id="checkout-url">https://YOUR-CHECKOUT-LINK-HERE</span>
+        <div class="checkout-row">
+          <a class="btn" id="checkout-btn" href="https://YOUR-CHECKOUT-LINK-HERE">Start Checkout</a>
+          <span class="checkout-note">Click the URL above to paste your live link.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY -->
+    <section class="section" id="delivery">
+      <div class="section-head">
+        <div class="section-label">Post-Purchase</div>
+        <h2 class="section-title">You're In. Here's What Happens Next.</h2>
+      </div>
+
+      <div class="delivery">
+        <h3>First 3 Actions</h3>
+        <ol>
+          <li><strong>Open the Planner</strong> — Calculate your Freedom Number and your monthly gap.</li>
+          <li><strong>Run the Survival Kit</strong> — Pick your state, pull the Medicaid and PFL map.</li>
+          <li><strong>Start the Command Center</strong> — Log today's calendar, one task, one communication.</li>
+        </ol>
+        <div class="delivery-links">
+          <a href="#planner">Planner</a>
+          <a href="#survival">Survival Kit</a>
+          <a href="#command">Command Center</a>
+          <a href="#">Setup Guide (PDF)</a>
+        </div>
+
+        <div style="margin-top:20px; text-align:center;">
+          <button class="btn" id="onb-start" style="width:100%;">Start Setup · 4 Steps</button>
+          <span class="btn-sub" style="margin-top:10px;">Takes about 3 minutes · saves to this browser</span>
+        </div>
+      </div>
+
+      <!-- ONBOARDING MODAL -->
+      <div class="onboarding-overlay" id="onb-overlay">
+        <div class="onboarding" role="dialog" aria-modal="true" aria-labelledby="onb-title">
+          <div class="onb-head">
+            <div class="onb-title" id="onb-title">Setup</div>
+            <button class="onb-close" id="onb-close" aria-label="Close setup">✕</button>
+          </div>
+
+          <div class="onb-progress" id="onb-progress">
+            <div class="step active" data-step="1"><span class="n">1</span>Who</div>
+            <div class="step" data-step="2"><span class="n">2</span>State</div>
+            <div class="step" data-step="3"><span class="n">3</span>Goal</div>
+            <div class="step" data-step="4"><span class="n">4</span>Ready</div>
+          </div>
+
+          <div class="onb-body">
+
+            <!-- STEP 1: WHO -->
+            <div class="onb-screen active" data-screen="1">
+              <span class="onb-eyebrow">Step 1 of 4</span>
+              <h3>Who are you setting this up for?</h3>
+              <p>Most Gen X women are in the sandwich generation — carrying parents, kids, work, and a retirement gap. Pick the layer that fits you now. This focuses the system on what matters.</p>
+
+              <div class="onb-field">
+                <label>Your name (optional)</label>
+                <input type="text" id="onb-name" placeholder="First name">
+              </div>
+
+              <div class="onb-2col">
+                <div class="onb-field">
+                  <label>Primary caregiving layer</label>
+                  <select id="onb-layer">
+                    <option value="parent">Caregiving a parent</option>
+                    <option value="child">Raising kids / teens</option>
+                    <option value="both">Sandwich — both</option>
+                    <option value="self">Financial autonomy focus</option>
+                  </select>
+                </div>
+                <div class="onb-field">
+                  <label>Working status</label>
+                  <select id="onb-work">
+                    <option value="employed">Employed (W-2)</option>
+                    <option value="self">Self-employed / business</option>
+                    <option value="retired">Retired</option>
+                    <option value="none">Not working</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="onb-nav">
+                <span class="spacer"></span>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: STATE -->
+            <div class="onb-screen" data-screen="2">
+              <span class="onb-eyebrow">Step 2 of 4</span>
+              <h3>Where are you located?</h3>
+              <p>Your state drives your Medicaid asset limits, Paid Family Leave, and VA Aid &amp; Attendance access. This is what the Survival Kit maps first.</p>
+
+              <div class="onb-field">
+                <label>State</label>
+                <select id="onb-state">
+                  <option value="">Select your state</option>
+                  <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+                  <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+                  <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                  <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+                  <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+                  <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                  <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+                  <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+                  <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                  <option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option>
+                  <option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option>
+                  <option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+              </div>
+
+              <div class="onb-field">
+                <label>Does your caregiver (parent) have VA service?</label>
+                <select id="onb-va">
+                  <option value="no">No / Not sure</option>
+                  <option value="yes">Yes — veteran or surviving spouse</option>
+                </select>
+              </div>
+
+              <div class="onb-nav">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: GOAL -->
+            <div class="onb-screen" data-screen="3">
+              <span class="onb-eyebrow">Step 3 of 4</span>
+              <h3>What's the #1 thing you want to close?</h3>
+              <p>Pick one. The Planner will size your Freedom Number and asset mix around it, so you're not trying to solve everything at once.</p>
+
+              <div class="onb-field">
+                <label>Top priority</label>
+                <select id="onb-goal">
+                  <option value="retirement">Close the retirement gap</option>
+                  <option value="caregiving">Cover my caregiving costs</option>
+                  <option value="legacy">Build income I can leave my kids</option>
+                  <option value="freedom">Buy back 10+ hours of my week</option>
+                </select>
+              </div>
+
+              <div class="onb-2col">
+                <div class="onb-field">
+                  <label>Monthly base expenses</label>
+                  <input type="number" id="onb-expense" placeholder="e.g. 4500">
+                </div>
+                <div class="onb-field">
+                  <label>Monthly caregiver cost</label>
+                  <input type="number" id="onb-care" placeholder="e.g. 1200">
+                </div>
+              </div>
+
+              <div class="onb-nav">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 4: READY -->
+            <div class="onb-screen" data-screen="4">
+              <span class="onb-eyebrow">Step 4 of 4</span>
+              <h3>Your first 3 actions</h3>
+              <p>Check each one as you've done it (or plan to do it today). When all three are checked, the system is live.</p>
+
+              <ul class="onb-checklist" id="onb-actions">
+                <li data-action="planner"><span class="box">✓</span><span><strong>Open the Planner</strong> and calculate your Freedom Number and monthly gap.</span></li>
+                <li data-action="survival"><span class="box">✓</span><span><strong>Run the Survival Kit</strong> for your state — Medicaid, PFL, and VA paths.</span></li>
+                <li data-action="command"><span class="box">✓</span><span><strong>Start the Command Center</strong> — log today's calendar, one task, one communication.</span></li>
+              </ul>
+
+              <div class="onb-complete" id="onb-complete" style="display:none;">
+                <div class="check">✓</div>
+                <h3 id="onb-hello">You're operational.</h3>
+                <p style="margin-bottom:0;">Here's your setup snapshot. It's saved to this browser.</p>
+                <div class="onb-completion-summary" id="onb-summary"></div>
+              </div>
+
+              <div class="onb-nav" id="onb-nav-4">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" id="onb-finish">Finish</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>© 2026 DigitallyDefined · Build What You Own</div>
+      <div>Planning framework only · Not legal, tax, or medical advice</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Tabs
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+    tabs.forEach(t => t.addEventListener("click", () => {
+      tabs.forEach(x => x.classList.remove("active"));
+      panels.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById(t.dataset.tab).classList.add("active");
+    }));
+
+    // Kit sub-tabs
+    const kitTabs = document.querySelectorAll(".kit-tab");
+    const kitPanels = document.querySelectorAll(".kit-panel");
+    kitTabs.forEach(t => t.addEventListener("click", () => {
+      kitTabs.forEach(x => x.classList.remove("active"));
+      kitPanels.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById("kit-" + t.dataset.kit).classList.add("active");
+    }));
+
+    // Planner math
+    function calcPlanner() {
+      const expense = parseFloat(document.getElementById("pl-expense").value || 0);
+      const care = parseFloat(document.getElementById("pl-care").value || 0);
+      const income = parseFloat(document.getElementById("pl-income").value || 0);
+      const exitMultiple = parseFloat(document.getElementById("pl-exit").value || 25);
+      const gap = Math.max(0, (expense + care) - income);
+      const target = gap * 12 * exitMultiple;
+      document.getElementById("pl-gap").textContent = "$" + gap.toLocaleString() + "/mo";
+      document.getElementById("pl-target").textContent = "$" + target.toLocaleString();
+    }
+    document.getElementById("pl-calc").addEventListener("click", calcPlanner);
+
+    // Sliders
+    ["content","product","seo","saas"].forEach(k => {
+      const el = document.getElementById("sl-" + k);
+      const out = document.getElementById("sl-" + k + "-v");
+      el.addEventListener("input", () => out.textContent = el.value + "%");
+    });
+
+    // ===== ONBOARDING FLOW =====
+    const ONB_KEY = "legacy_os_onb";
+    const overlay = document.getElementById("onb-overlay");
+    const screens = document.querySelectorAll(".onb-screen");
+    const progressSteps = document.querySelectorAll("#onb-progress .step");
+    let onbStep = 1;
+
+    function onbState() {
+      try { return JSON.parse(localStorage.getItem(ONB_KEY)) || {}; } catch (e) { return {}; }
+    }
+    function saveOnb(patch) {
+      localStorage.setItem(ONB_KEY, JSON.stringify(Object.assign({}, onbState(), patch)));
+    }
+
+    function showOnbScreen(n) {
+      onbStep = n;
+      screens.forEach(s => s.classList.toggle("active", +s.dataset.screen === n));
+      progressSteps.forEach(p => {
+        const pn = +p.dataset.step;
+        p.classList.toggle("active", pn === n);
+        p.classList.toggle("done", pn < n);
+      });
+      if (n === 4) renderOnbComplete();
+    }
+
+    function openOnb() {
+      // prefill from saved
+      const s = onbState();
+      document.getElementById("onb-name").value = s.name || "";
+      document.getElementById("onb-layer").value = s.layer || "parent";
+      document.getElementById("onb-work").value = s.work || "employed";
+      document.getElementById("onb-state").value = s.state || "";
+      document.getElementById("onb-va").value = s.va || "no";
+      document.getElementById("onb-goal").value = s.goal || "retirement";
+      document.getElementById("onb-expense").value = s.expense || "";
+      document.getElementById("onb-care").value = s.care || "";
+      // restore checked actions
+      document.querySelectorAll("#onb-actions li").forEach(li => {
+        li.classList.toggle("checked", s.actions & s.actions[li.dataset.action]);
+      });
+      overlay.classList.add("active");
+      showOnbScreen(1);
+    }
+    function closeOnb() { overlay.classList.remove("active"); }
+
+    function collectOnb() {
+      saveOnb({
+        name: document.getElementById("onb-name").value,
+        layer: document.getElementById("onb-layer").value,
+        work: document.getElementById("onb-work").value,
+        state: document.getElementById("onb-state").value,
+        va: document.getElementById("onb-va").value,
+        goal: document.getElementById("onb-goal").value,
+        expense: document.getElementById("onb-expense").value,
+        care: document.getElementById("onb-care").value,
+        completedAt: new Date().toISOString()
+      });
+    }
+
+    function renderOnbComplete() {
+      const s = onbState();
+      const name = (s.name || "").trim();
+      const actions = document.querySelectorAll("#onb-actions li");
+      const allChecked = Array.from(actions).every(li => li.classList.contains("checked"));
+      const summary = document.getElementById("onb-summary");
+      const layerLabels = { parent:"Parent caregiver", child:"Raising kids", both:"Sandwich generation", self:"Financial autonomy" };
+      const goalLabels = { retirement:"Retirement gap", caregiving:"Caregiving costs", legacy:"Legacy income", freedom:"Buy back time" };
+
+      const rows = [
+        ["Primary layer", layerLabels[s.layer] || "—"],
+        ["State", s.state || "Not set"],
+        ["Top goal", goalLabels[s.goal] || "—"],
+        ["Monthly gap", (s.expense || s.care) ? "calculated in Planner" : "enter in Planner"]
+      ];
+
+      summary.innerHTML = rows.map(r => `<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join("");
+      document.getElementById("onb-hello").textContent = allChecked ? (name ? name + ", you're operational." : "You're operational.") : "Almost there.";
+    }
+
+    document.getElementById("onb-start").addEventListener("click", openOnb);
+    document.getElementById("onb-close").addEventListener("click", closeOnb);
+    overlay.addEventListener("click", e => { if (e.target === overlay) closeOnb(); });
+
+    document.querySelectorAll("[data-onb-next]").forEach(b => b.addEventListener("click", () => {
+      collectOnb();
+      if (onbStep < 4) showOnbScreen(onbStep + 1);
+    }));
+    document.querySelectorAll("[data-onb-back]").forEach(b => b.addEventListener("click", () => {
+      collectOnb();
+      if (onbStep > 1) showOnbScreen(onbStep - 1);
+    }));
+
+    document.querySelectorAll("#onb-actions li").forEach(li => li.addEventListener("click", () => {
+      li.classList.toggle("checked");
+      const acts = onbState().actions || {};
+      acts[li.dataset.action] = li.classList.contains("checked");
+      saveOnb({ actions: acts });
+      renderOnbComplete();
+    }));
+
+    document.getElementById("onb-finish").addEventListener("click", () => {
+      collectOnb();
+      // jump user to the planner as the natural first action
+      closeOnb();
+      document.getElementById("planner").scrollIntoView({ behavior: "smooth" });
+      // also surface the values into the planner fields if present
+      const s = onbState();
+      if (s.expense) document.getElementById("pl-expense").value = s.expense;
+      if (s.care) document.getElementById("pl-care").value = s.care;
+      calcPlanner();
+    });
+
+    // Resume prompt if a setup was started but not finished
+    window.addEventListener("DOMContentLoaded", () => {
+      const s = onbState();
+      if (s.completedAt) {
+        document.getElementById("onb-start").textContent = "Review Your Setup";
+        document.getElementById("onb-start").classList.add("btn--ghost");
+      }
+    });
+
+    // Checkout placeholder
+    const checkoutUrlInput = document.getElementById("checkout-url");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    function normalizeUrl(u) { const t = (u||"").trim(); if (!t) return ""; if (t.startsWith("http://") || t.startsWith("https://")) return t; return "https://" + t; }
+    checkoutUrlInput.addEventListener("click", () => {
+      const raw = prompt("Paste your live checkout URL:", checkoutUrlInput.textContent);
+      if (!raw) return;
+      const next = normalizeUrl(raw);
+      checkoutUrlInput.textContent = next;
+      checkoutBtn.href = next;
+    });
+    checkoutBtn.addEventListener("click", e => {
+      const target = checkoutBtn.getAttribute("href");
+      if (target === "https://YOUR-CHECKOUT-LINK-HERE" || target === "https://") {
+        e.preventDefault();
+        checkoutUrlInput.click();
+      }
+    });
+  </script>
+
+</body>
+</html>

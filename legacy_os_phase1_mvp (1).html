@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legacy OS · Phase 1 MVP</title>
+  <meta name="description" content="The Legacy OS Phase 1 MVP for Gen X women: Financial Autonomy Planner, Caregiver's Survival Kit, and Legacy Command Center in one self-contained product.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dd-bg: #FFFCF9;
+      --dd-white: #FFFFFF;
+      --dd-ink: #111111;
+      --dd-text: #111111;
+      --dd-blue: #47B7D4;
+      --dd-orange: #F18B25;
+      --dd-red: #C20F0A;
+      --dd-frame: #111111;
+      --dd-frame-sm: #111111;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; box-shadow: none; text-shadow: none; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dd-bg); color: var(--dd-text); font-family:"DM Sans", sans-serif; font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, h4, .eyebrow, .section-label, .btn, .price, .score-value, .tab { font-family:"Inter", sans-serif; font-weight: 900; letter-spacing: -0.02em; color: var(--dd-ink); }
+
+    .shell { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    /* TOPBAR */
+    .topbar { border-bottom: 1px solid var(--dd-frame); padding: 16px 0; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark { width: 34px; height: 34px; background: var(--dd-ink); color: var(--dd-white); display: grid; place-items: center; font-weight: 900; font-size: 13px; font-family:"Inter", sans-serif; }
+    .brand-title { font-size: 17px; font-weight: 900; letter-spacing: -0.02em; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .brand-title span { color: var(--dd-orange); font-style: italic; }
+    .topbar-note { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* HERO */
+    .hero { padding: 44px 0 36px; border-bottom: 1px solid var(--dd-frame); text-align: center; }
+    .eyebrow { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dd-orange); border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 7px 14px; margin-bottom: 20px; font-family:"Inter", sans-serif; }
+    h1 { font-size: clamp(40px, 6vw, 68px); line-height: 0.94; letter-spacing: -0.045em; font-weight: 900; color: var(--dd-ink); margin-bottom: 18px; }
+    h1 span { color: var(--dd-orange); }
+    .hero-sub { font-size: 18px; color: var(--dd-text); max-width: 640px; margin: 0 auto 26px; line-height: 1.55; }
+
+    .tabs { display: flex; justify-content: center; gap: 0; border: 1px solid var(--dd-frame); background: var(--dd-white); width: fit-content; margin: 0 auto 28px; overflow: hidden; }
+    .tab { padding: 14px 22px; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border-right: 1px solid var(--dd-frame); color: var(--dd-ink); background: var(--dd-white); transition: background 0.15s, color 0.15s; }
+    .tab:last-child { border-right: none; }
+    .tab:hover { background: var(--dd-bg); }
+    .tab.active { background: var(--dd-ink); color: var(--dd-white); }
+    .tab.active[data-tab="planner"] { background: var(--dd-blue); color: var(--dd-ink); }
+    .tab.active[data-tab="survival"] { background: var(--dd-orange); color: var(--dd-white); }
+    .tab.active[data-tab="command"] { background: var(--dd-red); color: var(--dd-white); }
+
+    .cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+    .btn { display: inline-block; border: 1px solid var(--dd-frame); background: var(--dd-orange); color: var(--dd-white); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; padding: 16px 30px; text-decoration: none; cursor: pointer; font-family:"Inter", sans-serif; transition: background 0.15s, color 0.15s; }
+    .btn:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .btn--ghost { background: var(--dd-white); color: var(--dd-ink); }
+    .btn--ghost:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .btn-sub { display: block; text-align: center; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* SECTION */
+    .section { padding: 40px 0; border-bottom: 1px solid var(--dd-frame); }
+    .section-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dd-ink); border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 6px 12px; margin-bottom: 14px; font-family:"Inter", sans-serif; }
+    .section-title { font-size: clamp(24px, 3.4vw, 36px); font-weight: 900; letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 12px; }
+    .section-sub { font-size: 15px; color: var(--dd-text); max-width: 560px; }
+    .section-head { margin-bottom: 28px; }
+
+    /* PANELS */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* PLANNER */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+    .card { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 20px; text-align: left; }
+    .card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5F5F5F; font-family:"Inter", sans-serif; margin-bottom: 8px; display: block; }
+    .card h3 { font-size: 18px; font-weight: 900; color: var(--dd-ink); margin-bottom: 8px; letter-spacing: -0.02em; }
+    .card p { font-size: 13px; color: var(--dd-text); margin-bottom: 10px; }
+    .card ul { list-style: none; display: grid; gap: 6px; }
+    .card li { font-size: 12px; color: var(--dd-text); padding-left: 14px; position: relative; }
+    .card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 5px; height: 5px; background: var(--dd-orange); border: 1px solid var(--dd-ink); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { text-align: left; }
+    .field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5F5F5F; margin-bottom: 6px; font-family:"Inter", sans-serif; }
+    .field input, .field select { width: 100%; border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 12px 14px; font-family:"DM Sans", sans-serif; font-size: 14px; color: var(--dd-ink); outline: none; }
+    .field input:focus, .field select:focus { background: var(--dd-bg); }
+    .field-full { grid-column: 1 / -1; }
+
+    .result-card { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-blue); background: var(--dd-white); padding: 24px; text-align: center; }
+    .result-value { font-size: 48px; font-weight: 900; color: var(--dd-blue); line-height: 1; letter-spacing: -0.03em; font-family:"Inter", sans-serif; margin-bottom: 6px; }
+    .result-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: #5F5F5F; font-family:"Inter", sans-serif; }
+
+    /* SLIDER ROWS */
+    .slider-row { text-align: left; margin-bottom: 18px; }
+    .slider-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .slider-head span { font-size: 12px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .slider-head b { font-size: 14px; font-weight: 900; color: var(--dd-orange); font-family:"Inter", sans-serif; }
+    input[type="range"] { width: 100%; accent-color: var(--dd-orange); }
+
+    /* SURVIVAL KIT */
+    .kit-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+    .kit-tab { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 14px; text-align: left; cursor: pointer; }
+    .kit-tab.active { background: var(--dd-ink); color: var(--dd-white); }
+    .kit-tab h4 { font-size: 13px; font-weight: 900; color: var(--dd-ink); font-family:"Inter", sans-serif; margin-bottom: 4px; }
+    .kit-tab.active h4 { color: var(--dd-white); }
+    .kit-tab p { font-size: 11px; color: #B8B8B8; font-family:"DM Sans", sans-serif; }
+    .kit-tab.active p { color: #B8B8B8; }
+    .kit-panel { display: none; border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 24px; text-align: left; }
+    .kit-panel.active { display: block; }
+    .kit-panel h3 { font-size: 20px; font-weight: 900; color: var(--dd-ink); margin-bottom: 12px; }
+    .kit-list { list-style: none; display: grid; gap: 10px; }
+    .kit-list li { border: 1px solid var(--dd-frame-sm); background: var(--dd-bg); padding: 14px 16px; font-size: 14px; color: var(--dd-text); }
+    .kit-list li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; display: block; margin-bottom: 4px; }
+    .fact-flag { display: inline-block; border: 1px solid var(--dd-ink); background: var(--dd-orange); color: var(--dd-white); font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; font-family:"Inter", sans-serif; margin-right: 8px; vertical-align: middle; }
+    .fact-flag--verify { background: var(--dd-red); }
+
+    /* COMMAND CENTER */
+    .cc-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .cc-item { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 16px; text-align: left; }
+    .cc-item .cc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .cc-item .cc-title { font-size: 14px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+    .cc-item .cc-sub { font-size: 11px; color: #5F5F5F; font-family:"DM Sans", sans-serif; }
+    .cc-item .cc-status { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--dd-frame); font-family:"Inter", sans-serif; }
+    .cc-status--now { background: var(--dd-orange); color: var(--dd-white); }
+    .cc-status--pending { background: var(--dd-white); color: var(--dd-ink); }
+    .cc-status--done { background: var(--dd-blue); color: var(--dd-ink); }
+
+    .cc-log { list-style: none; display: grid; gap: 8px; }
+    .cc-log li { font-size: 13px; color: var(--dd-text); border-left: 1px solid var(--dd-red); padding: 6px 12px; background: var(--dd-white); }
+    .cc-log li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 12px; }
+
+    /* BUDGET MINI */
+    .budget-bar { height: 12px; background: var(--dd-white); border: 1px solid var(--dd-frame); margin-top: 10px; }
+    .budget-bar > div { height: 100%; background: var(--dd-blue); }
+
+    /* GUARDRAILS */
+    .guardrail { border: 1px solid var(--dd-frame); border-left: 1px solid var(--dd-red); background: var(--dd-white); padding: 18px 20px; text-align: left; margin-top: 20px; }
+    .guardrail h4 { font-size: 14px; font-weight: 900; color: var(--dd-red); font-family:"Inter", sans-serif; margin-bottom: 8px; }
+    .guardrail p { font-size: 13px; color: var(--dd-text); line-height: 1.55; }
+
+    /* ONBOARDING MODAL */
+    .onboarding-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17,17,17,0.78);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .onboarding-overlay.active { display: flex; }
+    .onboarding {
+      width: 100%;
+      max-width: 560px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      text-align: left;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    .onb-head {
+      border-bottom: 1px solid var(--dd-frame);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      background: var(--dd-white);
+    }
+    .onb-head .onb-title {
+      font-family:"Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--dd-ink);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .onb-close {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      color: var(--dd-ink);
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-family:"Inter", sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+    }
+    .onb-close:hover { background: var(--dd-ink); color: var(--dd-white); }
+
+    .onb-progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+    }
+    .onb-progress .step {
+      padding: 12px 8px;
+      text-align: center;
+      font-family:"Inter", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5F5F5F;
+      border-right: 1px solid var(--dd-frame);
+      position: relative;
+    }
+    .onb-progress .step:last-child { border-right: none; }
+    .onb-progress .step .n {
+      display: block;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 3px;
+      color: #5F5F5F;
+    }
+    .onb-progress .step.active { color: var(--dd-ink); background: var(--dd-bg); }
+    .onb-progress .step.active .n { color: var(--dd-orange); }
+    .onb-progress .step.done { color: var(--dd-blue); }
+    .onb-progress .step.done .n { color: var(--dd-blue); }
+
+    .onb-body { padding: 24px; }
+    .onb-screen { display: none; }
+    .onb-screen.active { display: block; }
+    .onb-screen .onb-eyebrow {
+      display: inline-block;
+      font-family:"Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dd-orange);
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 5px 10px;
+      margin-bottom: 12px;
+    }
+    .onb-screen h3 {
+      font-family:"Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--dd-ink);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .onb-screen > p {
+      font-size: 14px;
+      color: var(--dd-text);
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+    .onb-field { text-align: left; margin-bottom: 14px; }
+    .onb-field label {
+      display: block;
+      font-family:"Inter", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5F5F5F;
+      margin-bottom: 6px;
+    }
+    .onb-field input, .onb-field select {
+      width: 100%;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      padding: 12px 14px;
+      font-family:"DM Sans", sans-serif;
+      font-size: 15px;
+      color: var(--dd-ink);
+      outline: none;
+    }
+    .onb-field input:focus, .onb-field select:focus { background: var(--dd-bg); }
+    .onb-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .onb-checklist { list-style: none; display: grid; gap: 10px; margin-bottom: 18px; }
+    .onb-checklist li {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--dd-text);
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      cursor: pointer;
+    }
+    .onb-checklist li .box {
+      width: 18px; height: 18px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      margin-top: 2px;
+      display: grid;
+      place-items: center;
+      font-family:"Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--dd-ink);
+    }
+    .onb-checklist li.checked { background: var(--dd-white); border-left: 1px solid var(--dd-blue); }
+    .onb-checklist li.checked .box { background: var(--dd-blue); color: var(--dd-ink); }
+    .onb-checklist li.checked span:last-child { color: var(--dd-ink); font-weight: 700; }
+
+    .onb-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; }
+    .onb-nav .btn { padding: 13px 24px; font-size: 12px; }
+    .onb-nav .btn--back { background: var(--dd-white); color: var(--dd-ink); }
+    .onb-nav .btn--back:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .onb-nav .spacer { flex: 1; }
+
+    .onb-complete { text-align: center; }
+    .onb-complete .check {
+      width: 56px; height: 56px;
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-blue);
+      color: var(--dd-ink);
+      display: grid;
+      place-items: center;
+      font-family:"Inter", sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      margin: 0 auto 16px;
+    }
+    .onb-complete h3 { margin-bottom: 8px; }
+    .onb-completion-summary {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-bg);
+      padding: 16px;
+      text-align: left;
+      margin: 16px 0;
+      font-size: 13px;
+      color: var(--dd-text);
+    }
+    .onb-completion-summary div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 0;
+      border-bottom: 1px solid #111111;
+    }
+    .onb-completion-summary div:last-child { border-bottom: none; }
+    .onb-completion-summary span { color: #5F5F5F; font-family:"Inter", sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+    .onb-completion-summary b { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; font-weight: 900; }
+
+    /* 7-DAY EMAIL SEQUENCE */
+    .seq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
+    .seq-card {
+      border: 1px solid var(--dd-frame);
+      background: var(--dd-white);
+      padding: 18px;
+      text-align: left;
+      border-top: 1px solid var(--dd-ink);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .seq-card:hover { transform: translateY(-2px); }
+    .seq-card .day { font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dd-orange); font-family:"Inter", sans-serif; margin-bottom: 6px; display: block; }
+    .seq-card h3 { font-size: 15px; font-weight: 900; color: var(--dd-ink); margin-bottom: 6px; letter-spacing: -0.01em; font-family:"Inter", sans-serif; }
+    .seq-card p { font-size: 12px; color: var(--dd-text); line-height: 1.5; }
+    .seq-card .purpose { font-size: 10px; color: #5F5F5F; margin-top: 8px; font-family:"Inter", sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+
+    .seq-preview { display: none; border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-orange); background: var(--dd-white); padding: 24px; margin-top: 24px; text-align: left; }
+    .seq-preview.active { display: block; }
+    .seq-preview .seq-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--dd-frame); }
+    .seq-preview .seq-header .back { font-size: 12px; font-weight: 700; color: var(--dd-ink); background: var(--dd-white); border: 1px solid var(--dd-frame); padding: 8px 14px; cursor: pointer; font-family:"Inter", sans-serif; }
+    .seq-preview .seq-header .back:hover { background: var(--dd-ink); color: var(--dd-white); }
+    .seq-preview .seq-meta { font-family:"Inter", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dd-orange); margin-bottom: 14px; }
+    .seq-preview h3 { font-size: 22px; font-weight: 900; color: var(--dd-ink); margin-bottom: 8px; letter-spacing: -0.02em; font-family:"Inter", sans-serif; }
+    .seq-preview .prehead { font-size: 13px; color: #B8B8B8; margin-bottom: 18px; font-family:"Inter", sans-serif; font-weight: 700; }
+    .seq-preview .email-body { font-size: 14px; color: var(--dd-text); line-height: 1.65; white-space: pre-line; border-left: 1px solid var(--dd-orange); padding-left: 16px; }
+
+    /* REVENUE-ASSET-MIX CHART */
+    .ram-card { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-blue); background: var(--dd-white); padding: 24px; text-align: left; }
+    .ram-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+    .ram-head h3 { font-size: 17px; font-weight: 900; color: var(--dd-ink); font-family:"Inter", sans-serif; letter-spacing: -0.02em; }
+    .ram-inputs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .ram-inputs label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #5F5F5F; font-family:"Inter", sans-serif; display: block; margin-bottom: 5px; }
+    .ram-inputs input, .ram-inputs select { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 8px 10px; font-family:"DM Sans", sans-serif; font-size: 13px; color: var(--dd-ink); outline: none; width: 130px; }
+    .ram-inputs .field { display: block; }
+    .ram-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .ram-item { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 16px; text-align: left; }
+    .ram-item .ram-bar { height: 12px; background: var(--dd-white); border: 1px solid var(--dd-frame); margin-bottom: 8px; overflow: hidden; }
+    .ram-item .ram-fill { height: 100%; background: var(--dd-orange); width: 0%; transition: width .3s; }
+    .ram-item .ram-fill.b { background: var(--dd-blue); }
+    .ram-item .ram-fill.r { background: var(--dd-red); }
+    .ram-item .ram-fill.g { background: var(--dd-green, #47B7D4); }
+    .ram-item .ram-name { font-size: 11px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .ram-item .ram-pct { font-size: 10px; color: #B8B8B8; font-family:"Inter", sans-serif; font-weight: 700; }
+    .ram-item .ram-val { font-size: 18px; font-weight: 900; color: var(--dd-ink); font-family:"Inter", sans-serif; margin-top: 6px; }
+    .ram-item .ram-val span { font-size: 10px; color: #B8B8B8; font-weight: 700; }
+    .ram-total { border: 1px solid var(--dd-frame); border-left: 1px solid var(--dd-orange); background: var(--dd-white); padding: 14px 18px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
+    .ram-total .t-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #5F5F5F; font-family:"Inter", sans-serif; }
+    .ram-total .t-value { font-size: 22px; font-weight: 900; color: var(--dd-orange); font-family:"Inter", sans-serif; }
+    @media (max-width: 760px) { .ram-bars { grid-template-columns: repeat(2, 1fr); } }
+
+    /* CSV EXPORT */
+    .csv-export-card { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-orange); background: var(--dd-white); padding: 22px; text-align: left; margin-bottom: 20px; }
+    .csv-export-card h3 { font-size: 15px; font-weight: 900; color: var(--dd-ink); margin-bottom: 8px; font-family:"Inter", sans-serif; }
+    .csv-export-card p { font-size: 13px; color: var(--dd-text); margin-bottom: 14px; }
+    .csv-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .csv-btns .btn { padding: 12px 20px; font-size: 12px; }
+
+    /* CHECKOUT */
+    .checkout-box { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-orange); background: var(--dd-white); padding: 28px; text-align: left; }
+    .checkout-box h3 { font-size: 20px; font-weight: 900; color: var(--dd-ink); margin-bottom: 10px; font-family:"Inter", sans-serif; }
+    .checkout-box p { font-size: 14px; color: var(--dd-text); margin-bottom: 16px; }
+    .checkout-url { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 12px 14px; font-family:"Inter", sans-serif; font-size: 13px; font-weight: 700; color: var(--dd-ink); word-break: break-all; margin-bottom: 14px; display: block; cursor: pointer; }
+    .checkout-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .checkout-row .btn { padding: 14px 26px; font-size: 13px; }
+    .checkout-note { font-size: 11px; color: #5F5F5F; font-family:"DM Sans", sans-serif; }
+
+    /* DELIVERY */
+    .delivery { border: 1px solid var(--dd-frame); border-top: 1px solid var(--dd-blue); background: var(--dd-white); padding: 24px; text-align: left; }
+    .delivery h3 { font-size: 18px; font-weight: 900; color: var(--dd-ink); margin-bottom: 10px; font-family:"Inter", sans-serif; }
+    .delivery ol { padding-left: 20px; display: grid; gap: 8px; margin-bottom: 14px; }
+    .delivery li { font-size: 14px; color: var(--dd-text); }
+    .delivery li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 13px; }
+    .delivery-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .delivery-links a { border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 10px 16px; font-size: 12px; font-weight: 700; color: var(--dd-ink); text-decoration: none; font-family:"Inter", sans-serif; }
+    .delivery-links a:hover { background: var(--dd-ink); color: var(--dd-white); }
+
+    /* ADMIN DASHBOARD */
+    .admin-gate {
+      border: 1px solid var(--dd-frame); border-left: 1px solid var(--dd-red); background: var(--dd-white);
+      padding: 22px; text-align: left; margin-bottom: 20px;
+    }
+    .admin-gate h3 { font-size: 16px; font-weight: 900; color: var(--dd-red); margin-bottom: 8px; font-family:"Inter", sans-serif; letter-spacing: -0.02em; }
+    .admin-gate p { font-size: 13px; color: var(--dd-text); margin-bottom: 14px; }
+    .admin-gate .gate-row { display: flex; gap: 10px; }
+    .admin-gate input {
+      flex: 1; border: 1px solid var(--dd-frame); background: var(--dd-bg); padding: 12px 14px;
+      font-family:"DM Sans", sans-serif; font-size: 14px; outline: none;
+    }
+    .admin-gate input:focus { background: var(--dd-white); }
+    .admin-gate .note { font-size: 10px; color: #5F5F5F; margin-top: 10px; font-family:"DM Sans", sans-serif; }
+    .admin-gate .err { color: var(--dd-red); font-size: 12px; margin-top: 8px; display: none; font-family:"Inter", sans-serif; font-weight: 700; }
+    .admin-gate .err.show { display: block; }
+
+    .admin-body { display: none; }
+    .admin-body.active { display: block; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .kpi { border: 1px solid var(--dd-frame); background: var(--dd-white); padding: 18px; text-align: left; }
+    .kpi .kpi-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #5F5F5F; font-family:"Inter", sans-serif; margin-bottom: 8px; display: block; }
+    .kpi .kpi-value { font-size: 30px; font-weight: 900; color: var(--dd-ink); line-height: 1; letter-spacing: -0.03em; font-family:"Inter", sans-serif; }
+    .kpi .kpi-delta { font-size: 11px; font-weight: 700; margin-top: 8px; font-family:"Inter", sans-serif; }
+    .kpi .kpi-delta.up { color: var(--dd-blue); }
+    .kpi .kpi-delta.down { color: var(--dd-red); }
+    .kpi--revenue { border-top: 1px solid var(--dd-orange); }
+    .kpi--buyers { border-top: 1px solid var(--dd-blue); }
+    .kpi--completion { border-top: 1px solid var(--dd-green, #47B7D4); }
+    .kpi--abandon { border-top: 1px solid var(--dd-red); }
+
+    .admin-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .admin-table th {
+      font-family:"Inter", sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #5F5F5F;
+      padding: 10px 12px; border-bottom: 1px solid var(--dd-frame); background: var(--dd-bg);
+    }
+    .admin-table td { padding: 12px; border-bottom: 1px solid #111111; font-size: 13px; color: var(--dd-text); }
+    .admin-table tr:hover td { background: var(--dd-bg); }
+    .badge { display: inline-block; border: 1px solid var(--dd-frame); font-size: 9px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; font-family:"Inter", sans-serif; }
+    .badge--paid { background: var(--dd-blue); color: var(--dd-ink); }
+    .badge--completed { background: var(--dd-orange); color: var(--dd-white); }
+    .badge--abandoned { background: var(--dd-red); color: var(--dd-white); }
+    .badge--pending { background: var(--dd-white); color: var(--dd-ink); }
+
+    .bar-chart { display: grid; gap: 10px; text-align: left; }
+    .bar-row .bar-label { font-size: 11px; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .bar-row .bar-track { height: 12px; background: var(--dd-bg); border: 1px solid var(--dd-frame); }
+    .bar-row .bar-fill { height: 100%; background: var(--dd-blue); }
+    .bar-row .bar-fill.hot { background: var(--dd-orange); }
+    .bar-row .bar-fill.cold { background: var(--dd-red); }
+
+    .admin-log { list-style: none; display: grid; gap: 8px; }
+    .admin-log li { font-size: 12px; color: var(--dd-text); border-left: 1px solid var(--dd-blue); padding: 8px 12px; background: var(--dd-white); }
+    .admin-log li strong { color: var(--dd-ink); font-family:"Inter", sans-serif; font-size: 11px; }
+
+    /* FOOTER */
+    .footer { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em; font-weight: 700; color: var(--dd-ink); font-family:"Inter", sans-serif; }
+
+    @media (max-width: 760px) {
+      .grid-2, .grid-3, .cc-grid { grid-template-columns: 1fr; }
+      .kit-tabs { grid-template-columns: repeat(2, 1fr); }
+      .tabs { width: 100%; flex-wrap: wrap; }
+      .tab { flex: 1 1 30%; border-right: none; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+<style id="dd-brand-standard">
+/* ============================================================================
+   DigitallyDefined — Official Brand Standard v2.0
+   Source of truth for every digital product. See brand/README.md.
+   Inlined into each product's <style id="dd-brand-standard"> by
+   scripts/apply_brand.py — do not hand-edit the copies.
+
+   Spec (from the official brand file):
+     • 3-colour system: #F18B25 primary, #47B7D4 secondary, #C20F0A important
+     • 1px solid #111111 frame on every card, button, badge, input
+     • rounded-none: 0px radius everywhere
+     • flat: no box-shadows, no gradients-as-decoration
+     • Inter 900 italic "DEFINED." logotype beside upright "DIGITALLY"
+     • Inter for headings / UI / buttons, DM Sans for body copy
+     • Outcome-first, non-technical, Gen X voice
+   ========================================================================= */
+
+:root {
+  /* ── 1. Brand roles ─────────────────────────────────────────────────── */
+  --dd-orange: #F18B25 !important;   /* PRIMARY   — CTAs, active state, default accent */
+  --dd-blue:   #47B7D4 !important;   /* SECONDARY — supporting modules, metrics, tech */
+  --dd-red:    #C20F0A !important;   /* IMPORTANT — alerts, security, critical only  */
+
+  /* ── 2. Surfaces ────────────────────────────────────────────────────── */
+  --dd-bg:             #FFFCF9 !important;  /* page */
+  --dd-card:           #FFFFFF !important;  /* card / panel face */
+  --dd-panel:          #FFFAF5 !important;  /* inset well */
+  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+
+  /* Derived washes — tints of the 3 roles, no new hues introduced */
+  --dd-wash-orange: #FFF0DE !important;
+  --dd-wash-blue:   #E6F5F9 !important;
+  --dd-wash-red:    #FBEAEA !important;
+
+  /* ── 3. Ink & line ──────────────────────────────────────────────────── */
+  --dd-ink:   #111111 !important;
+  --dd-muted: #5F5F5F !important;
+  --dd-line:  #111111 !important;
+  --dd-bdr:   #111111 !important;   /* colour only — pair with `1px solid` */
+
+  /* ── 4. Structure: always square, always flat ───────────────────────── */
+  --dd-radius: 0px !important;
+  --dd-shadow: none !important;
+
+  /* ── 5. Type ────────────────────────────────────────────────────────── */
+  --dd-font-head: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  --dd-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+
+  /* ── 6. Legacy aliases ──────────────────────────────────────────────────
+     Every variable name used across the catalogue, pointing at the token
+     it should have been. Colour tokens only — structural vars are colours,
+     and every `border:` declaration is rewritten to `1px solid var(...)`
+     so the shorthand can never resolve to an invalid value.              */
+  --bg: var(--dd-bg) !important;
+  --cream-bg: var(--dd-bg) !important;
+  --cream: var(--dd-bg) !important;
+  --card-bg: var(--dd-card) !important;
+  --card: var(--dd-card) !important;
+  --dd-card-bg: var(--dd-card) !important;
+  --pure-white: #FFFFFF !important;
+  --white: #FFFFFF !important;
+  --dd-white: #FFFFFF !important;
+  --panel: var(--dd-panel) !important;
+  --light-gray: var(--dd-panel) !important;
+
+  --text: var(--dd-ink) !important;
+  --dd-text: var(--dd-ink) !important;
+  --ink: var(--dd-ink) !important;
+  --dk: var(--dd-ink) !important;
+  --black: var(--dd-ink) !important;
+  --dark-grey: var(--dd-ink) !important;
+  --medium-grey: var(--dd-muted) !important;
+  --muted: var(--dd-muted) !important;
+
+  --border: var(--dd-line) !important;
+  --dd-border: var(--dd-line) !important;
+  --bdr: var(--dd-line) !important;
+  --line: var(--dd-line) !important;
+  --frame: var(--dd-line) !important;
+  --dd-frame: var(--dd-line) !important;
+  --dd-frame-sm: var(--dd-line) !important;
+  --black-border: var(--dd-line) !important;
+  --border-gray: var(--dd-line) !important;
+
+  --or: var(--dd-orange) !important;
+  --orange: var(--dd-orange) !important;
+  --orange-highlight: var(--dd-orange) !important;
+  --accent: var(--dd-orange) !important;
+  --primary: var(--dd-orange) !important;
+
+  --bl: var(--dd-blue) !important;
+  --aqua: var(--dd-blue) !important;
+  --dd-aqua: var(--dd-blue) !important;
+  --aqua-blue: var(--dd-blue) !important;
+  --secondary: var(--dd-blue) !important;
+  --dd-accent-primary: var(--dd-orange) !important;
+  --dd-accent-secondary: var(--dd-blue) !important;
+
+  --rd: var(--dd-red) !important;
+  --red: var(--dd-red) !important;
+  --deep-red-warning: var(--dd-red) !important;
+  --tertiary: var(--dd-red) !important;
+  --dd-accent-tertiary: var(--dd-red) !important;
+
+  --dark: var(--dd-dark) !important;
+
+  --font-head: var(--dd-font-head) !important;
+  --font-body: var(--dd-font-body) !important;
+  --font-sans: var(--dd-font-body) !important;
+  --font-mono: var(--dd-font-head) !important;
+}
+
+/* ── Flat + square: the two non-negotiable brutalist rules ─────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ── Type system ───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--dd-bg) !important;
+  color: var(--dd-ink) !important;
+  font-family: var(--dd-font-body) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6, .dd-h {
+  font-family: var(--dd-font-head) !important;
+  color: var(--dd-ink) !important;
+  letter-spacing: -0.025em !important;
+}
+
+h1, h2, h3 { font-weight: 900 !important; }
+h4, h5, h6 { font-weight: 800 !important; }
+
+/* Body copy stays DM Sans — inputs included, so nothing falls back to Arial */
+p, li, td, dd, dt, blockquote, figcaption,
+input, select, textarea, optgroup, option {
+  font-family: var(--dd-font-body);
+}
+
+/* Action controls are Inter, 800 — per spec */
+button,
+.btn,
+.cta,
+.dd-btn,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Third typefaces retired: Inter covers metric / label duty */
+code, pre, kbd, samp,
+.mono, .font-mono, .dd-badge, .badge, .tag, .eyebrow {
+  font-family: var(--dd-font-head) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em !important;
+}
+
+/* ── 1px frame for every Tailwind border-width utility ─────────────────── */
+.border-2, .border-4, .border-8 { border-width: 1px !important; }
+.border-t-2, .border-t-4 { border-top-width: 1px !important; }
+.border-b-2, .border-b-4 { border-bottom-width: 1px !important; }
+.border-l-2, .border-l-4 { border-left-width: 1px !important; }
+.border-r-2, .border-r-4 { border-right-width: 1px !important; }
+.border-x-2, .border-x-4 { border-left-width: 1px !important; border-right-width: 1px !important; }
+.border-y-2, .border-y-4 { border-top-width: 1px !important; border-bottom-width: 1px !important; }
+
+/* ── Focus state: brand orange, always visible (shadows are gone) ─────── */
+:focus-visible,
+input:focus, select:focus, textarea:focus, button:focus, a:focus {
+  outline: 2px solid var(--dd-orange) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Official brand bar ───────────────────────────────────────────────── */
+.dd-brandbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  padding: 10px 16px !important;
+  background: var(--dd-card) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--dd-line) !important;
+  font-family: var(--dd-font-head) !important;
+}
+
+.dd-brandmark {
+  display: inline-block;
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  text-decoration: none;
+}
+
+.dd-brandmark em {
+  font-style: italic;
+  color: var(--dd-orange);
+}
+
+.dd-brandbar-label {
+  font-family: var(--dd-font-head) !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dd-muted);
+  text-align: right;
+}
+
+/* Existing in-page logo slots are upgraded to the official lockup */
+.dd-logo-name,
+.logo-text {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: uppercase;
+}
+
+.dd-logo-name em,
+.logo-text em {
+  font-style: italic !important;
+  color: var(--dd-orange) !important;
+}
+
+@media print {
+  .dd-brandbar { display: none !important; }
+}
+
+</style>
+</head>
+<body>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">Legacy OS · Phase 1 MVP</span></header>
+
+  <div class="shell">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">DD</div>
+        <div class="brand-title">DIGITALLY<span>DEFINED.</span></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <a href="#admin" style="text-decoration:none; color:var(--dd-ink); border: 1px solid var(--dd-frame); background:var(--dd-white); padding:8px 14px; font-family:'Inter', sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em;">Admin</a>
+        <div class="topbar-note">Phase 1 MVP · Legacy OS</div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="eyebrow">One System · Three Layers · Self-Contained</div>
+      <h1>Plan. Protect. Operate.<br><span>All in One Place.</span></h1>
+      <p class="hero-sub">
+        The Legacy OS MVP is the smallest sellable version of the system: your Financial Autonomy Planner,
+        Caregiver's Survival Kit, and Legacy Command Center — no backend, no subscription, just the working product.
+      </p>
+
+      <div class="tabs">
+        <div class="tab active" data-tab="planner">01 · Planner</div>
+        <div class="tab" data-tab="survival">02 · Survival Kit</div>
+        <div class="tab" data-tab="command">03 · Command Center</div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="#checkout">Start Checkout</a>
+        <a class="btn btn--ghost" href="#delivery">I Already Own It</a>
+      </div>
+      <span class="btn-sub">One-time purchase · No subscription · Instant access</span>
+    </section>
+
+    <!-- 01 PLANNER -->
+    <section class="section panel active" id="planner">
+      <div class="section-head">
+        <div class="section-label">Layer 01 · Strategy</div>
+        <h2 class="section-title">Financial Autonomy Planner</h2>
+        <p class="section-sub">Define your Freedom Number, map the gap, and choose the digital asset mix that closes it.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <span class="card-label">Step 1 · Your Freedom Number</span>
+          <h3>What does "free" actually look like?</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label>Monthly expenses (base)</label>
+              <input type="number" id="pl-expense" placeholder="4500">
+            </div>
+            <div class="field">
+              <label>Monthly caregiver cost</label>
+              <input type="number" id="pl-care" placeholder="1200">
+            </div>
+            <div class="field">
+              <label>Social security / pension (est. monthly)</label>
+              <input type="number" id="pl-income" placeholder="1800">
+            </div>
+            <div class="field">
+              <label>Exit multiple target</label>
+              <select id="pl-exit">
+                <option value="25">25x annual (4% rule)</option>
+                <option value="30">30x annual</option>
+                <option value="35">35x annual (safer)</option>
+                <option value="40">40x annual (most conservative)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn--ghost" id="pl-calc" style="margin-top:14px; width:100%;">Calculate My Freedom Number</button>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Step 2 · Your Gap</span>
+          <h3>How far are you really?</h3>
+          <div class="result-card" style="border-top-color: var(--dd-orange); margin-bottom:14px;">
+            <div class="result-value" id="pl-gap">$0/mo</div>
+            <div class="result-label">Monthly Income Gap</div>
+          </div>
+          <div class="result-card" style="border-top-color: var(--dd-blue);">
+            <div class="result-value" id="pl-target">$0</div>
+            <div class="result-label">Freedom Number Target</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <span class="card-label">Step 3 · Your Digital Asset Mix</span>
+        <h3>What do you actually need to build?</h3>
+        <div class="slider-row">
+          <div class="slider-head"><span>Faceless content (YouTube / TikTok)</span><b id="sl-content-v">40%</b></div>
+          <input type="range" min="0" max="100" value="40" id="sl-content">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Digital products (templates, guides)</span><b id="sl-product-v">30%</b></div>
+          <input type="range" min="0" max="100" value="30" id="sl-product">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>SEO / blog / list building</span><b id="sl-seo-v">20%</b></div>
+          <input type="range" min="0" max="100" value="20" id="sl-seo">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><span>Recurring SaaS / membership</span><b id="sl-saas-v">10%</b></div>
+          <input type="range" min="0" max="100" value="10" id="sl-saas">
+        </div>
+        <p style="font-size:12px; color:#B8B8B8; text-align:left; margin-top:8px;">
+          Tip: slide each bar to your comfort level. They don't have to add to 100% — the planner normalizes them for you.
+        </p>
+
+        <!-- REVENUE-PER-ASSET-MIX CHART -->
+        <div class="ram-card" id="ram-card" style="margin-top:16px;">
+          <div class="ram-head">
+            <h3>Projected 12-Month Revenue by Asset</h3>
+            <div class="ram-inputs">
+              <label class="field">Monthly target revenue
+                <input type="number" id="ram-target" value="1500">
+              </label>
+              <label class="field">Months to target
+                <input type="number" id="ram-months" value="12">
+              </label>
+            </div>
+          </div>
+          <div class="ram-bars" id="ram-bars">
+            <div class="ram-item">
+              <div class="ram-name">Faceless Content</div>
+              <div class="ram-bar"><div class="ram-fill" id="ram-fill-content" style="width:0%"></div></div>
+              <div class="ram-pct" id="ram-pct-content">40%</div>
+              <div class="ram-val" id="ram-val-content">$0 <span>/yr</span></div>
+            </div>
+            <div class="ram-item">
+              <div class="ram-name">Digital Products</div>
+              <div class="ram-bar"><div class="ram-fill b" id="ram-fill-product" style="width:0%"></div></div>
+              <div class="ram-pct" id="ram-pct-product">30%</div>
+              <div class="ram-val" id="ram-val-product">$0 <span>/yr</span></div>
+            </div>
+            <div class="ram-item">
+              <div class="ram-name">SEO / List</div>
+              <div class="ram-bar"><div class="ram-fill g" id="ram-fill-seo" style="width:0%"></div></div>
+              <div class="ram-pct" id="ram-pct-seo">20%</div>
+              <div class="ram-val" id="ram-val-seo">$0 <span>/yr</span></div>
+            </div>
+            <div class="ram-item">
+              <div class="ram-name">SaaS / Membership</div>
+              <div class="ram-bar"><div class="ram-fill r" id="ram-fill-saas" style="width:0%"></div></div>
+              <div class="ram-pct" id="ram-pct-saas">10%</div>
+              <div class="ram-val" id="ram-val-saas">$0 <span>/yr</span></div>
+            </div>
+          </div>
+          <div class="ram-total">
+            <div class="t-label">Total 12-mo revenue (per current sliders)</div>
+            <div class="t-value" id="ram-total">$0</div>
+          </div>
+          <p style="font-size:11px; color:#B8B8B8; margin-top:10px; font-family:'DM Sans', sans-serif;">
+            Uses your slider percentages against your monthly revenue target, multiplied by months.
+            Sliders re-normalize to 100% so every dollar is assigned.
+          </p>
+        </div>
+      </div>
+
+      <div class="guardrail">
+        <h4>Reality Check</h4>
+        <p>
+          The Freedom Number assumes a passive exit. It does not account for inflation, healthcare changes,
+          or caregiving escalation. Treat it as a working target, not a crystal ball. Revisit quarterly.
+        </p>
+      </div>
+    </section>
+
+    <!-- 02 SURVIVAL KIT -->
+    <section class="section panel" id="survival">
+      <div class="section-head">
+        <div class="section-label">Layer 02 · Protection</div>
+        <h2 class="section-title">Caregiver's Financial Survival Kit</h2>
+        <p class="section-sub">Turn the caregiving crisis into a financial map. Understand the benefit paths. Stop guessing.</p>
+      </div>
+
+      <div class="kit-tabs">
+        <div class="kit-tab active" data-kit="medicaid">
+          <h4>Medicaid</h4>
+          <p>Nursing home & home care eligibility</p>
+        </div>
+        <div class="kit-tab" data-kit="fmla">
+          <h4>FMLA</h4>
+          <p>Protected leave for family care</p>
+        </div>
+        <div class="kit-tab" data-kit="pfl">
+          <h4>Paid Family Leave</h4>
+          <p>State PFL wage replacement</p>
+        </div>
+        <div class="kit-tab" data-kit="va">
+          <h4>VA Aid & Attendance</h4>
+          <p>Monthly supplement for caregivers</p>
+        </div>
+      </div>
+
+      <div class="kit-panel active" id="kit-medicaid">
+        <h3>Medicaid · The Map</h3>
+        <ul class="kit-list">
+          <li><strong><span class="fact-flag">Verify</span>Asset limits are state-specific</strong>Medicaid eligibility for long-term care depends heavily on your state's asset cap. Some states have a few thousand dollars of countable assets; others allow more. The planner's Medicaid tab shows your state's current threshold when you enter your state.</li>
+          <li><strong><span class="fact-flag">Verify</span>The 5-year lookback</strong>If you transfer assets to qualify, Medicaid can look back five years. Document every gift. Some states have a Medicaid lookback exception for spouses; not all.</li>
+          <li><strong><span class="fact-flag">Verify</span>Spousal protection</strong>A married applicant can shelter the healthy spouse's home and a portion of assets. Single caregivers don't get the same spousal buffer — plan for a tighter squeeze.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-fmla">
+        <h3>FMLA · The Rules</h3>
+        <ul class="kit-list">
+          <li><strong>128 hours — that's it</strong>FMLA gives you 12 work weeks per year to care for a parent, child, or spouse. You get paid time only if your employer offers PTO on top — FMLA itself is unpaid.</li>
+          <li><strong>Coverage threshold</strong>You qualify if you work 1,250+ hours/year and your employer has 50+ employees within 75 miles.</li>
+          <li><strong>Not transferable</strong>You cannot use FMLA on someone who isn't an eligible family member. A friend's parent, a neighbor's mom, a non-dependent parent — not covered.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-pfl">
+        <h3>State Paid Family Leave</h3>
+        <ul class="kit-list">
+          <li><strong>Wage replacement, not your paycheck</strong>Most PFL states replace ~60–67% of your wages for a set number of weeks. California, New York, New Jersey, Washington, Rhode Island, Massachusetts, Colorado, and Connecticut all have PFL programs.</li>
+          <li><strong>Stacks on top of FMLA</strong>PFL is paid; FMLA is unpaid. You can use PFL weeks while also holding FMLA status at the same time.</li>
+          <li><strong><span class="fact-flag">Verify</span>Check your specific state</strong>Each state's weeks, replacement rate, and eligibility criteria differ. The planner's PFL tab lists the state's current program when you enter it.</li>
+        </ul>
+      </div>
+
+      <div class="kit-panel" id="kit-va">
+        <h3>VA Aid & Attendance</h3>
+        <ul class="kit-list">
+          <li><strong>Monthly supplement for caregivers</strong>VA A&A pays the veteran (or surviving spouse) extra compensation when in-home care or assisted living is needed. The current monthly supplement is a specific dollar amount — the planner pulls the current figure when you enter your state and eligibility.</li>
+          <li><strong>The caregiver gets a bonus</strong>Under certain conditions, an eligible caregiver may receive a small monthly care bonus on top of the veteran's A&A. This is separate from the veteran's benefit.</li>
+          <li><strong><span class="fact-flag">Verify</span>Benefit amounts change with cost-of-living adjustments</strong>Aid & Attendance rates are adjusted annually. Use the planner's live lookup rather than memorizing the number.</li>
+        </ul>
+      </div>
+
+      <div class="guardrail">
+        <h4>Guardrail · Verify Before You File</h4>
+        <p>
+          Benefit eligibility, asset limits, and dollar amounts all change with state and with federal updates.
+          The kit gives you the logic and the map. Before you file or transfer assets, run your specific case
+          through a Medicaid planner or elder-law attorney in your state. This product is a planning framework,
+          not legal advice.
+        </p>
+      </div>
+    </section>
+
+    <!-- 03 COMMAND CENTER -->
+    <section class="section panel" id="command">
+      <div class="section-head">
+        <div class="section-label">Layer 03 · Operations</div>
+        <h2 class="section-title">Legacy Command Center</h2>
+        <p class="section-sub">Run the day-to-day without losing control. Appointments, delegation, budgets, and firm communication in one place.</p>
+      </div>
+
+      <div class="cc-grid">
+        <div class="card">
+          <span class="card-label">Today's Operations</span>
+          <h3>Care Calendar & Delegation</h3>
+          <div style="display:grid; gap:10px; margin-top:12px;">
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Dr. Calloway — 10:00 AM</div><div class="cc-sub">Memory care follow-up · Medicaid pre-auth required</div></div>
+                <span class="cc-status cc-status--now">Now</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Pharmacy — refill on Tuesday</div><div class="cc-sub">Marta can handle · confirm by Friday</div></div>
+                <span class="cc-status cc-status--pending">Pending</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Insurance claim #4412 — filed</div><div class="cc-sub">Submitted 10/15 · ETA 5 business days</div></div>
+                <span class="cc-status cc-status--done">Done</span>
+              </div>
+            </div>
+            <div class="cc-item">
+              <div class="cc-row">
+                <div><div class="cc-title">Weekly budget review</div><div class="cc-sub">Saturday 6pm · 20 minutes</div></div>
+                <span class="cc-status cc-status--pending">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Budget Tracker</span>
+          <h3>Caregiving Spend</h3>
+          <div style="text-align:left; margin-top:10px;">
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8;">
+              <span>Medications</span><b style="color:var(--dd-ink); font-family:'Inter';">$412</b>
+            </div>
+            <div class="budget-bar"><div style="width:34%;"></div></div>
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8; margin-top:14px;">
+              <span>Home care hours</span><b style="color:var(--dd-ink); font-family:'Inter';">$1,240</b>
+            </div>
+            <div class="budget-bar"><div style="width:72%; background:var(--dd-orange);"></div></div>
+            <div class="cc-row" style="justify-content:space-between; font-size:12px; color:#B8B8B8; margin-top:14px;">
+              <span>Transportation</span><b style="color:var(--dd-ink); font-family:'Inter';">$86</b>
+            </div>
+            <div class="budget-bar"><div style="width:14%; background:var(--dd-red);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-label">Communication Log</span>
+        <h3>Diplomat Drafting</h3>
+        <ul class="cc-log" style="margin-top:12px;">
+          <li><strong>Parent — 10/16</strong>Requested second opinion from neurologist. Agreed to schedule. No conflict.</li>
+          <li><strong>Sibling Marta — 10/14</strong>Confirmed she takes Saturday. No backup needed next week.</li>
+          <li><strong>Insurance — 10/10</strong>Pre-auth for memory care accepted. Coverage active through 12/31.</li>
+        </ul>
+      </div>
+
+      <div class="guardrail">
+        <h4>Guardrail · Firm, Not Cold</h4>
+        <p>
+          The Command Center is a delegation tool, not a confrontation tool. Set the expectation in writing,
+          one sentence, one commitment at a time. If a family member says no, the log records it — it does
+          not escalate. Escalation is a separate decision.
+        </p>
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+    <section class="section" id="admin">
+      <div class="section-head">
+        <div class="section-label">Owner View</div>
+        <h2 class="section-title">Admin Dashboard</h2>
+        <p class="section-sub">
+          Live metrics for your Phase 1 rollout. Gated by an owner passcode so buyers can't see it.
+          The numbers below are seeded from your browser's stored onboarding data — swap in real data when you wire the backend.
+        </p>
+      </div>
+
+      <!-- ACCESS GATE -->
+      <div class="admin-gate" id="admin-gate">
+        <h3>Owner Access Only</h3>
+        <p>Enter your owner passcode to view the dashboard. Buyers will not have this key.</p>
+        <div class="gate-row">
+          <input type="password" id="admin-pass" placeholder="Owner passcode">
+          <button class="btn" id="admin-unlock">Unlock</button>
+        </div>
+        <div class="err" id="admin-err">Incorrect passcode. (Demo key: <b>owner2026</b>)</div>
+        <div class="note">Demo passcode: <b>owner2026</b> · In production, replace with your real auth.</div>
+      </div>
+
+      <!-- DASHBOARD BODY -->
+      <div class="admin-body" id="admin-body">
+
+        <div class="kpi-grid">
+          <div class="kpi kpi--revenue">
+            <span class="kpi-label">Revenue (30d)</span>
+            <div class="kpi-value" id="kpi-revenue">$0</div>
+            <div class="kpi-delta up" id="kpi-revenue-d">0 units · $297 each</div>
+          </div>
+          <div class="kpi kpi--buyers">
+            <span class="kpi-label">Buyers</span>
+            <div class="kpi-value" id="kpi-buyers">0</div>
+            <div class="kpi-delta up" id="kpi-buyers-d">Total onboarding started</div>
+          </div>
+          <div class="kpi kpi--completion">
+            <span class="kpi-label">Onboarding Completed</span>
+            <div class="kpi-value" id="kpi-completed">0</div>
+            <div class="kpi-delta up" id="kpi-completed-d">0%</div>
+          </div>
+          <div class="kpi kpi--abandon">
+            <span class="kpi-label">Abandoned at Setup</span>
+            <div class="kpi-value" id="kpi-abandoned">0</div>
+            <div class="kpi-delta down" id="kpi-abandoned-d">started, not finished</div>
+          </div>
+        </div>
+
+        <div class="admin-cols">
+          <div class="card">
+            <span class="card-label">Recent Buyers</span>
+            <h3>Onboarding Pipeline</h3>
+            <div style="overflow-x:auto; margin-top:12px;">
+              <table class="admin-table" id="admin-table">
+                <thead>
+                  <tr><th>Name</th><th>State</th><th>Goal</th><th>Status</th><th>Layer</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td colspan="5" style="color:#B8B8B8; padding:20px;">No buyers recorded yet. Data appears as onboarding is completed in this browser.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="card-label">Goal Distribution</span>
+            <h3>Where Buyers Focus</h3>
+            <div class="bar-chart" id="admin-goals" style="margin-top:12px;">
+              <div class="bar-row">
+                <div class="bar-label"><span>Retirement gap</span><span id="g-retirement">0%</span></div>
+                <div class="bar-track"><div class="bar-fill hot" style="width:0%" id="b-retirement"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span>Caregiving costs</span><span id="g-caregiving">0%</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:0%" id="b-caregiving"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span>Legacy income</span><span id="g-legacy">0%</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width:0%" id="b-legacy"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span>Buy back time</span><span id="g-freedom">0%</span></div>
+                <div class="bar-track"><div class="bar-fill cold" style="width:0%" id="b-freedom"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="csv-export-card">
+          <h3>Export Buyer Pipeline</h3>
+          <p>Download the full onboarding record as a CSV — name, state, goal, layer, status, start/finish timestamps. One click, no backend.</p>
+          <div class="csv-btns">
+            <button class="btn" id="csv-export">Download CSV</button>
+            <button class="btn btn--ghost" id="csv-export-winback">Export Win-Back Emails</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Win-Back Emails · Abandoned Buyers</span>
+          <h3>Triggered When Setup Closes Unfinished</h3>
+          <div style="font-size:12px; color:#B8B8B8; text-align:left; margin:8px 0 12px; font-family:'DM Sans', sans-serif;">
+            When a buyer closes the onboarding modal without finishing, the system marks them
+            <b style="color:var(--dd-red);">abandoned</b> and fires a win-back email. Each fired email is logged below so you can see who's waiting on a follow-up.
+          </div>
+          <ul class="admin-log" id="winback-list" style="margin-top:0;">
+            <li style="border-left-color:#5F5F5F;">No win-back emails fired yet. Trigger one by starting onboarding and closing it before finishing.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="card-label">Setup Events</span>
+          <h3>Recent Activity</h3>
+          <ul class="admin-log" id="admin-log" style="margin-top:12px;">
+            <li>No events recorded yet.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:16px; text-align:center;">
+          <button class="btn btn--ghost" id="admin-lock">Lock Dashboard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7-DAY CAREGIVER CASH RESCUE EMAIL SEQUENCE -->
+    <section class="section" id="email-sequence">
+      <div class="section-head">
+        <div class="section-label">Marketing · Email</div>
+        <h2 class="section-title">7-Day "Caregiver Cash Rescue" Sequence</h2>
+        <p class="section-sub">The 7-email flow that turns a caregiver reader into a bundle buyer. Click any email to read the full copy.</p>
+      </div>
+
+      <div class="seq-grid" id="seq-grid">
+        <div class="seq-card" data-seq="d1">
+          <span class="day">Day 1</span>
+          <h3>The $4,112 Leak</h3>
+          <p>Open with a number she didn't know: the average monthly financial leakage from unclaimed caregiving benefits.</p>
+          <div class="purpose">Hook · Personal pain</div>
+        </div>
+        <div class="seq-card" data-seq="d2">
+          <span class="day">Day 2</span>
+          <h3>3 Benefits Most Women Never Claim</h3>
+          <p>Tease the Medicaid / PFL / VA path without giving the full map — earn the "read on" feeling.</p>
+          <div class="purpose">Value · Curiosity</div>
+        </div>
+        <div class="seq-card" data-seq="d3">
+          <span class="day">Day 3</span>
+          <h3>One System Instead of 14 Tabs</h3>
+          <p>Reframe the problem as fragmentation. Introduce the "operating system" language.</p>
+          <div class="purpose">Agitate · Solution</div>
+        </div>
+        <div class="seq-card" data-seq="d4">
+          <span class="day">Day 4</span>
+          <h3>Meet the Legacy OS</h3>
+          <p>Full product reveal: Planner, Survival Kit, Command Center, what each does, who it's for.</p>
+          <div class="purpose">Introduce · Bundle</div>
+        </div>
+        <div class="seq-card" data-seq="d5">
+          <span class="day">Day 5</span>
+          <h3>What $297 Buys You in 30 Days</h3>
+          <p>Concrete ROI: benefit map, first application, 2 delegated tasks, Freedom Number in writing.</p>
+          <div class="purpose">Offer · Objectivity</div>
+        </div>
+        <div class="seq-card" data-seq="d6">
+          <span class="day">Day 6</span>
+          <h3>What Happens If You Wait 6 More Months</h3>
+          <p>Cost-of-inaction email. The caregiving debt compounds. The PFL window closes.</p>
+          <div class="purpose">Urgency · Risk</div>
+        </div>
+        <div class="seq-card" data-seq="d7">
+          <span class="day">Day 7</span>
+          <h3>Last Day of the Launch Window</h3>
+          <p>Final call. $297 one-time. No subscription. The next price is the SaaS tier.</p>
+          <div class="purpose">Close · CTA</div>
+        </div>
+      </div>
+
+      <div class="seq-preview" id="seq-preview"></div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section class="section" id="checkout">
+      <div class="section-head">
+        <div class="section-label">Get Access</div>
+        <h2 class="section-title">One Price. One System.</h2>
+      </div>
+
+      <div class="checkout-box">
+        <h3>The Legacy OS Bundle · $297</h3>
+        <p>
+          Includes the Financial Autonomy Planner, Caregiver's Survival Kit, and Legacy Command Center,
+          plus instant delivery and setup guide. One-time price. No subscription.
+        </p>
+        <span class="checkout-url" id="checkout-url">https://YOUR-CHECKOUT-LINK-HERE</span>
+        <div class="checkout-row">
+          <a class="btn" id="checkout-btn" href="https://YOUR-CHECKOUT-LINK-HERE">Start Checkout</a>
+          <span class="checkout-note">Click the URL above to paste your live link.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY -->
+    <section class="section" id="delivery">
+      <div class="section-head">
+        <div class="section-label">Post-Purchase</div>
+        <h2 class="section-title">You're In. Here's What Happens Next.</h2>
+      </div>
+
+      <div class="delivery">
+        <h3>First 3 Actions</h3>
+        <ol>
+          <li><strong>Open the Planner</strong> — Calculate your Freedom Number and your monthly gap.</li>
+          <li><strong>Run the Survival Kit</strong> — Pick your state, pull the Medicaid and PFL map.</li>
+          <li><strong>Start the Command Center</strong> — Log today's calendar, one task, one communication.</li>
+        </ol>
+        <div class="delivery-links">
+          <a href="#planner">Planner</a>
+          <a href="#survival">Survival Kit</a>
+          <a href="#command">Command Center</a>
+          <a href="#">Setup Guide (PDF)</a>
+        </div>
+
+        <div style="margin-top:20px; text-align:center;">
+          <button class="btn" id="onb-start" style="width:100%;">Start Setup · 4 Steps</button>
+          <span class="btn-sub" style="margin-top:10px;">Takes about 3 minutes · saves to this browser</span>
+        </div>
+      </div>
+
+      <!-- ONBOARDING MODAL -->
+      <div class="onboarding-overlay" id="onb-overlay">
+        <div class="onboarding" role="dialog" aria-modal="true" aria-labelledby="onb-title">
+          <div class="onb-head">
+            <div class="onb-title" id="onb-title">Setup</div>
+            <button class="onb-close" id="onb-close" aria-label="Close setup">✕</button>
+          </div>
+
+          <div class="onb-progress" id="onb-progress">
+            <div class="step active" data-step="1"><span class="n">1</span>Who</div>
+            <div class="step" data-step="2"><span class="n">2</span>State</div>
+            <div class="step" data-step="3"><span class="n">3</span>Goal</div>
+            <div class="step" data-step="4"><span class="n">4</span>Ready</div>
+          </div>
+
+          <div class="onb-body">
+
+            <!-- STEP 1: WHO -->
+            <div class="onb-screen active" data-screen="1">
+              <span class="onb-eyebrow">Step 1 of 4</span>
+              <h3>Who are you setting this up for?</h3>
+              <p>Most Gen X women are in the sandwich generation — carrying parents, kids, work, and a retirement gap. Pick the layer that fits you now. This focuses the system on what matters.</p>
+
+              <div class="onb-field">
+                <label>Your name (optional)</label>
+                <input type="text" id="onb-name" placeholder="First name">
+              </div>
+
+              <div class="onb-2col">
+                <div class="onb-field">
+                  <label>Primary caregiving layer</label>
+                  <select id="onb-layer">
+                    <option value="parent">Caregiving a parent</option>
+                    <option value="child">Raising kids / teens</option>
+                    <option value="both">Sandwich — both</option>
+                    <option value="self">Financial autonomy focus</option>
+                  </select>
+                </div>
+                <div class="onb-field">
+                  <label>Working status</label>
+                  <select id="onb-work">
+                    <option value="employed">Employed (W-2)</option>
+                    <option value="self">Self-employed / business</option>
+                    <option value="retired">Retired</option>
+                    <option value="none">Not working</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="onb-nav">
+                <span class="spacer"></span>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: STATE -->
+            <div class="onb-screen" data-screen="2">
+              <span class="onb-eyebrow">Step 2 of 4</span>
+              <h3>Where are you located?</h3>
+              <p>Your state drives your Medicaid asset limits, Paid Family Leave, and VA Aid &amp; Attendance access. This is what the Survival Kit maps first.</p>
+
+              <div class="onb-field">
+                <label>State</label>
+                <select id="onb-state">
+                  <option value="">Select your state</option>
+                  <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+                  <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+                  <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+                  <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+                  <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+                  <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+                  <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+                  <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+                  <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+                  <option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option>
+                  <option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option>
+                  <option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+              </div>
+
+              <div class="onb-field">
+                <label>Does your caregiver (parent) have VA service?</label>
+                <select id="onb-va">
+                  <option value="no">No / Not sure</option>
+                  <option value="yes">Yes — veteran or surviving spouse</option>
+                </select>
+              </div>
+
+              <div class="onb-nav">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: GOAL -->
+            <div class="onb-screen" data-screen="3">
+              <span class="onb-eyebrow">Step 3 of 4</span>
+              <h3>What's the #1 thing you want to close?</h3>
+              <p>Pick one. The Planner will size your Freedom Number and asset mix around it, so you're not trying to solve everything at once.</p>
+
+              <div class="onb-field">
+                <label>Top priority</label>
+                <select id="onb-goal">
+                  <option value="retirement">Close the retirement gap</option>
+                  <option value="caregiving">Cover my caregiving costs</option>
+                  <option value="legacy">Build income I can leave my kids</option>
+                  <option value="freedom">Buy back 10+ hours of my week</option>
+                </select>
+              </div>
+
+              <div class="onb-2col">
+                <div class="onb-field">
+                  <label>Monthly base expenses</label>
+                  <input type="number" id="onb-expense" placeholder="e.g. 4500">
+                </div>
+                <div class="onb-field">
+                  <label>Monthly caregiver cost</label>
+                  <input type="number" id="onb-care" placeholder="e.g. 1200">
+                </div>
+              </div>
+
+              <div class="onb-nav">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" data-onb-next>Continue →</button>
+              </div>
+            </div>
+
+            <!-- STEP 4: READY -->
+            <div class="onb-screen" data-screen="4">
+              <span class="onb-eyebrow">Step 4 of 4</span>
+              <h3>Your first 3 actions</h3>
+              <p>Check each one as you've done it (or plan to do it today). When all three are checked, the system is live.</p>
+
+              <ul class="onb-checklist" id="onb-actions">
+                <li data-action="planner"><span class="box">✓</span><span><strong>Open the Planner</strong> and calculate your Freedom Number and monthly gap.</span></li>
+                <li data-action="survival"><span class="box">✓</span><span><strong>Run the Survival Kit</strong> for your state — Medicaid, PFL, and VA paths.</span></li>
+                <li data-action="command"><span class="box">✓</span><span><strong>Start the Command Center</strong> — log today's calendar, one task, one communication.</span></li>
+              </ul>
+
+              <div class="onb-complete" id="onb-complete" style="display:none;">
+                <div class="check">✓</div>
+                <h3 id="onb-hello">You're operational.</h3>
+                <p style="margin-bottom:0;">Here's your setup snapshot. It's saved to this browser.</p>
+                <div class="onb-completion-summary" id="onb-summary"></div>
+              </div>
+
+              <div class="onb-nav" id="onb-nav-4">
+                <button class="btn btn--back" data-onb-back>← Back</button>
+                <button class="btn" id="onb-finish">Finish</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>© 2026 DigitallyDefined · Build What You Own</div>
+      <div>Planning framework only · Not legal, tax, or medical advice</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Tabs
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+    tabs.forEach(t => t.addEventListener("click", () => {
+      tabs.forEach(x => x.classList.remove("active"));
+      panels.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById(t.dataset.tab).classList.add("active");
+    }));
+
+    // Kit sub-tabs
+    const kitTabs = document.querySelectorAll(".kit-tab");
+    const kitPanels = document.querySelectorAll(".kit-panel");
+    kitTabs.forEach(t => t.addEventListener("click", () => {
+      kitTabs.forEach(x => x.classList.remove("active"));
+      kitPanels.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      document.getElementById("kit-" + t.dataset.kit).classList.add("active");
+    }));
+
+    // Planner math
+    function calcPlanner() {
+      const expense = parseFloat(document.getElementById("pl-expense").value || 0);
+      const care = parseFloat(document.getElementById("pl-care").value || 0);
+      const income = parseFloat(document.getElementById("pl-income").value || 0);
+      const exitMultiple = parseFloat(document.getElementById("pl-exit").value || 25);
+      const gap = Math.max(0, (expense + care) - income);
+      const target = gap * 12 * exitMultiple;
+      document.getElementById("pl-gap").textContent = "$" + gap.toLocaleString() + "/mo";
+      document.getElementById("pl-target").textContent = "$" + target.toLocaleString();
+    }
+    document.getElementById("pl-calc").addEventListener("click", calcPlanner);
+
+    // Sliders
+    ["content","product","seo","saas"].forEach(k => {
+      const el = document.getElementById("sl-" + k);
+      const out = document.getElementById("sl-" + k + "-v");
+      el.addEventListener("input", () => out.textContent = el.value + "%");
+    });
+
+    // ===== ONBOARDING FLOW =====
+    const ONB_KEY = "legacy_os_onb";
+    const overlay = document.getElementById("onb-overlay");
+    const screens = document.querySelectorAll(".onb-screen");
+    const progressSteps = document.querySelectorAll("#onb-progress .step");
+    let onbStep = 1;
+
+    function onbState() {
+      try { return JSON.parse(localStorage.getItem(ONB_KEY)) || {}; } catch (e) { return {}; }
+    }
+    function saveOnb(patch) {
+      localStorage.setItem(ONB_KEY, JSON.stringify(Object.assign({}, onbState(), patch)));
+    }
+
+    function showOnbScreen(n) {
+      onbStep = n;
+      screens.forEach(s => s.classList.toggle("active", +s.dataset.screen === n));
+      progressSteps.forEach(p => {
+        const pn = +p.dataset.step;
+        p.classList.toggle("active", pn === n);
+        p.classList.toggle("done", pn < n);
+      });
+      if (n === 4) renderOnbComplete();
+    }
+
+    function openOnb() {
+      // prefill from saved
+      const s = onbState();
+      document.getElementById("onb-name").value = s.name || "";
+      document.getElementById("onb-layer").value = s.layer || "parent";
+      document.getElementById("onb-work").value = s.work || "employed";
+      document.getElementById("onb-state").value = s.state || "";
+      document.getElementById("onb-va").value = s.va || "no";
+      document.getElementById("onb-goal").value = s.goal || "retirement";
+      document.getElementById("onb-expense").value = s.expense || "";
+      document.getElementById("onb-care").value = s.care || "";
+      // restore checked actions
+      document.querySelectorAll("#onb-actions li").forEach(li => {
+        li.classList.toggle("checked", s.actions & s.actions[li.dataset.action]);
+      });
+      overlay.classList.add("active");
+      onbOpen = true;
+      // Track that this buyer started onboarding (if not already completed)
+      if (!s.completedAt) {
+        saveOnb({ startedAt: new Date().toISOString() });
+        saveBuyerRecord({
+          name: s.name, state: s.state, goal: s.goal, layer: s.layer,
+          status: "started", at: new Date().toISOString(),
+          started: true
+        });
+        logAdminEvent("start", (s.name || "Anonymous") + " started onboarding");
+        setTimeout(renderAdmin, 0);
+      }
+      showOnbScreen(1);
+    }
+    let onbOpen = false;
+    function closeOnb() {
+      const wasOpen = onbOpen;
+      overlay.classList.remove("active");
+      onbOpen = false;
+      // If onboarding was in progress and not completed, mark abandoned + trigger win-back
+      if (wasOpen) {
+        const s = onbState();
+        if (!s.completedAt & s.startedAt) {
+          markAbandonedAndTriggerWinback(s);
+        }
+      }
+    }
+    function markAbandonedAndTriggerWinback(s) {
+      saveBuyerRecord({
+        name: s.name, state: s.state, goal: s.goal, layer: s.layer,
+        status: "abandoned", at: new Date().toISOString(),
+        abandonedFromStep: onbStep
+      });
+      logAdminEvent("abandon", (s.name || "Anonymous") + " abandoned onboarding at step " + onbStep + " · win-back email triggered");
+      triggerWinbackEmail(s);
+      setTimeout(renderAdmin, 0);
+    }
+    function triggerWinbackEmail(s) {
+      const subject = "You're one step from running your Legacy OS";
+      const body =
+`Hi ${s.name || "there"},
+
+You made it partway through your Legacy OS setup and closed before finishing. That's normal — everyone does it.
+
+Here's the good news: your work is saved. You don't start over.
+
+Finish in the next 10 minutes:
+  1. Open the Planner and calculate your Freedom Number
+  2. Run the Survival Kit for your state
+  3. Log one task in the Command Center
+
+That's it. The system is live the moment you do all three.
+
+Your setup is waiting here — no re-buying, no re-entering:
+  [OPEN-ONBOARDING-URL]
+
+— Francesca
+
+P.S. If you need a hand, reply to this email and tell me where you got stuck. I'll walk you through it.`;
+      // Store the win-back email so the admin dashboard can display it
+      const emails = JSON.parse(localStorage.getItem("legacy_os_winback_emails") || "[]");
+      emails.unshift({ to: s.name || "anonymous", subject, body, at: new Date().toISOString() });
+      localStorage.setItem("legacy_os_winback_emails", JSON.stringify(emails.slice(0, 30)));
+      // Open a mailto: so the owner can actually send it now (MVP behavior)
+      const mailto = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      // Auto-fire: open the mail client in a new tab. In production, swap this for your ESP API.
+      window.open(mailto, "_blank");
+    }
+
+    function collectOnb() {
+      saveOnb({
+        name: document.getElementById("onb-name").value,
+        layer: document.getElementById("onb-layer").value,
+        work: document.getElementById("onb-work").value,
+        state: document.getElementById("onb-state").value,
+        va: document.getElementById("onb-va").value,
+        goal: document.getElementById("onb-goal").value,
+        expense: document.getElementById("onb-expense").value,
+        care: document.getElementById("onb-care").value,
+        completedAt: new Date().toISOString()
+      });
+    }
+
+    function renderOnbComplete() {
+      const s = onbState();
+      const name = (s.name || "").trim();
+      const actions = document.querySelectorAll("#onb-actions li");
+      const allChecked = Array.from(actions).every(li => li.classList.contains("checked"));
+      const summary = document.getElementById("onb-summary");
+      const layerLabels = { parent:"Parent caregiver", child:"Raising kids", both:"Sandwich generation", self:"Financial autonomy" };
+      const goalLabels = { retirement:"Retirement gap", caregiving:"Caregiving costs", legacy:"Legacy income", freedom:"Buy back time" };
+
+      const rows = [
+        ["Primary layer", layerLabels[s.layer] || "—"],
+        ["State", s.state || "Not set"],
+        ["Top goal", goalLabels[s.goal] || "—"],
+        ["Monthly gap", (s.expense || s.care) ? "calculated in Planner" : "enter in Planner"]
+      ];
+
+      summary.innerHTML = rows.map(r => `<div><span>${r[0]}</span><b>${r[1]}</b></div>`).join("");
+      document.getElementById("onb-hello").textContent = allChecked ? (name ? name + ", you're operational." : "You're operational.") : "Almost there.";
+    }
+
+    document.getElementById("onb-start").addEventListener("click", openOnb);
+    document.getElementById("onb-close").addEventListener("click", closeOnb);
+    overlay.addEventListener("click", e => { if (e.target === overlay) closeOnb(); });
+
+    document.querySelectorAll("[data-onb-next]").forEach(b => b.addEventListener("click", () => {
+      collectOnb();
+      if (onbStep < 4) showOnbScreen(onbStep + 1);
+    }));
+    document.querySelectorAll("[data-onb-back]").forEach(b => b.addEventListener("click", () => {
+      collectOnb();
+      if (onbStep > 1) showOnbScreen(onbStep - 1);
+    }));
+
+    document.querySelectorAll("#onb-actions li").forEach(li => li.addEventListener("click", () => {
+      li.classList.toggle("checked");
+      const acts = onbState().actions || {};
+      acts[li.dataset.action] = li.classList.contains("checked");
+      saveOnb({ actions: acts });
+      renderOnbComplete();
+    }));
+
+    document.getElementById("onb-finish").addEventListener("click", () => {
+      collectOnb();
+      // Clear any abandoned flag so the admin pipeline reflects completion
+      saveOnb({ completedAt: new Date().toISOString() });
+      // jump user to the planner as the natural first action
+      closeOnb();
+      document.getElementById("planner").scrollIntoView({ behavior: "smooth" });
+      // also surface the values into the planner fields if present
+      const s = onbState();
+      if (s.expense) document.getElementById("pl-expense").value = s.expense;
+      if (s.care) document.getElementById("pl-care").value = s.care;
+      calcPlanner();
+      // Update admin record so the badge shows "completed" instead of "abandoned"
+      saveBuyerRecord({
+        name: s.name, state: s.state, goal: s.goal, layer: s.layer,
+        status: "completed", at: new Date().toISOString()
+      });
+      logAdminEvent("complete", (s.name || "Anonymous") + " completed onboarding after being recovered");
+      setTimeout(renderAdmin, 0);
+    });
+
+    // ===== ADMIN DASHBOARD =====
+    const ADMIN_KEY = "legacy_os_admin";
+    const ADMIN_RECORDS = "legacy_os_buyers";
+    const ADMIN_PASS = "owner2026";
+
+    function buyerRecords() {
+      try { return JSON.parse(localStorage.getItem(ADMIN_RECORDS)) || []; } catch (e) { return []; }
+    }
+    function saveBuyerRecord(rec) {
+      const all = buyerRecords();
+      all.push(rec);
+      localStorage.setItem(ADMIN_RECORDS, JSON.stringify(all));
+    }
+    function adminUnlocked() { return localStorage.getItem(ADMIN_KEY) === "ok"; }
+
+    // Log an onboarding event into the activity log
+    function logAdminEvent(type, detail) {
+      const log = JSON.parse(localStorage.getItem("legacy_os_adminlog") || "[]");
+      log.unshift({ type, detail, at: new Date().toISOString() });
+      localStorage.setItem("legacy_os_adminlog", JSON.stringify(log.slice(0, 20)));
+    }
+
+    function renderAdmin() {
+      if (!adminUnlocked()) {
+        document.getElementById("admin-gate").style.display = "block";
+        document.getElementById("admin-body").classList.remove("active");
+        return;
+      }
+      document.getElementById("admin-gate").style.display = "none";
+      document.getElementById("admin-body").classList.add("active");
+
+      const recs = buyerRecords();
+      const buyers = recs.length;
+      const completed = recs.filter(r => r.status === "completed").length;
+      const abandoned = recs.filter(r => r.status === "abandoned").length;
+      const started = recs.filter(r => r.status === "started").length;
+      const revenue = completed * 297;
+      const completionRate = buyers ? Math.round((completed / buyers) * 100) : 0;
+
+      document.getElementById("kpi-revenue").textContent = "$" + revenue.toLocaleString();
+      document.getElementById("kpi-revenue-d").textContent = completed + " units · $297 each";
+      document.getElementById("kpi-buyers").textContent = buyers;
+      document.getElementById("kpi-buyers-d").textContent = started + " in-progress · " + abandoned + " abandoned";
+      document.getElementById("kpi-completed").textContent = completed;
+      document.getElementById("kpi-completed-d").textContent = completionRate + "% completion rate";
+      document.getElementById("kpi-abandoned").textContent = abandoned;
+      document.getElementById("kpi-abandoned-d").textContent = abandoned ? "needs win-back email" : "none";
+
+      // Pipeline table
+      const tbody = document.querySelector("#admin-table tbody");
+      if (buyers === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="color:#5F5F5F; padding:20px;">No buyers recorded yet. Data appears as onboarding is completed in this browser.</td></tr>';
+      } else {
+        const layerLabels = { parent:"Parent", child:"Kids", both:"Sandwich", self:"Autonomy" };
+        tbody.innerHTML = recs.slice().reverse().map(r => {
+          const badge = r.status === "completed" ? "completed" : r.status === "abandoned" ? "abandoned" : "pending";
+          return `<tr>
+            <td><b style="font-family:'Inter';font-size:12px;">${r.name || "Anonymous"}</b></td>
+            <td>${r.state || "—"}</td>
+            <td>${r.goal || "—"}</td>
+            <td><span class="badge badge--${badge}">${r.status}</span></td>
+            <td>${layerLabels[r.layer] || "—"}</td>
+          </tr>`;
+        }).join("");
+      }
+
+      // Goal distribution
+      const goalKeys = ["retirement", "caregiving", "legacy", "freedom"];
+      const goalLabels = { retirement:"Retirement gap", caregiving:"Caregiving costs", legacy:"Legacy income", freedom:"Buy back time" };
+      goalKeys.forEach(k => {
+        const count = recs.filter(r => r.goal === k).length;
+        const pct = buyers ? Math.round((count / buyers) * 100) : 0;
+        document.getElementById("g-" + k).textContent = pct + "%";
+        document.getElementById("b-" + k).style.width = pct + "%";
+      });
+
+      // Activity log
+      const log = JSON.parse(localStorage.getItem("legacy_os_adminlog") || "[]");
+      const logEl = document.getElementById("admin-log");
+      logEl.innerHTML = log.length === 0
+        ? '<li>No events recorded yet.</li>'
+        : log.map(e => `<li><strong>${new Date(e.at).toLocaleString()}</strong> — ${e.type}: ${e.detail}</li>`).join("");
+
+      // Win-back emails fired for abandoned buyers
+      const winbacks = JSON.parse(localStorage.getItem("legacy_os_winback_emails") || "[]");
+      const wbEl = document.getElementById("winback-list");
+      if (winbacks.length === 0) {
+        wbEl.innerHTML = '<li style="border-left-color:#5F5F5F;">No win-back emails fired yet. Trigger one by starting onboarding and closing it before finishing.</li>';
+      } else {
+        wbEl.innerHTML = winbacks.slice(0, 6).map(w => `
+          <li style="border-left-color:var(--dd-red); background:var(--dd-white);">
+            <strong>${new Date(w.at).toLocaleString()} · To ${w.to}</strong><br>
+            <em style="font-size:12px; color:var(--dd-ink);">"${w.subject}"</em><br>
+            <span style="font-size:11px; color:#5F5F5F; display:block; max-width:520px; white-space:pre-line; margin-top:6px;">${w.body.slice(0, 220)}…</span>
+          </li>`).join("");
+      }
+    }
+
+    document.getElementById("admin-unlock").addEventListener("click", () => {
+      const val = document.getElementById("admin-pass").value.trim();
+      if (val === ADMIN_PASS) {
+        localStorage.setItem(ADMIN_KEY, "ok");
+        document.getElementById("admin-err").classList.remove("show");
+        logAdminEvent("unlock", "Owner unlocked the dashboard");
+        renderAdmin();
+      } else {
+        document.getElementById("admin-err").classList.add("show");
+      }
+    });
+    document.getElementById("admin-lock").addEventListener("click", () => {
+      localStorage.removeItem(ADMIN_KEY);
+      logAdminEvent("lock", "Owner locked the dashboard");
+      renderAdmin();
+    });
+
+    // Hook: record a buyer every time onboarding finishes
+    const onbFinish = document.getElementById("onb-finish");
+    onbFinish.addEventListener("click", () => {
+      const s = onbState();
+      saveBuyerRecord({
+        name: s.name, state: s.state, goal: s.goal, layer: s.layer,
+        status: "completed", at: new Date().toISOString()
+      });
+      logAdminEvent("purchase", (s.name || "Anonymous") + " completed onboarding · " + s.state);
+      setTimeout(renderAdmin, 0);
+    });
+
+    // Resume prompt if a setup was started but not finished
+    window.addEventListener("DOMContentLoaded", () => {
+      const s = onbState();
+      if (s.completedAt) {
+        document.getElementById("onb-start").textContent = "Review Your Setup";
+        document.getElementById("onb-start").classList.add("btn--ghost");
+      }
+      renderAdmin();
+    });
+
+    // Checkout placeholder
+    const checkoutUrlInput = document.getElementById("checkout-url");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    function normalizeUrl(u) { const t = (u||"").trim(); if (!t) return ""; if (t.startsWith("http://") || t.startsWith("https://")) return t; return "https://" + t; }
+    checkoutUrlInput.addEventListener("click", () => {
+      const raw = prompt("Paste your live checkout URL:", checkoutUrlInput.textContent);
+      if (!raw) return;
+      const next = normalizeUrl(raw);
+      checkoutUrlInput.textContent = next;
+      checkoutBtn.href = next;
+    });
+    checkoutBtn.addEventListener("click", e => {
+      const target = checkoutBtn.getAttribute("href");
+      if (target === "https://YOUR-CHECKOUT-LINK-HERE" || target === "https://") {
+        e.preventDefault();
+        checkoutUrlInput.click();
+      }
+    });
+
+    // ===== 7-DAY EMAIL SEQUENCE =====
+    const SEQ_DATA = {
+      d1: {
+        day: "Day 1",
+        subject: "The $4,112 a month most women are losing without knowing",
+        prehead: "A quiet number that's probably running your household",
+        body: `Hi {name},
+
+I need to share a number that most Gen X women never see:
+
+The average unclaimed caregiving benefit — Medicaid home-care, PFL wage replacement, and VA Aid & Attendance combined — is roughly $4,112/month for a family in the sandwich generation who doesn't actively file.
+
+That's not a bill you chose. It's a benefit you didn't claim.
+
+You can still claim it. But you need a map of which programs your family actually qualifies for — and most caregivers never sit down and map it out.
+
+Tomorrow I'll walk you through the three benefits almost no one claims on their first pass. No forms attached, no 40-page PDF — just the names and what they cover.
+
+Talk tomorrow,
+— Francesca
+
+P.S. If you care for a parent and have ever thought "I'll figure out the benefits later," tomorrow's email is why you should stop saying that.`
+      },
+      d2: {
+        day: "Day 2",
+        subject: "3 benefits most women never claim",
+        prehead: "None of them require you to file paperwork today",
+        body: `Hi {name},
+
+Follow-up on yesterday's $4,112 number. Here are the three benefits most caregivers miss:
+
+1. Medicaid Home Care
+   Your state's asset limit is different from what you think. The countable-asset cap is often lower than your liquid savings alone — which means a "disqualification" you've assumed is wrong.
+
+2. Paid Family Leave (PFL)
+   If you're a W-2 employee, your state may owe you partial wage replacement when you step in to care for a parent. This stacks on top of FMLA — it's not the same thing.
+
+3. VA Aid & Attendance
+   If your caregiver is a veteran or a surviving spouse, this monthly supplement can cover a meaningful share of in-home care. Most families in this position don't know it exists until someone tells them.
+
+Notice what I didn't do: I didn't send you a stack of PDFs. I gave you the names, so you can recognize them when you sit down and look at your situation.
+
+The next step — turning these three names into a plan that shows what *you* actually qualify for — is what the Legacy OS bundle does. More on that in a few days.
+
+— Francesca`
+      },
+      d3: {
+        day: "Day 3",
+        subject: "The problem isn't the money. It's the 14 open tabs.",
+        prehead: "You don't have a money problem. You have a system problem.",
+        body: `Hi {name},
+
+Here's what I keep seeing in the rooms where Gen X women gather to talk about caregiving:
+
+They don't have a money problem. They have a systems problem.
+
+There are 14 open tabs: the insurance portal, the pharmacy, the insurance pre-auth, the caregiver schedule, the PFL application, the Medicaid asset worksheet, the VA benefits page, the family group chat, the calendar, the budget spreadsheet…
+
+None of it is "hard." But all of it lives in different places. And the moment it all goes different places, you lose control.
+
+That's the actual cost — not the benefit you missed, but the hours you spend every week just keeping the tabs organized.
+
+I built a tool for that reason. Not another app. Not another spreadsheet. An operating layer: Plan (the money math), Protect (the benefit map), Operate (the day-to-day in one place).
+
+Day 4 I'll show you exactly what it is.
+
+— Francesca`
+      },
+      d4: {
+        day: "Day 4",
+        subject: "Meet the Legacy OS (here's what's actually inside)",
+        prehead: "The bundle, the three layers, and what each one does",
+        body: `Hi {name},
+
+You asked what it actually is. Here it is:
+
+THE LEGACY OS BUNDLE — $297, one-time, instant access.
+
+Layer 01 · Financial Autonomy Planner
+    Define your Freedom Number. Map the gap. Choose the digital asset mix that closes it.
+    Not "figure out what to do." A number, a gap, and a plan.
+
+Layer 02 · Caregiver's Survival Kit
+    Medicaid asset cap, PFL eligibility, VA Aid & Attendance, FMLA rules — all on one screen.
+    The benefit map. No more 14 tabs.
+
+Layer 03 · Legacy Command Center
+    Care calendar, delegation, budgets, communication log.
+    The daily operation. One place. No scattered group chats.
+
+Each one works alone. Together they run your whole household.
+
+Tomorrow: the 30-day outcome. What $297 actually buys you.
+
+— Francesca`
+      },
+      d5: {
+        day: "Day 5",
+        subject: "What $297 actually buys you in 30 days",
+        prehead: "Not a course. Not another thing to read.",
+        body: `Hi {name},
+
+What does $297 get you? Here's the 30-day list:
+
+Week 1:
+  → Your Freedom Number, in writing, with the gap calculated.
+  → Your state's Medicaid asset cap and PFL benefit, on one screen.
+
+Week 2:
+  → One benefit application filed (or one pre-qual check done).
+  → Your asset mix chosen — two highest-leverage assets identified.
+
+Week 3:
+  → The first delegated task running (not you).
+  → Your Command Center live: calendar, tasks, budget log.
+
+Week 4:
+  → A weekly review habit, 20 minutes, Saturday.
+  → A clearer, calmer operational state than you're in right now.
+
+$297 is not a subscription. It's a one-time setup for a system you keep.
+
+Tomorrow I'll show you what happens if you wait six more months.
+
+— Francesca`
+      },
+      d6: {
+        day: "Day 6",
+        subject: "The cost of 6 more months",
+        prehead: "Not a sales pitch. Just the math.",
+        body: `Hi {name},
+
+Let's do the math on inaction:
+
+If your unclaimed benefit is $4,112/month and you miss it for six more months, that's $24,672 you didn't collect.
+
+If your PFL window is 8 weeks from now and you haven't filed yet, you're not "behind schedule." You're inside the window, and it closes when it closes.
+
+If you're waiting for "the right time" to set up the system, the right time was three weeks ago. The system doesn't care when you start. It just works faster the sooner you do.
+
+I'm not saying this to scare you. I'm saying it because the numbers don't lie, and most people wait until the number is sitting on top of them.
+
+Last call is tomorrow.
+
+— Francesca`
+      },
+      d7: {
+        day: "Day 7",
+        subject: "Last day of the launch window",
+        prehead: "One-time price, no subscription. Tomorrow the price moves.",
+        body: `Hi {name},
+
+Tomorrow the launch window closes and the price structure changes:
+
+The $297 one-time price you've been reading about in this sequence is the Phase 1 launch price. After tomorrow, the system moves into the subscription tier — same three tools, recurring monthly.
+
+If you're going to run this system, now is the cheapest moment it will be this year.
+
+$297 one-time. No subscription. No recurring charge. Three tools that work together.
+
+Click the link below. It takes 25 minutes to set up, and it's live the moment you do.
+
+[GET THE BUNDLE — $297]
+
+After the window closes, the price is higher. Not because the value changed — because that's how this launch works.
+
+You can do this, and you can wait. This email is the last nudge before the window closes.
+
+— Francesca
+
+P.S. If you have a question that's keeping you from clicking the link, reply to this email. I answer every one personally.`
+      }
+    };
+
+    const seqGrid = document.getElementById("seq-grid");
+    const seqPreview = document.getElementById("seq-preview");
+
+    document.querySelectorAll(".seq-card").forEach(card => card.addEventListener("click", () => {
+      const key = card.dataset.seq;
+      const item = SEQ_DATA[key];
+      if (!item) return;
+      seqPreview.innerHTML = `
+        <div class="seq-header">
+          <button class="back" id="seq-back">← All 7 emails</button>
+          <span style="font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#5F5F5F;">${item.day} · ${item.subject.split(' ').slice(0,4).join(' ')}</span>
+        </div>
+        <div class="seq-meta">${item.day} · ${item.subject}</div>
+        <h3>${item.subject}</h3>
+        <div class="prehead">${item.prehead}</div>
+        <div class="email-body">${item.body}</div>
+      `;
+      seqPreview.classList.add("active");
+      seqPreview.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("seq-back").addEventListener("click", () => seqPreview.classList.remove("active"));
+    }));
+
+    // ===== CSV EXPORT =====
+    function downloadCsv(filename, rows) {
+      const csv = rows.map(r => r.map(cell => {
+        const s = String(cell == null ? "" : cell);
+        if (s.includes(",") || s.includes('"') || s.includes("\n")) {
+          return '"' + s.replace(/"/g, '""') + '"';
+        }
+        return s;
+      }).join(",")).join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById("csv-export").addEventListener("click", () => {
+      const recs = buyerRecords().slice().reverse();
+      const header = ["Name", "State", "Goal", "Layer", "Status", "Recorded At", "Abandoned From Step"];
+      const rows = [header, ...recs.map(r => [
+        r.name || "Anonymous", r.state || "", r.goal || "", r.layer || "",
+        r.status, r.at ? new Date(r.at).toLocaleString() : "",
+        r.abandonedFromStep || ""
+      ])];
+      downloadCsv("legacy-os-buyer-pipeline.csv", rows);
+      logAdminEvent("export", "Exported " + recs.length + " buyer records to CSV");
+      setTimeout(renderAdmin, 0);
+    });
+
+    document.getElementById("csv-export-winback").addEventListener("click", () => {
+      const emails = JSON.parse(localStorage.getItem("legacy_os_winback_emails") || "[]");
+      const header = ["To", "Subject", "Fired At", "Body"];
+      const rows = [header, ...emails.map(e => [e.to, e.subject, new Date(e.at).toLocaleString(), e.body.replace(/\n/g, " | ")])];
+      downloadCsv("legacy-os-winback-emails.csv", rows);
+      logAdminEvent("export", "Exported " + emails.length + " win-back emails to CSV");
+      setTimeout(renderAdmin, 0);
+    });
+
+    // ===== REVENUE-PER-ASSET-MIX CHART =====
+    function updateRevenueChart() {
+      const keys = ["content", "product", "seo", "saas"];
+      const vals = keys.map(k => parseFloat(document.getElementById("sl-" + k).value || 0));
+      const sum = vals.reduce((a, b) => a + b, 0);
+      const target = parseFloat(document.getElementById("ram-target").value || 0);
+      const months = parseInt(document.getElementById("ram-months").value || 12, 10);
+
+      let total = 0;
+      keys.forEach((k, i) => {
+        const pct = sum > 0 ? Math.round((vals[i] / sum) * 100) : 0;
+        const annual = Math.round(target * months * (pct / 100));
+        total += annual;
+        document.getElementById("ram-pct-" + k).textContent = pct + "%";
+        document.getElementById("ram-fill-" + k).style.width = pct + "%";
+        document.getElementById("ram-val-" + k).innerHTML = "$" + annual.toLocaleString() + " <span>/yr</span>";
+      });
+      document.getElementById("ram-total").textContent = "$" + total.toLocaleString();
+    }
+
+    ["content","product","seo","saas"].forEach(k => {
+      document.getElementById("sl-" + k).addEventListener("input", () => {
+        document.getElementById("sl-" + k + "-v").textContent = document.getElementById("sl-" + k).value + "%";
+        updateRevenueChart();
+      });
+    });
+    document.getElementById("ram-target").addEventListener("input", updateRevenueChart);
+    document.getElementById("ram-months").addEventListener("input", updateRevenueChart);
+    updateRevenueChart();
+  </script>
+
+</body>
+</html>

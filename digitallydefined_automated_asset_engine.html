@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitallyDefined - Automated Asset Engine</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Library for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#F18B25',
+                        brandBlue: '#47B7D4',
+                        accentRed: '#C20F0A',
+                        warmBg: '#FFFCF9',
+                        slateDark: '#111111',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Inter', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family:'Inter', sans-serif;
+            background-color: #FFFCF9;
+            color: #111111;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .input-box {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid #111111;
+            border-radius: 0 !important;
+            padding: 0.75rem 1rem;
+            font-family:'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #111111;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: #F18B25;
+            box-shadow: none;
+        }
+
+        .input-box::placeholder {
+            color: #5F5F5F;
+            font-weight: 500;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        *, *::before, *::after {
+            border-radius: 0 !important;
+        }
+
+        .loading-spinner {
+            border: 1px solid #FFFCF9;
+            border-top: 1px solid #111111;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .hidden-st { display: none !important; }
+
+        .tag-pill {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border: 1px solid #111111;
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #FFFCF9;
+            border-left: 1px solid #5F5F5F;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #0F0F0F;
+        }
+    </style>
+<link id="dd-brand-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Inter:ital,wght@0,400;0,600;0,700;0,800;0,900;1,900&display=swap">
+<style id="dd-brand-standard">
+/* ============================================================================
+   DigitallyDefined — Official Brand Standard v2.0
+   Source of truth for every digital product. See brand/README.md.
+   Inlined into each product's <style id="dd-brand-standard"> by
+   scripts/apply_brand.py — do not hand-edit the copies.
+
+   Spec (from the official brand file):
+     • 3-colour system: #F18B25 primary, #47B7D4 secondary, #C20F0A important
+     • 1px solid #111111 frame on every card, button, badge, input
+     • rounded-none: 0px radius everywhere
+     • flat: no box-shadows, no gradients-as-decoration
+     • Inter 900 italic "DEFINED." logotype beside upright "DIGITALLY"
+     • Inter for headings / UI / buttons, DM Sans for body copy
+     • Outcome-first, non-technical, Gen X voice
+   ========================================================================= */
+
+:root {
+  /* ── 1. Brand roles ─────────────────────────────────────────────────── */
+  --dd-orange: #F18B25 !important;   /* PRIMARY   — CTAs, active state, default accent */
+  --dd-blue:   #47B7D4 !important;   /* SECONDARY — supporting modules, metrics, tech */
+  --dd-red:    #C20F0A !important;   /* IMPORTANT — alerts, security, critical only  */
+
+  /* ── 2. Surfaces ────────────────────────────────────────────────────── */
+  --dd-bg:             #FFFCF9 !important;  /* page */
+  --dd-card:           #FFFFFF !important;  /* card / panel face */
+  --dd-panel:          #FFFAF5 !important;  /* inset well */
+  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+
+  /* Derived washes — tints of the 3 roles, no new hues introduced */
+  --dd-wash-orange: #FFF0DE !important;
+  --dd-wash-blue:   #E6F5F9 !important;
+  --dd-wash-red:    #FBEAEA !important;
+
+  /* ── 3. Ink & line ──────────────────────────────────────────────────── */
+  --dd-ink:   #111111 !important;
+  --dd-muted: #5F5F5F !important;
+  --dd-line:  #111111 !important;
+  --dd-bdr:   #111111 !important;   /* colour only — pair with `1px solid` */
+
+  /* ── 4. Structure: always square, always flat ───────────────────────── */
+  --dd-radius: 0px !important;
+  --dd-shadow: none !important;
+
+  /* ── 5. Type ────────────────────────────────────────────────────────── */
+  --dd-font-head: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  --dd-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+
+  /* ── 6. Legacy aliases ──────────────────────────────────────────────────
+     Every variable name used across the catalogue, pointing at the token
+     it should have been. Colour tokens only — structural vars are colours,
+     and every `border:` declaration is rewritten to `1px solid var(...)`
+     so the shorthand can never resolve to an invalid value.              */
+  --bg: var(--dd-bg) !important;
+  --cream-bg: var(--dd-bg) !important;
+  --cream: var(--dd-bg) !important;
+  --card-bg: var(--dd-card) !important;
+  --card: var(--dd-card) !important;
+  --dd-card-bg: var(--dd-card) !important;
+  --pure-white: #FFFFFF !important;
+  --white: #FFFFFF !important;
+  --dd-white: #FFFFFF !important;
+  --panel: var(--dd-panel) !important;
+  --light-gray: var(--dd-panel) !important;
+
+  --text: var(--dd-ink) !important;
+  --dd-text: var(--dd-ink) !important;
+  --ink: var(--dd-ink) !important;
+  --dk: var(--dd-ink) !important;
+  --black: var(--dd-ink) !important;
+  --dark-grey: var(--dd-ink) !important;
+  --medium-grey: var(--dd-muted) !important;
+  --muted: var(--dd-muted) !important;
+
+  --border: var(--dd-line) !important;
+  --dd-border: var(--dd-line) !important;
+  --bdr: var(--dd-line) !important;
+  --line: var(--dd-line) !important;
+  --frame: var(--dd-line) !important;
+  --dd-frame: var(--dd-line) !important;
+  --dd-frame-sm: var(--dd-line) !important;
+  --black-border: var(--dd-line) !important;
+  --border-gray: var(--dd-line) !important;
+
+  --or: var(--dd-orange) !important;
+  --orange: var(--dd-orange) !important;
+  --orange-highlight: var(--dd-orange) !important;
+  --accent: var(--dd-orange) !important;
+  --primary: var(--dd-orange) !important;
+
+  --bl: var(--dd-blue) !important;
+  --aqua: var(--dd-blue) !important;
+  --dd-aqua: var(--dd-blue) !important;
+  --aqua-blue: var(--dd-blue) !important;
+  --secondary: var(--dd-blue) !important;
+  --dd-accent-primary: var(--dd-orange) !important;
+  --dd-accent-secondary: var(--dd-blue) !important;
+
+  --rd: var(--dd-red) !important;
+  --red: var(--dd-red) !important;
+  --deep-red-warning: var(--dd-red) !important;
+  --tertiary: var(--dd-red) !important;
+  --dd-accent-tertiary: var(--dd-red) !important;
+
+  --dark: var(--dd-dark) !important;
+
+  --font-head: var(--dd-font-head) !important;
+  --font-body: var(--dd-font-body) !important;
+  --font-sans: var(--dd-font-body) !important;
+  --font-mono: var(--dd-font-head) !important;
+}
+
+/* ── Flat + square: the two non-negotiable brutalist rules ─────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ── Type system ───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--dd-bg) !important;
+  color: var(--dd-ink) !important;
+  font-family: var(--dd-font-body) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6, .dd-h {
+  font-family: var(--dd-font-head) !important;
+  color: var(--dd-ink) !important;
+  letter-spacing: -0.025em !important;
+}
+
+h1, h2, h3 { font-weight: 900 !important; }
+h4, h5, h6 { font-weight: 800 !important; }
+
+/* Body copy stays DM Sans — inputs included, so nothing falls back to Arial */
+p, li, td, dd, dt, blockquote, figcaption,
+input, select, textarea, optgroup, option {
+  font-family: var(--dd-font-body);
+}
+
+/* Action controls are Inter, 800 — per spec */
+button,
+.btn,
+.cta,
+.dd-btn,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Third typefaces retired: Inter covers metric / label duty */
+code, pre, kbd, samp,
+.mono, .font-mono, .dd-badge, .badge, .tag, .eyebrow {
+  font-family: var(--dd-font-head) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em !important;
+}
+
+/* ── 1px frame for every Tailwind border-width utility ─────────────────── */
+.border-2, .border-4, .border-8 { border-width: 1px !important; }
+.border-t-2, .border-t-4 { border-top-width: 1px !important; }
+.border-b-2, .border-b-4 { border-bottom-width: 1px !important; }
+.border-l-2, .border-l-4 { border-left-width: 1px !important; }
+.border-r-2, .border-r-4 { border-right-width: 1px !important; }
+.border-x-2, .border-x-4 { border-left-width: 1px !important; border-right-width: 1px !important; }
+.border-y-2, .border-y-4 { border-top-width: 1px !important; border-bottom-width: 1px !important; }
+
+/* ── Focus state: brand orange, always visible (shadows are gone) ─────── */
+:focus-visible,
+input:focus, select:focus, textarea:focus, button:focus, a:focus {
+  outline: 2px solid var(--dd-orange) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Official brand bar ───────────────────────────────────────────────── */
+.dd-brandbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  padding: 10px 16px !important;
+  background: var(--dd-card) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--dd-line) !important;
+  font-family: var(--dd-font-head) !important;
+}
+
+.dd-brandmark {
+  display: inline-block;
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  text-decoration: none;
+}
+
+.dd-brandmark em {
+  font-style: italic;
+  color: var(--dd-orange);
+}
+
+.dd-brandbar-label {
+  font-family: var(--dd-font-head) !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dd-muted);
+  text-align: right;
+}
+
+/* Existing in-page logo slots are upgraded to the official lockup */
+.dd-logo-name,
+.logo-text {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: uppercase;
+}
+
+.dd-logo-name em,
+.logo-text em {
+  font-style: italic !important;
+  color: var(--dd-orange) !important;
+}
+
+@media print {
+  .dd-brandbar { display: none !important; }
+}
+
+</style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brandOrange selection:text-white pb-12">
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">DigitallyDefined</span></header>
+
+    <header class="border-b border-black bg-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 border border-black bg-brandOrange flex items-center justify-center">
+                    <span class="text-white font-black text-base">DD</span>
+                </div>
+                <div>
+                    <span class="font-black text-lg sm:text-xl tracking-tight text-black">
+                        <span class="text-black">DIGITALLY</span><span class="text-brandOrange italic">DEFINED</span>
+                    </span>
+                    <p class="text-[8px] uppercase tracking-wider text-brandBlue font-extrabold block mt-[-4px]">Sovereign Wealth for Gen X Women</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="#howToUse" class="hidden sm:inline-flex items-center gap-1 text-xs font-black uppercase text-black hover:text-brandOrange mr-2">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i> How To Use
+                </a>
+                <span class="inline-flex items-center px-2.5 py-1 border border-black bg-orange-50 text-black text-[10px] font-bold">
+                    <span class="w-2 h-2 bg-brandOrange border border-black mr-1.5"></span> Automated Asset Engine v2.0
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="relative bg-white border-b border-black py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-block px-3 py-1 bg-black text-white text-xs font-black uppercase mb-3 border border-black">
+                    50+ High-Yield LLM Prompt Chains
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-black leading-tight mb-4 uppercase">
+                    Automated <span class="bg-brandOrange text-white px-2 py-0.5 inline-block border border-black transform -rotate-1">Asset Engine</span>
+                </h1>
+                <p class="text-sm sm:text-base text-black max-w-2xl mx-auto font-medium leading-relaxed">
+                    Turn raw ideas, search data, and legacy PLR into automated, high-ticket digital cash-flow assets using our 3 core prompt chain tracks.
+                </p>
+            </div>
+        </section>
+
+        <!-- How To Use Guide Section -->
+        <section id="howToUse" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+            <div class="bg-white border border-black p-6 sm:p-8">
+                <div class="flex items-center justify-between border-b border-black pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center justify-center w-7 h-7 border border-black bg-brandOrange text-white text-xs font-black">?</span>
+                        <h2 class="text-xl font-black uppercase tracking-tight text-black">How To Use The Engine</h2>
+                    </div>
+                    <span class="text-xs font-bold font-mono text-slateDark uppercase">4-Step Quick Start</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="p-4 bg-warmBg border border-black flex flex-col justify-between">
+                        <div>
+                            <span class="tag-pill bg-brandOrange text-white mb-2">Step 01</span>
+                            <h3 class="font-black text-sm uppercase text-black mb-1">Select A Track</h3>
+                            <p class="text-xs text-slateDark font-medium leading-relaxed">Choose between Niche Vetting, pSEO Scaffolding, or PLR Restructuring depending on your asset stage.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-warmBg border border-black flex flex-col justify-between">
+                        <div>
+                            <span class="tag-pill bg-brandBlue text-black mb-2">Step 02</span>
+                            <h3 class="font-black text-sm uppercase text-black mb-1">Pick A Chain</h3>
+                            <p class="text-xs text-slateDark font-medium leading-relaxed">Browse the 50+ vault chains or filter keywords to load an engineered prompt strategy into the panel.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-warmBg border border-black flex flex-col justify-between">
+                        <div>
+                            <span class="tag-pill bg-accentRed text-white mb-2">Step 03</span>
+                            <h3 class="font-black text-sm uppercase text-black mb-1">Fill Variables</h3>
+                            <p class="text-xs text-slateDark font-medium leading-relaxed">Enter your target niche, keywords, or raw PLR text into the generated input fields to customize the prompt.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-warmBg border border-black flex flex-col justify-between">
+                        <div>
+                            <span class="tag-pill bg-black text-white mb-2">Step 04</span>
+                            <h3 class="font-black text-sm uppercase text-black mb-1">Execute & Export</h3>
+                            <p class="text-xs text-slateDark font-medium leading-relaxed">Click "Execute Selected Chain" to generate live AI results, copy raw text, or export your report to PDF.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <!-- Category Tabs -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <button id="tab-vetting" onclick="switchCategory('vetting')" class="tab-btn p-4 border border-black bg-white text-left hover:bg-orange-50 transition-all flex items-center justify-between border-b-4 border-b-brandOrange">
+                    <div>
+                        <span class="tag-pill bg-brandOrange text-white mb-1">Track 01</span>
+                        <h3 class="font-black text-lg uppercase tracking-tight text-black">Niche Vetting</h3>
+                        <p class="text-xs text-slateDark font-medium mt-1">20 Chains • Saturation, CPC & Intent</p>
+                    </div>
+                    <i data-lucide="compass" class="w-7 h-7 text-brandOrange"></i>
+                </button>
+
+                <button id="tab-pseo" onclick="switchCategory('pseo')" class="tab-btn p-4 border border-black bg-white text-left hover:bg-blue-50 transition-all flex items-center justify-between border-b-4 border-b-transparent">
+                    <div>
+                        <span class="tag-pill bg-brandBlue text-black mb-1">Track 02</span>
+                        <h3 class="font-black text-lg uppercase tracking-tight text-black">pSEO Scaffolding</h3>
+                        <p class="text-xs text-slateDark font-medium mt-1">15 Chains • Programmatic SEO Clusters</p>
+                    </div>
+                    <i data-lucide="layers" class="w-7 h-7 text-brandBlue"></i>
+                </button>
+
+                <button id="tab-plr" onclick="switchCategory('plr')" class="tab-btn p-4 border border-black bg-white text-left hover:bg-red-50 transition-all flex items-center justify-between border-b-4 border-b-transparent">
+                    <div>
+                        <span class="tag-pill bg-accentRed text-white mb-1">Track 03</span>
+                        <h3 class="font-black text-lg uppercase tracking-tight text-black">PLR Restructuring</h3>
+                        <p class="text-xs text-slateDark font-medium mt-1">15+ Chains • Flip Dated PLR to Premium</p>
+                    </div>
+                    <i data-lucide="refresh-cw" class="w-7 h-7 text-accentRed"></i>
+                </button>
+            </div>
+
+            <!-- Workspace Grid (Left: Library, Right: Execution Engine) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-5 flex flex-col space-y-4">
+                    <div class="bg-white border border-black p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="database" class="w-5 h-5 text-black"></i>
+                            <h2 class="font-black uppercase text-sm tracking-wider">Prompt Vault</h2>
+                        </div>
+                        <input type="text" id="vaultSearch" onkeyup="filterVault()" placeholder="Search 50+ chains..." class="input-box !py-1 !px-2 !text-xs w-44">
+                    </div>
+
+                    <!-- Prompt List Container -->
+                    <div id="promptList" class="max-h-[650px] overflow-y-auto space-y-3 custom-scrollbar pr-1">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="bg-white border border-black p-6 space-y-6">
+                        
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-black gap-3">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span id="activeTrackTag" class="tag-pill bg-brandOrange text-white">Track 01</span>
+                                    <span id="activeChainID" class="font-mono text-xs font-bold text-slateDark">NV-01</span>
+                                </div>
+                                <h2 id="activeChainTitle" class="text-xl font-black uppercase text-black mt-1">Select a Chain from Vault</h2>
+                            </div>
+                            
+                            <div class="flex items-center gap-2">
+                                <label class="flex items-center gap-1.5 cursor-pointer bg-warmBg border border-black px-2 py-1">
+                                    <input type="checkbox" id="enableSearchGrounding" class="accent-black" checked>
+                                    <span class="text-[10px] font-black uppercase">Live Web Search</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Chain Description & Context Inputs -->
+                        <div id="chainDescriptionCard" class="bg-warmBg border border-black p-4">
+                            <p id="activeChainDesc" class="text-sm font-medium text-black">Select any prompt chain from the vault to inspect its parameters, modify variables, and trigger automated multi-step LLM output generation.</p>
+                        </div>
+
+                        <!-- Variables Configuration Box -->
+                        <div id="variablesContainer" class="space-y-4">
+                            <!-- Dynamic inputs injected based on selected prompt -->
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="pt-4 border-t border-black flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <button id="runChainBtn" onclick="executeChain()" class="w-full sm:w-auto px-6 py-3.5 bg-black hover:bg-brandOrange text-white hover:text-black font-black border border-black transition-colors flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                                <i data-lucide="play" class="w-4 h-4"></i>
+                                <span id="runBtnText">Execute Selected Chain</span>
+                                <div id="runSpinner" class="loading-spinner hidden-st"></div>
+                            </button>
+
+                            <button onclick="copyCurrentPromptText()" class="w-full sm:w-auto px-4 py-3.5 bg-white hover:bg-black text-black hover:text-white border border-black font-black text-xs uppercase transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="copy" class="w-4 h-4"></i> Copy Raw Prompt
+                            </button>
+                        </div>
+
+                        <!-- Output Console -->
+                        <div class="mt-6 border border-black bg-white">
+                            <div class="bg-black text-white px-4 py-2 flex items-center justify-between">
+                                <span class="font-mono text-xs uppercase font-bold flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-400"></span> Execution Terminal
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="downloadTerminalPdf()" class="text-[10px] font-black uppercase bg-white text-black px-2 py-0.5 hover:bg-brandOrange">Export PDF</button>
+                                </div>
+                            </div>
+                            
+                            <div id="executionTerminal" class="p-4 font-mono text-xs bg-warmBg min-h-[220px] max-h-[450px] overflow-y-auto custom-scrollbar leading-relaxed whitespace-pre-line border-t border-black">
+                                <span class="text-gray-400 italic">// Terminal ready. Select a chain from the left vault, enter your context variables, and click "Execute Selected Chain".</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="bg-white border border-black p-6 sm:p-8">
+                <div class="flex items-center gap-2 border-b border-black pb-4 mb-6">
+                    <span class="flex items-center justify-center w-7 h-7 border border-black bg-black text-white text-xs font-black">+</span>
+                    <h2 class="text-xl font-black uppercase tracking-tight text-black">Create Custom Multi-Step Chain</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-black mb-1">Chain Title</label>
+                            <input type="text" id="customTitle" class="input-box" placeholder="e.g. High-Ticket Quiz Funnel Scaffolder">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-black mb-1">Category Track</label>
+                            <select id="customTrack" class="input-box">
+                                <option value="vetting">Niche Vetting</option>
+                                <option value="pseo">pSEO Scaffolding</option>
+                                <option value="plr">PLR Restructuring</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-black mb-1">System Prompt Context</label>
+                            <textarea id="customSystem" class="input-box h-24" placeholder="You are Francesca from DigitallyDefined..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-black mb-1">User Prompt Instructions (Use {{variable}} format)</label>
+                            <textarea id="customUser" class="input-box h-48" placeholder="Analyze {{niche}} for target audience {{audience}} with average order value {{aov}}..."></textarea>
+                        </div>
+                        <button onclick="saveCustomChain()" class="w-full py-3 bg-brandBlue border border-black text-black font-black uppercase text-xs hover:bg-black hover:text-white transition-colors">
+                            Save & Add To Vault
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        lucide.createIcons();
+
+        // Gemini API Config
+        const GEMINI_API_KEY = "";
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${GEMINI_API_KEY}`;
+
+        // 50+ Prompt Chains Database
+        const PROMPT_VAULT = [
+            // TRACK 01: NICHE VETTING (20 Chains)
+            {
+                id: "NV-01",
+                track: "vetting",
+                title: "Buyer Intent & Monetization Scorecard",
+                desc: "Evaluate purchase intent, affiliate density, and willingness to pay in a specific target audience.",
+                vars: ["niche", "targetAudience"],
+                system: "You are Francesca, a ruthless digital asset valuation expert at DigitallyDefined. Assess target niches for high-margin faceless digital product opportunities.",
+                prompt: "Perform a deep-dive commercial intent audit for the niche '{{niche}}' serving '{{targetAudience}}'. Use live search to evaluate: 1) High-paying affiliate products, 2) Search queries with buyer intent (e.g., best, pricing, vs, template), 3) Recommended pricing threshold ($47 to $997) for a standalone digital guide/template system."
+            },
+            {
+                id: "NV-02",
+                track: "vetting",
+                title: "Competitor Saturation & Content Gaps",
+                desc: "Identify low-hanging fruit keywords and underserved angles in overcrowded niches.",
+                vars: ["niche", "competitorUrls"],
+                system: "You are an SEO & Digital Asset Strategist.",
+                prompt: "Research the current competitor landscapes in '{{niche}}' across platforms like Etsy, Gumroad, and Google. Identify 5 major content gaps that top products in '{{competitorUrls}}' are completely failing to solve for Gen X or high-value buyers."
+            },
+            {
+                id: "NV-03",
+                track: "vetting",
+                title: "CPC & Commercial Value Extractor",
+                desc: "Cross-examine Google Ads CPC metrics and sponsor frequency to gauge niche profitability.",
+                vars: ["seedKeywords"],
+                system: "You are a financial analyst specializing in programmatic digital media assets.",
+                prompt: "Analyze commercial advertiser activity for '{{seedKeywords}}'. Search for active ad triggers, affiliate affiliate networks, and estimate estimated average CPC value to verify if sponsors pay >$2.00/click in this niche."
+            },
+            {
+                id: "NV-04",
+                track: "vetting",
+                title: "Faceless Marketing Viability Index",
+                desc: "Assess if a niche can generate $10k/mo purely through faceless short-form and SEO content.",
+                vars: ["nicheIdea", "primaryPlatform"],
+                system: "You are a Faceless Digital Business Architect.",
+                prompt: "Determine if '{{nicheIdea}}' can be scaled on '{{primaryPlatform}}' using 100% faceless assets (B-roll, screen-recordings, AI visuals). Score from 1-10 on content scalability, emotional trigger strength, and product conversion ease."
+            },
+            {
+                id: "NV-05",
+                track: "vetting",
+                title: "Pain-Point Depth & Urgency Evaluator",
+                desc: "Filter niches by acute pain vs 'nice to have' topics.",
+                vars: ["problemStatement"],
+                system: "You are a direct-response copywriting master.",
+                prompt: "Deconstruct the problem: '{{problemStatement}}'. Is this a 'bleed-from-the-neck' problem that people will pay $297 to solve right now, or a mild inconvenience? Provide 3 sharp angle pivots to turn it into an urgent purchase."
+            },
+            {
+                id: "NV-06",
+                track: "vetting",
+                title: "Evergreen vs Trend Volatility Audit",
+                desc: "Determine whether search volume is sustainable for 3-5 year digital real estate.",
+                vars: ["nicheTopic"],
+                system: "You are a trend strategist.",
+                prompt: "Audit '{{nicheTopic}}' using search trends and historical interest. Provide a clear verdict on whether this is an evergreen cash cow or a short-lived fad."
+            },
+            {
+                id: "NV-07",
+                track: "vetting",
+                title: "Affiliate & SaaS Stack Discovery",
+                desc: "Find recurring revenue software tools to bundle with your digital guide.",
+                vars: ["niche"],
+                system: "You are a digital ecosystem monetizer.",
+                prompt: "List top 5 SaaS tools and affiliate programs with >30% lifetime recurring commissions in the '{{niche}}' space. Explain how to embed these into a digital workflow asset."
+            },
+            {
+                id: "NV-08",
+                track: "vetting",
+                title: "Sub-Niche Micro-Angle Generator",
+                desc: "Drill down 3 levels deep into broad niches to eliminate competition.",
+                vars: ["broadCategory"],
+                system: "You are a micro-niche positioning expert.",
+                prompt: "Take the broad topic '{{broadCategory}}' and slice it into 5 ultra-specific micro-niches tailored specifically for Gen X professionals seeking side income or career pivot systems."
+            },
+            {
+                id: "NV-09",
+                track: "vetting",
+                title: "Customer Persona & Wallet Size Profiler",
+                desc: "Determine exact demographic purchasing power and emotional triggers.",
+                vars: ["targetNiche"],
+                system: "You are a consumer psychologist.",
+                prompt: "Create a detailed high-net-worth customer profile for '{{targetNiche}}'. Include disposable income brackets, key fears, daily frustrations, and the exact language they use in search bars."
+            },
+            {
+                id: "NV-10",
+                track: "vetting",
+                title: "Low-Code Tool Ecosystem Screener",
+                desc: "Verify if digital templates can be created using Notion, Airtable, or Canva.",
+                vars: ["deliverableIdea"],
+                system: "You are a digital product engineer.",
+                prompt: "Evaluate '{{deliverableIdea}}'. Select the best no-code container (Notion, Google Sheets, Canva, Fillable PDF) that minimizes support requests and maximizes perceived value."
+            },
+            {
+                id: "NV-11",
+                track: "vetting",
+                title: "Reddit & Forum Pain-Mining Engine",
+                desc: "Extract real questions and emotional rants directly from online communities.",
+                vars: ["subredditOrForum"],
+                system: "You are a community sentiment analyst.",
+                prompt: "Synthesize top discussions surrounding '{{subredditOrForum}}'. Extract 5 exact verbatim quotes/frustrations and convert them into digital product headline hooks."
+            },
+            {
+                id: "NV-12",
+                track: "vetting",
+                title: "Digital Product Pricing Elasticity Tester",
+                desc: "Find the exact price point sweet spot between low-friction and premium high-ticket.",
+                vars: ["productConcept"],
+                system: "You are a pricing strategy consultant.",
+                prompt: "For '{{productConcept}}', map out 3 pricing tiers ($27 lead magnet, $97 core playbook, $297 VIP implementation bundle). Detail what must be included at each level to avoid refunds."
+            },
+            {
+                id: "NV-13",
+                track: "vetting",
+                title: "Regulatory & Compliance Risk Check",
+                desc: "Ensure your niche avoids legal traps in finance, health, or legal advice.",
+                vars: ["nicheTopic"],
+                system: "You are a digital publishing compliance reviewer.",
+                prompt: "Review '{{nicheTopic}}' for potential legal/disclaimer issues (e.g., SEC, FTC, medical guidelines). Provide exact disclaimer templates to safely sell digital guides in this space."
+            },
+            {
+                id: "NV-14",
+                track: "vetting",
+                title: "Search Intent Classification Engine",
+                desc: "Categorize keyword clusters into Informational, Commercial, and Transactional.",
+                vars: ["keywordList"],
+                system: "You are an SEO search intent specialist.",
+                prompt: "Categorize the following keywords: '{{keywordList}}' into Informational, Commercial Investigation, and Transactional buyer keywords. Flag the ones ideal for digital product landing pages."
+            },
+            {
+                id: "NV-15",
+                track: "vetting",
+                title: "Lead Magnet Conversion Potential Audit",
+                desc: "Score lead magnet ideas on 5-second clarity and email opt-in speed.",
+                vars: ["leadMagnetIdea"],
+                system: "You are a conversion rate optimization master.",
+                prompt: "Critique the lead magnet concept: '{{leadMagnetIdea}}'. Provide 3 higher-converting alternative titles and a 1-page cheat sheet structure that yields 50%+ opt-in rates."
+            },
+            {
+                id: "NV-16",
+                track: "vetting",
+                title: "Sponsor & Brand Partnership Predictor",
+                desc: "Determine if newsletter or blog sponsors exist for long-term exits.",
+                vars: ["nicheIndustry"],
+                system: "You are a media brand broker.",
+                prompt: "Identify companies actively sponsoring newsletters and blogs in '{{nicheIndustry}}'. Outline sponsorship CPM benchmarks and exit multiple potentials."
+            },
+            {
+                id: "NV-17",
+                track: "vetting",
+                title: "AI Disruption Resilience Score",
+                desc: "Verify that your digital asset won't be made obsolete by standard ChatGPT queries.",
+                vars: ["digitalProductType"],
+                system: "You are a futuristic digital asset auditor.",
+                prompt: "Assess '{{digitalProductType}}' for AI commoditization risk. How do we add proprietary templates, checklists, or personal frameworks so AI cannot easily replicate it?"
+            },
+            {
+                id: "NV-18",
+                track: "vetting",
+                title: "Upsell & Order Bump Matrix",
+                desc: "Engineer a high-converting $100+ average order value funnel.",
+                vars: ["frontEndProduct"],
+                system: "You are a funnel optimization strategist.",
+                prompt: "Given front-end digital asset '{{frontEndProduct}}', design 1 immediate Order Bump ($17-$27) and 2 One-Time-Offer (OTO) Downsell/Upsell products to boost total cart value."
+            },
+            {
+                id: "NV-19",
+                track: "vetting",
+                title: "Search Volume vs Difficulty Ratio Evaluator",
+                desc: "Find keywords with low domain authority requirements.",
+                vars: ["nicheKeywords"],
+                system: "You are a programmatic keyword researcher.",
+                prompt: "Analyze keyword competitiveness for '{{nicheKeywords}}'. Highlight low-KD longtail variations suitable for brand new domains."
+            },
+            {
+                id: "NV-20",
+                track: "vetting",
+                title: "Master Niche Viability Scorecard",
+                desc: "The ultimate 10-point checklist for greenlighting digital real estate buildout.",
+                vars: ["fullNicheBrief"],
+                system: "You are Francesca, Founder of DigitallyDefined.",
+                prompt: "Run a full 10-point pass/fail diagnostic on '{{fullNicheBrief}}'. Return a final Go/No-Go verdict with absolute clarity."
+            },
+
+            // TRACK 02: pSEO SCAFFOLDING (15 Chains)
+            {
+                id: "PS-01",
+                track: "pseo",
+                title: "Programmatic Database Schema Architect",
+                desc: "Design the exact CSV/Airtable database structure for generating 100s of pSEO pages.",
+                vars: ["nicheTopic", "variableDimensions"],
+                system: "You are a programmatic SEO architect.",
+                prompt: "Build a complete programmatic database schema for '{{nicheTopic}}' using variable dimensions like '{{variableDimensions}}' (e.g. [City], [Industry], [Tool]). Generate 10 sample CSV rows with rich schema variables."
+            },
+            {
+                id: "PS-02",
+                track: "pseo",
+                title: "Dynamic Article Scaffolding Framework",
+                desc: "Create modular H2/H3 article templates that keep page uniqueness >80%.",
+                vars: ["targetKeywordPattern"],
+                system: "You are a pSEO content architect.",
+                prompt: "Construct a dynamic, modular article structure for the keyword pattern 'Best {{Tool}} for {{Industry}}'. Include conditional logic blocks to guarantee search engine indexation and high duplicate content differentiation."
+            },
+            {
+                id: "PS-03",
+                track: "pseo",
+                title: "Programmatic Meta Title & Description Generator",
+                desc: "Generate 20 high-CTR meta tag formulas using dynamic variables.",
+                vars: ["pageType", "primaryVariables"],
+                system: "You are a CTR optimization specialist.",
+                prompt: "Generate 10 high-converting meta title templates and meta description formulas for '{{pageType}}' using dynamic tokens like {Variable1} and {Variable2}."
+            },
+            {
+                id: "PS-04",
+                track: "pseo",
+                title: "Programmatic Comparison Table Generator",
+                desc: "Create dynamic markdown comparison matrices for X vs Y pages.",
+                vars: ["itemA", "itemB", "category"],
+                system: "You are a technical product reviewer.",
+                prompt: "Generate a programmatic comparison table and feature breakdown contrasting '{{itemA}}' vs '{{itemB}}' in the '{{category}}' niche. Include clear winner badges and CTA anchor placements."
+            },
+            {
+                id: "PS-05",
+                track: "pseo",
+                title: "Internal Linking Silo & Mesh Builder",
+                desc: "Map out automated parent-child and lateral linking structures for programmatic hubs.",
+                vars: ["hubTopic"],
+                system: "You are an enterprise site architecture consultant.",
+                prompt: "Design a programmatic internal linking architecture for '{{hubTopic}}'. Specify exact anchor text patterns connecting hub pages, spoke pages, and digital product checkout pages."
+            },
+            {
+                id: "PS-06",
+                track: "pseo",
+                title: "Programmatic FAQ & Schema Markup Injector",
+                desc: "Generate JSON-LD FAQ schema blocks dynamically for each programmatic page.",
+                vars: ["pageVariableContext"],
+                system: "You are a technical SEO developer.",
+                prompt: "Create 3 dynamic FAQ questions and answers tailored to '{{pageVariableContext}}' along with valid JSON-LD FAQPage Schema markup."
+            },
+            {
+                id: "PS-07",
+                track: "pseo",
+                title: "Programmatic CTA & Lead Magnet Embedder",
+                desc: "Contextually match dynamic call-to-actions to variable sub-niches.",
+                vars: ["targetAudienceSegment", "digitalProductOffer"],
+                system: "You are a conversion rate optimizer.",
+                prompt: "Write 3 high-converting contextual CTA callout boxes to embed inside programmatic pages targeting '{{targetAudienceSegment}}' pitching '{{digitalProductOffer}}'."
+            },
+            {
+                id: "PS-08",
+                track: "pseo",
+                title: "Programmatic City/Location Content Adaptor",
+                desc: "Generate localized insights without creating thin location spam pages.",
+                vars: ["serviceType", "location"],
+                system: "You are a local programmatic content specialist.",
+                prompt: "Draft a localized section for '{{serviceType}}' in '{{location}}'. Include realistic local regulations, industry data, and demographic specifics."
+            },
+            {
+                id: "PS-09",
+                track: "pseo",
+                title: "Programmatic Industry-Specific Checklist Generator",
+                desc: "Create custom downloadable asset templates for each page variant.",
+                vars: ["industryName"],
+                system: "You are an operational checklist designer.",
+                prompt: "Generate a 7-step actionable compliance checklist for '{{industryName}}' designed to be used as a high-value lead magnet download on a programmatic page."
+            },
+            {
+                id: "PS-10",
+                track: "pseo",
+                title: "Cannibalization Prevention Filter",
+                desc: "Audit programmatic keyword templates to prevent self-competing pages.",
+                vars: ["modifierList"],
+                system: "You are a senior SEO auditor.",
+                prompt: "Analyze these modifiers: '{{modifierList}}'. Group similar modifiers to avoid keyword cannibalization across programmatic page generations."
+            },
+            {
+                id: "PS-11",
+                track: "pseo",
+                title: "Programmatic Glossaries & Dictionary Engine",
+                desc: "Build authority sites by programmatically defining 100s of industry terms.",
+                vars: ["industryTerm"],
+                system: "You are a technical lexicographer.",
+                prompt: "Draft a comprehensive glossary entry for '{{industryTerm}}'. Include clear definitions, practical examples, common misconceptions, and related concepts."
+            },
+            {
+                id: "PS-12",
+                track: "pseo",
+                title: "Programmatic Calculator & Tool Prompt Scaffolder",
+                desc: "Design logic specifications for embeddable JS micro-calculators.",
+                vars: ["calculatorType"],
+                system: "You are a web application product manager.",
+                prompt: "Outline formula logic, input variables, and text explanations for an embeddable JS '{{calculatorType}}' calculator."
+            },
+            {
+                id: "PS-13",
+                track: "pseo",
+                title: "Programmatic Case Study Generator Template",
+                desc: "Structure dynamic mini case studies based on variable user scenarios.",
+                vars: ["industryScenario", "outcome"],
+                system: "You are a B2B marketing strategist.",
+                prompt: "Create a structured mini case study template showcasing how a client achieved '{{outcome}}' in '{{industryScenario}}'."
+            },
+            {
+                id: "PS-14",
+                track: "pseo",
+                title: "Programmatic Alt-Text & Image Prompt Generator",
+                desc: "Automate image generation prompts and accessibility text for pSEO pages.",
+                vars: ["pageTopic"],
+                system: "You are an image SEO specialist.",
+                prompt: "Generate 3 clean, descriptive image prompts and matching SEO alt-texts for an article about '{{pageTopic}}'."
+            },
+            {
+                id: "PS-15",
+                track: "pseo",
+                title: "Programmatic Quality Control & Spam Filter Audit",
+                desc: "Ensure programmatic pages pass Google's Helpful Content System criteria.",
+                vars: ["samplePageText"],
+                system: "You are a Google Search Quality Rater.",
+                prompt: "Evaluate the following programmatic content draft: '{{samplePageText}}'. Highlight any fluff, repetitive phrasing, or low-EEAT signals and provide fixes."
+            },
+
+            // TRACK 03: PLR RESTRUCTURING (15+ Chains)
+            {
+                id: "PL-01",
+                track: "plr",
+                title: "Dated PLR Modernization & Tone Overhaul",
+                desc: "Strip robotic 2010s PLR style and inject bold, authoritative voice.",
+                vars: ["rawPlrText", "brandVoice"],
+                system: "You are Francesca from DigitallyDefined. You hate dry, boring, generic ebook advice.",
+                prompt: "Rewrite the following PLR text: '{{rawPlrText}}'. Transform it into a no-BS, high-energy guide matching the voice of '{{brandVoice}}'. Eliminate outdated references and add modern actionable frameworks."
+            },
+            {
+                id: "PL-02",
+                track: "plr",
+                title: "PLR Ebook to High-Ticket Notion/Airtable Workspace",
+                desc: "Convert text-heavy ebooks into structured, practical template assets.",
+                vars: ["plrChapterText"],
+                system: "You are a Notion system designer.",
+                prompt: "Take this PLR chapter: '{{plrChapterText}}' and restructure it into a functional Notion database spec with tasks, properties, formulas, and actionable workflows."
+            },
+            {
+                id: "PL-03",
+                track: "plr",
+                title: "PLR Article Cluster to 5-Day Email Mini-Course",
+                desc: "Repurpose static articles into an automated nurture funnel.",
+                vars: ["plrArticleBundle"],
+                system: "You are an email copywriter specializing in digital sales.",
+                prompt: "Convert this PLR content: '{{plrArticleBundle}}' into a 5-day educational email mini-course. Include curiosity-driven subject lines, strong hooks, and soft-sell CTAs."
+            },
+            {
+                id: "PL-04",
+                track: "plr",
+                title: "PLR to Fillable Workbook & Action Journal",
+                desc: "Transform generic reading material into interactive exercises.",
+                vars: ["plrConcept"],
+                system: "You are an instructional designer.",
+                prompt: "Convert '{{plrConcept}}' into 3 interactive workbook exercises with fill-in-the-blank prompts, self-audit scores, and reflection questions."
+            },
+            {
+                id: "PL-05",
+                track: "plr",
+                title: "PLR Content Uniqueness & Copyscape Maximizer",
+                desc: "Perform complete syntactic and structural restructuring.",
+                vars: ["plrParagraph"],
+                system: "You are a content uniqueness engineer.",
+                prompt: "Completely restructure and re-engineer '{{plrParagraph}}' to achieve 100% uniqueness score while preserving core instructional value."
+            },
+            {
+                id: "PL-06",
+                track: "plr",
+                title: "PLR to Short-Form Video Script Batcher",
+                desc: "Turn 1 ebook chapter into 10 faceless video scripts.",
+                vars: ["plrChapter"],
+                system: "You are a short-form viral scriptwriter.",
+                prompt: "Extract 5 viral hooks and write 60-second video scripts with visual cues based on this PLR text: '{{plrChapter}}'."
+            },
+            {
+                id: "PL-07",
+                track: "plr",
+                title: "PLR Audio Script / Podcast Episode Adaptor",
+                desc: "Format PLR text for natural conversational audio recording.",
+                vars: ["plrTopic"],
+                system: "You are a podcast producer.",
+                prompt: "Adapt '{{plrTopic}}' into a conversational 10-minute solo podcast script complete with intro hook, main takeaways, and call to action."
+            },
+            {
+                id: "PL-08",
+                track: "plr",
+                title: "PLR Infographic & Carousel Outline Engine",
+                desc: "Summarize PLR into slide-by-slide visual visual carousels.",
+                vars: ["plrContent"],
+                system: "You are a visual content strategist.",
+                prompt: "Break down '{{plrContent}}' into an 8-slide Instagram/LinkedIn carousel outline with slide headlines, visual design notes, and caption text."
+            },
+            {
+                id: "PL-09",
+                track: "plr",
+                title: "PLR Masterclass Slide Deck Generator",
+                desc: "Convert text guides into professional webinar presentation decks.",
+                vars: ["plrEbookSection"],
+                system: "You are a high-converting webinar presentation designer.",
+                prompt: "Convert '{{plrEbookSection}}' into a 10-slide presentation deck. Provide slide titles, bulleted talking points, and presenter notes."
+            },
+            {
+                id: "PL-10",
+                track: "plr",
+                title: "PLR Lead Magnet Splitter",
+                desc: "Extract 3 distinct bite-sized lead magnets from 1 massive PLR bundle.",
+                vars: ["largePlrOutline"],
+                system: "You are a lead generation specialist.",
+                prompt: "Identify 3 standalone lead magnet concepts hidden inside this PLR outline: '{{largePlrOutline}}'. Write high-converting titles for each."
+            },
+            {
+                id: "PL-11",
+                track: "plr",
+                title: "PLR Framework & Acronym Maker",
+                desc: "Package generic PLR tips into a branded, memorable methodology.",
+                vars: ["plrStepsList"],
+                system: "You are a brand positioning expert.",
+                prompt: "Take these generic steps: '{{plrStepsList}}' and organize them into a memorable, branded acronym framework."
+            },
+            {
+                id: "PL-12",
+                track: "plr",
+                title: "PLR Case Study Injector",
+                desc: "Blend real-world examples into abstract PLR guides.",
+                vars: ["abstractPlrText"],
+                system: "You are a business journalist.",
+                prompt: "Use Google search to find a real-world case study or company example that illustrates the concept in '{{abstractPlrText}}' and weave it into the text."
+            },
+            {
+                id: "PL-13",
+                track: "plr",
+                title: "PLR Checklist & SOP Converter",
+                desc: "Turn paragraph text into step-by-step operating procedures.",
+                vars: ["plrProcessText"],
+                system: "You are an operations manager.",
+                prompt: "Convert '{{plrProcessText}}' into a clean, numbered Standard Operating Procedure (SOP) with clear completion criteria."
+            },
+            {
+                id: "PL-14",
+                track: "plr",
+                title: "PLR Sales Page Copy Generator",
+                desc: "Draft a high-converting longform sales letter for restructured PLR.",
+                vars: ["productTitle", "targetAudience"],
+                system: "You are a direct response sales letter writer.",
+                prompt: "Write a high-converting sales letter for '{{productTitle}}' targeting '{{targetAudience}}'. Include headline, pain points, transformation story, and guarantee."
+            },
+            {
+                id: "PL-15",
+                track: "plr",
+                title: "PLR Bundle Value-Stack Enhancer",
+                desc: "Combine multiple PLR pieces into a premium $497 digital vault.",
+                vars: ["plrAssetsList"],
+                system: "You are a offer creation genius.",
+                prompt: "Take these PLR pieces: '{{plrAssetsList}}' and construct a cohesive $497 'Mastery Vault' bundle. Write copy for 3 high-value bonus add-ons."
+            }
+        ];
+
+        let currentCategory = 'vetting';
+        let selectedChain = PROMPT_VAULT[0];
+
+        // Global functions exposed to window
+        window.switchCategory = (category) => {
+            currentCategory = category;
+            
+            // Update tab styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-b-brandOrange', 'border-b-brandBlue', 'border-b-accentRed');
+                btn.classList.add('border-b-transparent');
+            });
+
+            if(category === 'vetting') document.getElementById('tab-vetting').classList.add('border-b-brandOrange');
+            if(category === 'pseo') document.getElementById('tab-pseo').classList.add('border-b-brandBlue');
+            if(category === 'plr') document.getElementById('tab-plr').classList.add('border-b-accentRed');
+
+            renderVaultList();
+        };
+
+        window.filterVault = () => {
+            renderVaultList();
+        };
+
+        function renderVaultList() {
+            const container = document.getElementById('promptList');
+            const query = document.getElementById('vaultSearch').value.toLowerCase();
+            
+            const filtered = PROMPT_VAULT.filter(item => {
+                const matchesCategory = item.track === currentCategory;
+                const matchesSearch = item.title.toLowerCase().includes(query) || 
+                                      item.id.toLowerCase().includes(query) || 
+                                      item.desc.toLowerCase().includes(query);
+                return matchesCategory & matchesSearch;
+            });
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="p-4 bg-warmBg border border-black text-xs font-medium text-center">No chains found matching search criteria.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => {
+                const isSelected = selectedChain & selectedChain.id === item.id;
+                const badgeColor = item.track === 'vetting' ? 'bg-brandOrange text-white' : (item.track === 'pseo' ? 'bg-brandBlue text-black' : 'bg-accentRed text-white');
+                
+                return `
+                    <div onclick="selectChain('${item.id}')" class="p-3.5 border border-black bg-white hover:bg-orange-50 cursor-pointer transition-all ${isSelected ? 'border-2 border-black bg-orange-50' : ''}">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="tag-pill ${badgeColor}">${item.id}</span>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-black"></i>
+                        </div>
+                        <h4 class="font-black text-sm uppercase text-black leading-tight">${item.title}</h4>
+                        <p class="text-xs text-slateDark font-medium mt-1 line-clamp-2">${item.desc}</p>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        window.selectChain = (id) => {
+            const chain = PROMPT_VAULT.find(c => c.id === id);
+            if(!chain) return;
+            selectedChain = chain;
+
+            // Update UI Header
+            document.getElementById('activeChainID').textContent = chain.id;
+            document.getElementById('activeChainTitle').textContent = chain.title;
+            document.getElementById('activeChainDesc').textContent = chain.desc;
+
+            const tag = document.getElementById('activeTrackTag');
+            tag.textContent = chain.track === 'vetting' ? 'Track 01' : (chain.track === 'pseo' ? 'Track 02' : 'Track 03');
+            tag.className = `tag-pill ${chain.track === 'vetting' ? 'bg-brandOrange text-white' : (chain.track === 'pseo' ? 'bg-brandBlue text-black' : 'bg-accentRed text-white')}`;
+
+            // Render Dynamic Variable Input Fields
+            const varsContainer = document.getElementById('variablesContainer');
+            varsContainer.innerHTML = chain.vars.map(v => `
+                <div>
+                    <label class="block text-xs font-black uppercase tracking-wider text-black mb-1">${formatVarName(v)}</label>
+                    <input type="text" data-var="${v}" class="input-box chain-var-input" placeholder="Enter ${formatVarName(v)} context...">
+                </div>
+            `).join('');
+
+            renderVaultList();
+        };
+
+        function formatVarName(str) {
+            return str.replace(/([A-Z])/g, ' $1').replace(/^./, (s) => s.toUpperCase());
+        }
+
+        window.executeChain = async () => {
+            if(!selectedChain) return;
+
+            const runBtn = document.getElementById('runChainBtn');
+            const btnText = document.getElementById('runBtnText');
+            const spinner = document.getElementById('runSpinner');
+            const terminal = document.getElementById('executionTerminal');
+            const useGrounding = document.getElementById('enableSearchGrounding').checked;
+
+            // Collect Variables
+            let finalPrompt = selectedChain.prompt;
+            let missingVars = [];
+
+            document.querySelectorAll('.chain-var-input').forEach(input => {
+                const varKey = input.getAttribute('data-var');
+                const val = input.value.trim();
+                if(!val) missingVars.push(formatVarName(varKey));
+                finalPrompt = finalPrompt.replace(new RegExp(`{{${varKey}}}`, 'g'), val);
+            });
+
+            if(missingVars.length > 0) {
+                alert(`Please fill in required context variables: ${missingVars.join(', ')}`);
+                return;
+            }
+
+            runBtn.disabled = true;
+            btnText.textContent = "Processing LLM Chain...";
+            spinner.classList.remove('hidden-st');
+            terminal.innerHTML = `<span class="text-brandOrange">// [INITIATING CHAIN ${selectedChain.id}] - Connecting to Gemini Engine...</span>\n`;
+
+            try {
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: [{ text: finalPrompt }]
+                    }],
+                    systemInstruction: {
+                        parts: [{ text: selectedChain.system }]
+                    },
+                    generationConfig: { temperature: 0.7 }
+                };
+
+                if(useGrounding) {
+                    payload.tools = [{ "google_search": {} }];
+                    terminal.innerHTML += `<span class="text-brandBlue">// [GROUNDING ENABLED] Injecting Google Search live web data...</span>\n`;
+                }
+
+                const res = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+                const output = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if(output) {
+                    terminal.innerHTML = `<span class="text-green-600 font-bold">// EXECUTION SUCCESSFUL [CHAIN: ${selectedChain.id}]</span>\n\n` + output;
+                } else {
+                    terminal.innerHTML += `\n<span class="text-accentRed">// [ERROR] No response received from Gemini engine. Please try again.</span>`;
+                }
+
+            } catch(e) {
+                console.error("Execution Error:", e);
+                terminal.innerHTML += `\n<span class="text-accentRed">// [API ERROR]: ${e.message}</span>`;
+            } finally {
+                runBtn.disabled = false;
+                btnText.textContent = "Execute Selected Chain";
+                spinner.classList.add('hidden-st');
+            }
+        };
+
+        window.copyCurrentPromptText = () => {
+            if(!selectedChain) return;
+            let text = selectedChain.prompt;
+            document.querySelectorAll('.chain-var-input').forEach(input => {
+                const varKey = input.getAttribute('data-var');
+                const val = input.value.trim();
+                if(val) text = text.replace(new RegExp(`{{${varKey}}}`, 'g'), val);
+            });
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Prompt text copied to clipboard!");
+            });
+        };
+
+        window.saveCustomChain = () => {
+            const title = document.getElementById('customTitle').value.trim();
+            const track = document.getElementById('customTrack').value;
+            const system = document.getElementById('customSystem').value.trim();
+            const user = document.getElementById('customUser').value.trim();
+
+            if(!title || !user) {
+                alert("Please provide a Title and User Prompt.");
+                return;
+            }
+
+            // Extract variables in {{var}} format
+            const matches = user.match(/{{(.*?)}}/g) || [];
+            const vars = [...new Set(matches.map(m => m.replace(/[{}]/g, '')))];
+
+            const newChain = {
+                id: `CUSTOM-${PROMPT_VAULT.length + 1}`,
+                track: track,
+                title: title,
+                desc: "User created custom execution chain.",
+                vars: vars.length > 0 ? vars : ["context"],
+                system: system || "You are an expert AI assistant.",
+                prompt: user
+            };
+
+            PROMPT_VAULT.unshift(newChain);
+            switchCategory(track);
+            selectChain(newChain.id);
+            alert("Custom chain created and added to vault!");
+        };
+
+        window.downloadTerminalPdf = () => {
+            const element = document.getElementById('executionTerminal');
+            const opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     `DigitallyDefined_Chain_${selectedChain ? selectedChain.id : 'Output'}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#FFFCF9' },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        };
+
+        // Initialize App State
+        switchCategory('vetting');
+        selectChain('NV-01');
+
+    </script>
+</body>
+</html>

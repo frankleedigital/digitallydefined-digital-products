@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intent to Income™ | Beyond Keywords & Search Volume</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Google Fonts matching ROI calculator aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Chart.js for Visual Maps -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              or: '#F18B25',
+              bl: '#47B7D4',
+              rd: '#C20F0A',
+              dk: '#111111',
+              brutal: {
+                black: '#111111',
+                white: '#FFFCF9',
+                bg: '#FFFCF9',
+                border: '#111111',
+                yellow: '#F18B25',
+                mint: '#E6F5F9',
+                pink: '#FFF0DE',
+                lavender: '#F18B25',
+                orange: '#FFF0DE',
+                cyan: '#47B7D4',
+                green: '#47B7D4',
+                red: '#C20F0A'
+              }
+            },
+            fontFamily: {
+              sans: ['DM Sans', 'sans-serif'],
+              heading: ['Inter', 'sans-serif'],
+              space: ['Inter', 'sans-serif']
+            },
+            boxShadow: {
+              'none': 'none',
+              'brutal': 'none',
+              'brutal-sm': 'none',
+              'brutal-lg': 'none'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; box-shadow: none !important; }
+      html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+      body {
+        min-height: 100vh;
+        font-family:'DM Sans', sans-serif;
+        font-size: 16px;
+        background: #FFFCF9;
+        color: #111111;
+      }
+      :root {
+        --or: #F18B25;
+        --bl: #47B7D4;
+        --rd: #C20F0A;
+        --dk: #111111;
+        --bdr: #111111;
+        --sh: none;
+      }
+      h1, h2, h3, h4, .font-heading {
+        font-family:'Inter', sans-serif;
+      }
+      .brutal-border {
+        border: 1px solid #111111;
+      }
+      .brutal-card {
+        background: #fff;
+        border: 1px solid var(--bdr);
+        box-shadow: none !important;
+        transition: all 0.15s ease-in-out;
+      }
+      .brutal-btn {
+        border: 1px solid var(--bdr);
+        box-shadow: none !important;
+        font-family:'Inter', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: all 0.1s ease;
+      }
+      .brutal-btn:hover:not(:disabled) {
+        background: #FFFAF5;
+      }
+      .brutal-btn:active:not(:disabled) {
+        background: #111111;
+      }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #FFFCF9; border-left: 1px solid #111111; }
+      ::-webkit-scrollbar-thumb { background: #111111; }
+    </style>
+
+<!-- DigitallyDefined Canonical Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- DigitallyDefined Brand Standards (Strict 0px Soft-Brutalism) -->
+<style id="dd-brand-standard">
+/* ============================================================================
+   DigitallyDefined — Official Brand Standard v2.0
+   Source of truth for every digital product. See brand/README.md.
+   Inlined into each product's <style id="dd-brand-standard"> by
+   scripts/apply_brand.py — do not hand-edit the copies.
+
+   Spec (from the official brand file):
+     • 3-colour system: #F18B25 primary, #47B7D4 secondary, #C20F0A important
+     • 1px solid #111111 frame on every card, button, badge, input
+     • rounded-none: 0px radius everywhere
+     • flat: no box-shadows, no gradients-as-decoration
+     • Inter 900 italic "DEFINED." logotype beside upright "DIGITALLY"
+     • Inter for headings / UI / buttons, DM Sans for body copy
+     • Outcome-first, non-technical, Gen X voice
+   ========================================================================= */
+
+:root {
+  /* ── 1. Brand roles ─────────────────────────────────────────────────── */
+  --dd-orange: #F18B25 !important;   /* PRIMARY   — CTAs, active state, default accent */
+  --dd-blue:   #47B7D4 !important;   /* SECONDARY — supporting modules, metrics, tech */
+  --dd-red:    #C20F0A !important;   /* IMPORTANT — alerts, security, critical only  */
+
+  /* ── 2. Surfaces ────────────────────────────────────────────────────── */
+  --dd-bg:             #FFFCF9 !important;  /* page */
+  --dd-card:           #FFFFFF !important;  /* card / panel face */
+  --dd-panel:          #FFFAF5 !important;  /* inset well */
+  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+
+  /* Derived washes — tints of the 3 roles, no new hues introduced */
+  --dd-wash-orange: #FFF0DE !important;
+  --dd-wash-blue:   #E6F5F9 !important;
+  --dd-wash-red:    #FBEAEA !important;
+
+  /* ── 3. Ink & line ──────────────────────────────────────────────────── */
+  --dd-ink:   #111111 !important;
+  --dd-muted: #5F5F5F !important;
+  --dd-line:  #111111 !important;
+  --dd-bdr:   #111111 !important;   /* colour only — pair with `1px solid` */
+
+  /* ── 4. Structure: always square, always flat ───────────────────────── */
+  --dd-radius: 0px !important;
+  --dd-shadow: none !important;
+
+  /* ── 5. Type ────────────────────────────────────────────────────────── */
+  --dd-font-head: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  --dd-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+
+  /* ── 6. Legacy aliases ──────────────────────────────────────────────────
+     Every variable name used across the catalogue, pointing at the token
+     it should have been. Colour tokens only — structural vars are colours,
+     and every `border:` declaration is rewritten to `1px solid var(...)`
+     so the shorthand can never resolve to an invalid value.              */
+  --bg: var(--dd-bg) !important;
+  --cream-bg: var(--dd-bg) !important;
+  --cream: var(--dd-bg) !important;
+  --card-bg: var(--dd-card) !important;
+  --card: var(--dd-card) !important;
+  --dd-card-bg: var(--dd-card) !important;
+  --pure-white: #FFFFFF !important;
+  --white: #FFFFFF !important;
+  --dd-white: #FFFFFF !important;
+  --panel: var(--dd-panel) !important;
+  --light-gray: var(--dd-panel) !important;
+
+  --text: var(--dd-ink) !important;
+  --dd-text: var(--dd-ink) !important;
+  --ink: var(--dd-ink) !important;
+  --dk: var(--dd-ink) !important;
+  --black: var(--dd-ink) !important;
+  --dark-grey: var(--dd-ink) !important;
+  --medium-grey: var(--dd-muted) !important;
+  --muted: var(--dd-muted) !important;
+
+  --border: var(--dd-line) !important;
+  --dd-border: var(--dd-line) !important;
+  --bdr: var(--dd-line) !important;
+  --line: var(--dd-line) !important;
+  --frame: var(--dd-line) !important;
+  --dd-frame: var(--dd-line) !important;
+  --dd-frame-sm: var(--dd-line) !important;
+  --black-border: var(--dd-line) !important;
+  --border-gray: var(--dd-line) !important;
+
+  --or: var(--dd-orange) !important;
+  --orange: var(--dd-orange) !important;
+  --orange-highlight: var(--dd-orange) !important;
+  --accent: var(--dd-orange) !important;
+  --primary: var(--dd-orange) !important;
+
+  --bl: var(--dd-blue) !important;
+  --aqua: var(--dd-blue) !important;
+  --dd-aqua: var(--dd-blue) !important;
+  --aqua-blue: var(--dd-blue) !important;
+  --secondary: var(--dd-blue) !important;
+  --dd-accent-primary: var(--dd-orange) !important;
+  --dd-accent-secondary: var(--dd-blue) !important;
+
+  --rd: var(--dd-red) !important;
+  --red: var(--dd-red) !important;
+  --deep-red-warning: var(--dd-red) !important;
+  --tertiary: var(--dd-red) !important;
+  --dd-accent-tertiary: var(--dd-red) !important;
+
+  --dark: var(--dd-dark) !important;
+
+  --font-head: var(--dd-font-head) !important;
+  --font-body: var(--dd-font-body) !important;
+  --font-sans: var(--dd-font-body) !important;
+  --font-mono: var(--dd-font-head) !important;
+}
+
+/* ── Flat + square: the two non-negotiable brutalist rules ─────────────── */
+*,
+*::before,
+*::after {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ── Type system ───────────────────────────────────────────────────────── */
+body {
+  background-color: var(--dd-bg) !important;
+  color: var(--dd-ink) !important;
+  font-family: var(--dd-font-body) !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6, .dd-h {
+  font-family: var(--dd-font-head) !important;
+  color: var(--dd-ink) !important;
+  letter-spacing: -0.025em !important;
+}
+
+h1, h2, h3 { font-weight: 900 !important; }
+h4, h5, h6 { font-weight: 800 !important; }
+
+/* Body copy stays DM Sans — inputs included, so nothing falls back to Arial */
+p, li, td, dd, dt, blockquote, figcaption,
+input, select, textarea, optgroup, option {
+  font-family: var(--dd-font-body);
+}
+
+/* Action controls are Inter, 800 — per spec */
+button,
+.btn,
+.cta,
+.dd-btn,
+input[type="submit"],
+input[type="button"] {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Third typefaces retired: Inter covers metric / label duty */
+code, pre, kbd, samp,
+.mono, .font-mono, .dd-badge, .badge, .tag, .eyebrow {
+  font-family: var(--dd-font-head) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em !important;
+}
+
+/* ── 1px frame for every Tailwind border-width utility ─────────────────── */
+.border-2, .border-4, .border-8 { border-width: 1px !important; }
+.border-t-2, .border-t-4 { border-top-width: 1px !important; }
+.border-b-2, .border-b-4 { border-bottom-width: 1px !important; }
+.border-l-2, .border-l-4 { border-left-width: 1px !important; }
+.border-r-2, .border-r-4 { border-right-width: 1px !important; }
+.border-x-2, .border-x-4 { border-left-width: 1px !important; border-right-width: 1px !important; }
+.border-y-2, .border-y-4 { border-top-width: 1px !important; border-bottom-width: 1px !important; }
+
+/* ── Focus state: brand orange, always visible (shadows are gone) ─────── */
+:focus-visible,
+input:focus, select:focus, textarea:focus, button:focus, a:focus {
+  outline: 2px solid var(--dd-orange) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Official brand bar ───────────────────────────────────────────────── */
+.dd-brandbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  padding: 10px 16px !important;
+  background: var(--dd-card) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--dd-line) !important;
+  font-family: var(--dd-font-head) !important;
+}
+
+.dd-brandmark {
+  display: inline-block;
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--dd-ink);
+  text-decoration: none;
+}
+
+.dd-brandmark em {
+  font-style: italic;
+  color: var(--dd-orange);
+}
+
+.dd-brandbar-label {
+  font-family: var(--dd-font-head) !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dd-muted);
+  text-align: right;
+}
+
+/* Existing in-page logo slots are upgraded to the official lockup */
+.dd-logo-name,
+.logo-text {
+  font-family: var(--dd-font-head) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: uppercase;
+}
+
+.dd-logo-name em,
+.logo-text em {
+  font-style: italic !important;
+  color: var(--dd-orange) !important;
+}
+
+@media print {
+  .dd-brandbar { display: none !important; }
+}
+
+</style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">Intent to Income™</span></header>
+
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col">
+        <nav class="flex justify-between items-center border-b-2 border-dk pb-4 mb-6 flex-wrap gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 border-2 border-dk bg-white flex items-center justify-center font-black text-or">
+                    ⚡
+                </div>
+                <div>
+                    <div class="font-heading font-black text-xl uppercase tracking-tighter">Intent to <em>Income™</em></div>
+                    <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500">Beyond Keywords &bull; Zero Guesswork</div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="openApiModal()" id="apiKeyBtn" class="brutal-btn bg-or px-3 py-1.5 text-xs flex items-center gap-1.5">
+                    <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                    <span id="apiStatusText">Custom API Key</span>
+                </button>
+                <div class="hidden sm:flex items-center gap-2 border-2 border-dk bg-white px-3 py-1 text-xs font-bold uppercase">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 border border-black animate-ping"></span>
+                    <span>10 AI Engines Online</span>
+                </div>
+            </div>
+        </nav>
+
+        <header class="text-center mb-8">
+            <h1 class="font-heading font-black text-3xl sm:text-5xl uppercase tracking-tight text-dk">
+                Intent to Income <span>Engine</span>
+            </h1>
+            <p class="text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-bl mt-2">
+                Discover Buyer Intent &bull; Map Revenue Pathways &bull; Launch Profitable Offers
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Sidebar Navigation Tabs -->
+            <aside class="lg:col-span-1 space-y-4">
+                <div class="brutal-card bg-or p-4">
+                    <h3 class="font-heading font-black text-xs uppercase tracking-wider mb-1 text-dk">The Paradigm Shift</h3>
+                    <p class="text-xs font-medium text-dk">Stop chasing raw search volume. Capture genuine buyer intent & monetize first.</p>
+                </div>
+
+                <div class="brutal-card bg-white p-3 space-y-1.5">
+                    <div class="flex items-center justify-between px-2">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-gray-400">Analysis Suite</span>
+                        <button onclick="openCategoryModal()" class="text-[10px] font-black uppercase bg-cyan-200 px-1.5 py-0.5 border border-black hover:bg-cyan-300 flex items-center gap-1">
+                            <i data-lucide="plus" class="w-3 h-3"></i> Add Niche
+                        </button>
+                    </div>
+                    
+                    <button onclick="switchTab('tab-engine')" id="nav-tab-engine" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-dk bg-bl text-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5"></i> 1. Intent Discovery</span>
+                        <span class="text-[9px] bg-white px-1 border border-black">Core</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-segmentation')" id="nav-tab-segmentation" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="layers" class="w-3.5 h-3.5"></i> 2. Segmentation</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Funnels</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-clusters')" id="nav-tab-clusters" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="network" class="w-3.5 h-3.5"></i> 3. Intent Clusters</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Visual</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-scoring')" id="nav-tab-scoring" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i> 4. Revenue Score</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">0-100</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-feasibility')" id="nav-tab-feasibility" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="user-check" class="w-3.5 h-3.5"></i> 5. Solo Feasibility</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Solo</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-ecosystem')" id="nav-tab-ecosystem" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="share-2" class="w-3.5 h-3.5"></i> 6. Content Ecosystem</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Omni</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-pathway')" id="nav-tab-pathway" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="dollar-sign" class="w-3.5 h-3.5"></i> 7. Revenue Pathways</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Monetize</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-psychology')" id="nav-tab-psychology" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="brain" class="w-3.5 h-3.5"></i> 8. Buyer Psychology</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Triggers</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-brief')" id="nav-tab-brief" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> 9. Content Brief AI</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Briefs</span>
+                    </button>
+
+                    <button onclick="switchTab('tab-map')" id="nav-tab-map" class="nav-btn w-full text-left px-3 py-2 text-xs font-bold border-2 border-transparent hover:border-dk flex items-center justify-between">
+                        <span class="flex items-center gap-2"><i data-lucide="grid" class="w-3.5 h-3.5"></i> 10. Opportunity Map</span>
+                        <span class="text-[9px] bg-gray-100 px-1 border border-black">Matrix</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Input & Output Workspace -->
+            <main class="lg:col-span-3 space-y-6">
+                <!-- Discovery Form Card -->
+                <div class="brutal-card p-6 bg-white">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-dk pb-4 mb-4">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-wider bg-pink-200 px-2 py-0.5 border border-black mb-1 inline-block">Intent Discovery Engine</span>
+                            <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight">Define Your Niche & Offer</h2>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold uppercase text-gray-500">Preset:</span>
+                            <select id="presetSelect" onchange="loadPreset(this.value)" class="border-2 border-dk bg-[#FFFCF9] px-2.5 py-1 text-xs font-bold focus:outline-none">
+                                <option value="Human Design">Human Design & Spirituality</option>
+                                <option value="Make Money Online">Solopreneur Digital Products</option>
+                                <option value="Faceless YouTube">Faceless YouTube & Shorts</option>
+                                <option value="Coaching & Consulting">High-Ticket Coaching & Advisory</option>
+                                <option value="Affiliate Marketing">Affiliate & Niche Review Sites</option>
+                                <option value="B2B AI Automation">B2B AI Automation Agency</option>
+                                <option value="KDP & Printables">KDP & Digital Printables</option>
+                                <option value="SaaS & Micro-Tools">SaaS & Micro-Tools</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <form id="intentForm" onsubmit="runIntentAnalysis(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-1">1. Primary Niche / Industry</label>
+                                <input type="text" id="inputNiche" value="Human Design & Self-Discovery" class="w-full border-2 border-dk p-2 text-sm font-bold bg-white focus:outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-1">2. Core Topic / Keyword</label>
+                                <input type="text" id="inputTopic" value="Chart Readings & Type Analysis" class="w-full border-2 border-dk p-2 text-sm font-bold bg-white focus:outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-1">3. Product or Service Offered</label>
+                                <input type="text" id="inputProduct" value="Custom HD Chart Reports & Coaching" class="w-full border-2 border-dk p-2 text-sm font-bold bg-white focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase mb-1">4. Target Audience</label>
+                                <input type="text" id="inputAudience" value="Spiritual Solopreneurs & Seekers" class="w-full border-2 border-dk p-2 text-sm font-bold bg-white focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                            <span class="text-xs font-bold text-gray-500 flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-or"></i> Generates complete 10-feature breakdown instantly.
+                            </span>
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <button type="button" onclick="openCategoryModal()" class="brutal-btn bg-pink-200 px-3 py-3 text-xs flex items-center justify-center gap-1">
+                                    <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Custom Product
+                                </button>
+                                <button type="submit" id="submitBtn" class="brutal-btn flex-1 sm:flex-none bg-or text-dk px-6 py-3 text-sm flex items-center justify-center gap-2">
+                                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                                    <span id="submitBtnText">GENERATE ANALYSIS</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- LOADING STATE -->
+                <div id="loadingState" class="hidden brutal-card p-8 bg-lavender text-center space-y-4">
+                    <div class="inline-block p-3 bg-white border-2 border-dk rounded-full animate-bounce">
+                        <i data-lucide="loader-2" class="w-6 h-6 animate-spin text-dk"></i>
+                    </div>
+                    <h3 class="font-heading font-black text-lg uppercase">Synthesizing Buyer Intent & Yield Vectors...</h3>
+                    <p class="text-xs font-bold uppercase tracking-wider text-gray-600">Analyzing emotional triggers, monetization fit, and solo feasibility...</p>
+                </div>
+
+                <!-- TAB CONTENT CONTAINER -->
+                <div id="tabContainer" class="space-y-6">
+
+                    <!-- FEATURE 1: INTENT DISCOVERY ENGINE -->
+                    <section id="tab-engine" class="tab-content block space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-bl border-2 border-dk">01</span> Intent Discovery Engine
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Core Signals</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div class="brutal-card bg-emerald-100 p-4 text-center">
+                                <span class="text-[10px] font-black uppercase text-gray-600">Urgency Level</span>
+                                <div id="engineUrgency" class="font-heading font-black text-lg mt-1">High / Immediate</div>
+                            </div>
+                            <div class="brutal-card bg-amber-100 p-4 text-center">
+                                <span class="text-[10px] font-black uppercase text-gray-600">Purchase Intent</span>
+                                <div id="enginePurchaseIntent" class="font-heading font-black text-lg mt-1">88 / 100</div>
+                            </div>
+                            <div class="brutal-card bg-pink-100 p-4 text-center">
+                                <span class="text-[10px] font-black uppercase text-gray-600">Research Readiness</span>
+                                <div id="engineResearchIntent" class="font-heading font-black text-lg mt-1">High Intent</div>
+                            </div>
+                            <div class="brutal-card bg-cyan-100 p-4 text-center">
+                                <span class="text-[10px] font-black uppercase text-gray-600">Revenue Potential</span>
+                                <div id="engineRevenuePotential" class="font-heading font-black text-lg mt-1">$10k+/mo</div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="brutal-card p-5 space-y-4">
+                                <h3 class="font-heading font-black text-base uppercase border-b-2 border-dk pb-2 flex items-center gap-2">
+                                    <i data-lucide="layers" class="w-4 h-4 text-or"></i> Core Intent Clusters
+                                </h3>
+                                <div id="engineClustersList" class="space-y-2 text-xs font-bold"></div>
+                            </div>
+                            <div class="brutal-card p-5 space-y-4">
+                                <h3 class="font-heading font-black text-base uppercase border-b-2 border-dk pb-2 flex items-center gap-2">
+                                    <i data-lucide="heart-pulse" class="w-4 h-4 text-red-500"></i> Emotional & Buyer Motivations
+                                </h3>
+                                <div id="engineMotivationsList" class="space-y-2 text-xs font-bold"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- FEATURE 2: INTENT SEGMENTATION -->
+                    <section id="tab-segmentation" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-pink-200 border-2 border-dk">02</span> Intent Segmentation Funnel
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">6 Funnel Stages</span>
+                        </div>
+                        <div id="segmentationGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    </section>
+
+                    <!-- FEATURE 3: INTENT CLUSTER BUILDER -->
+                    <section id="tab-clusters" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-or border-2 border-dk">03</span> Intent Cluster Builder
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Visual Mapping</span>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="space-y-4">
+                                <div class="brutal-card bg-amber-50 p-4 space-y-2">
+                                    <h4 class="font-heading font-black text-xs uppercase">Problem Cluster</h4>
+                                    <ul id="clusterProblems" class="list-disc list-inside text-xs font-bold space-y-1 bg-white p-3 border-2 border-dk"></ul>
+                                </div>
+                                <div class="brutal-card bg-emerald-50 p-4 space-y-2">
+                                    <h4 class="font-heading font-black text-xs uppercase">Desired Outcomes</h4>
+                                    <ul id="clusterOutcomes" class="list-disc list-inside text-xs font-bold space-y-1 bg-white p-3 border-2 border-dk"></ul>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-2 brutal-card p-5 space-y-4">
+                                <h3 class="font-heading font-black text-base uppercase border-b-2 border-dk pb-2">Generated Content Universe Architecture</h3>
+                                <div id="contentUniverseGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- FEATURE 4: REVENUE OPPORTUNITY SCORING -->
+                    <section id="tab-scoring" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-emerald-300 border-2 border-dk">04</span> Revenue Opportunity Scoring
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Replaces SEO Difficulty</span>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="brutal-card bg-or p-6 flex flex-col items-center justify-center text-center space-y-3">
+                                <span class="text-xs font-black uppercase">Overall Opportunity Score</span>
+                                <div id="overallScoreNumber" class="font-heading font-black text-6xl">88</div>
+                                <div class="px-3 py-1 bg-white border-2 border-dk font-bold text-xs uppercase">Easy Win / High Yield</div>
+                            </div>
+                            <div class="lg:col-span-2 brutal-card p-5 space-y-4">
+                                <h3 class="font-heading font-black text-base uppercase border-b-2 border-dk pb-2">Vector Score Matrix</h3>
+                                <div id="scoringVectorList" class="space-y-3 text-xs font-bold"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- FEATURE 5: SOLOPRENEUR FEASIBILITY -->
+                    <section id="tab-feasibility" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-lavender border-2 border-dk">05</span> Solopreneur Feasibility Score
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Can 1 Person Win Here?</span>
+                        </div>
+                        <div class="brutal-card p-6 space-y-6 bg-white">
+                            <div class="flex items-center justify-between bg-emerald-50 p-4 border-2 border-dk">
+                                <div>
+                                    <h3 class="font-heading font-black text-base">Solo Creator Suitability Analysis</h3>
+                                    <p class="text-xs font-bold text-gray-600">Evaluates content workload vs bandwidth required for a solo operation.</p>
+                                </div>
+                                <div id="feasibilityVerdict" class="px-3 py-1.5 bg-emerald-300 border-2 border-dk font-heading font-black text-xs uppercase">
+                                    ✅ Highly Feasible
+                                </div>
+                            </div>
+                            <div id="feasibilityChecklist" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold"></div>
+                        </div>
+                    </section>
+
+                    <!-- FEATURE 6: CONTENT ECOSYSTEM -->
+                    <section id="tab-ecosystem" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-cyan-200 border-2 border-dk">06</span> Content Ecosystem Generator
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Omni-channel Strategy</span>
+                        </div>
+                        <div id="ecosystemGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-bold"></div>
+                    </section>
+
+                    <!-- FEATURE 7: REVENUE PATHWAY AI -->
+                    <section id="tab-pathway" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-or border-2 border-dk">07</span> Revenue Pathway AI
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Monetization Models</span>
+                        </div>
+                        <div id="pathwaysGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+                    </section>
+
+                    <!-- FEATURE 8: BUYER PSYCHOLOGY -->
+                    <section id="tab-psychology" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-pink-200 border-2 border-dk">08</span> Buyer Psychology Analyzer
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Copywriting Gold</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold">
+                            <div class="brutal-card p-4 space-y-2 bg-white">
+                                <h4 class="font-heading font-black text-sm text-red-600 border-b border-dk pb-1.5">Pain Points & Frustrations</h4>
+                                <ul id="psychPain" class="list-disc list-inside space-y-1"></ul>
+                            </div>
+                            <div class="brutal-card p-4 space-y-2 bg-white">
+                                <h4 class="font-heading font-black text-sm text-amber-600 border-b border-dk pb-1.5">Objections & Fears</h4>
+                                <ul id="psychFears" class="list-disc list-inside space-y-1"></ul>
+                            </div>
+                            <div class="brutal-card p-4 space-y-2 bg-white">
+                                <h4 class="font-heading font-black text-sm text-emerald-600 border-b border-dk pb-1.5">Dream Outcomes</h4>
+                                <ul id="psychDream" class="list-disc list-inside space-y-1"></ul>
+                            </div>
+                            <div class="brutal-card p-4 space-y-2 bg-white">
+                                <h4 class="font-heading font-black text-sm text-indigo-600 border-b border-dk pb-1.5">Customer Language & Triggers</h4>
+                                <ul id="psychLanguage" class="list-disc list-inside space-y-1"></ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- FEATURE 9: CONTENT BRIEF GENERATOR -->
+                    <section id="tab-brief" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-amber-200 border-2 border-dk">09</span> Content Brief AI
+                            </h2>
+                            <button onclick="copyBrief()" class="brutal-btn bg-white px-3 py-1 text-xs flex items-center gap-1">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Brief
+                            </button>
+                        </div>
+                        <div id="briefContent" class="brutal-card p-6 space-y-6 bg-white text-xs font-bold"></div>
+                    </section>
+
+                    <!-- FEATURE 10: OPPORTUNITY MAP -->
+                    <section id="tab-map" class="tab-content hidden space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="font-heading font-black text-lg uppercase flex items-center gap-2">
+                                <span class="p-1 bg-emerald-200 border-2 border-dk">10</span> Visual Opportunity Map
+                            </h2>
+                            <span class="text-xs font-bold uppercase bg-white border-2 border-dk px-2 py-0.5">Matrix View</span>
+                        </div>
+                        <div class="brutal-card p-5 bg-white space-y-4">
+                            <p class="text-xs font-bold text-gray-700">Bubble Size = <b>Monetization Potential</b> | Top Right Quad = <b>High Profit Sweet Spot</b></p>
+                            <div class="w-full h-80 relative flex items-center justify-center p-2">
+                                <canvas id="opportunityChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+
+        <!-- API KEY MODAL -->
+        <div id="apiModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="brutal-card max-w-md w-full p-6 space-y-4 bg-white">
+                <div class="flex items-center justify-between border-b-2 border-dk pb-2">
+                    <h3 class="font-heading font-black text-lg uppercase">Gemini API Key Config</h3>
+                    <button onclick="closeApiModal()" class="font-bold text-lg hover:opacity-70">&times;</button>
+                </div>
+                <p class="text-xs font-bold text-gray-700">Enter your Google Gemini API key below to run real-time AI synthesis. If left empty, built-in smart algorithms generate data instantly.</p>
+                <div>
+                    <label class="block text-xs font-black uppercase mb-1">API Key</label>
+                    <input type="password" id="userApiKey" placeholder="AIzaSy..." class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button onclick="saveApiKey()" class="brutal-btn bg-or px-4 py-2 text-xs">Save Key</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADD CUSTOM CATEGORY / PRODUCT MODAL -->
+        <div id="categoryModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="brutal-card max-w-lg w-full p-6 space-y-4 bg-white">
+                <div class="flex items-center justify-between border-b-2 border-dk pb-2">
+                    <h3 class="font-heading font-black text-lg uppercase">Add New Niche or Product Preset</h3>
+                    <button onclick="closeCategoryModal()" class="font-bold text-lg hover:opacity-70">&times;</button>
+                </div>
+                <p class="text-xs font-bold text-gray-700">Add your custom niche and product template to the preset dropdown for instant one-click analysis.</p>
+                
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1">Preset / Niche Name</label>
+                        <input type="text" id="newPresetName" placeholder="e.g. AI Automation Agency" class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1">Primary Niche / Industry</label>
+                        <input type="text" id="newPresetNiche" placeholder="e.g. B2B AI & Workflow Automation" class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1">Core Topic</label>
+                        <input type="text" id="newPresetTopic" placeholder="e.g. Lead Generation Bots" class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1">Product or Service Offered</label>
+                        <input type="text" id="newPresetProduct" placeholder="e.g. Custom ChatGPT Voice Agents ($3k setup)" class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-black uppercase mb-1">Target Audience</label>
+                        <input type="text" id="newPresetAudience" placeholder="e.g. Local Service Businesses & Agencies" class="w-full border-2 border-dk p-2 text-xs font-bold focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button onclick="saveNewCategory()" class="brutal-btn bg-cyan-300 px-4 py-2 text-xs">Save & Load Preset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-xs font-bold uppercase tracking-wider text-gray-500 py-6 border-t border-gray-300 mt-12">
+            &copy; 2026 Intent to Income™ &mdash; DigitallyDefined &mdash; All Rights Reserved
+        </footer>
+    </div>
+
+    <script>
+        let currentData = null;
+        let userGeminiApiKey = localStorage.getItem('i2i_gemini_key') || '';
+        let opportunityChartInstance = null;
+
+        const PRESETS = {
+            "Human Design": {
+                niche: "Human Design & Self-Discovery",
+                topic: "Chart Readings & Type Analysis",
+                product: "Custom HD Chart Reports & Coaching",
+                audience: "Spiritual Solopreneurs & Seekers",
+                urgency: "High / Emotional",
+                purchaseIntent: 88,
+                researchIntent: "High Readiness",
+                revenuePotential: "$12,500/mo",
+                clusters: [
+                    { name: "Self Discovery & Purpose", intent: "Find personal authority & unique strategy in business" },
+                    { name: "Relationship Compatibility", intent: "Decode partner dynamics via Composite Charts" },
+                    { name: "Spiritual & Deconditioning", intent: "Unlearn societal pressure and burnout patterns" }
+                ],
+                motivations: ["Stop forcing traditional hustle", "Seek validation for inner authority", "Improve client dynamics"],
+                segmentation: {
+                    awareness: { quote: '"I feel burnt out by traditional business"', content: "Why Traditional Strategies Fail Your Energy Type", offer: "Free HD Type Quiz" },
+                    research: { quote: '"How do I read my chart?"', content: "Generator vs Projector Authority Comparison", offer: "Free Bodygraph Tool" },
+                    comparison: { quote: '"Which reader should I book?"', content: "Top 5 Human Design Reading Tools Reviewed", offer: "Tool Comparison Matrix" },
+                    decision: { quote: '"I am ready for a deep-dive reading"', content: "Book a 60-Minute Alignment Session", offer: "$197 Reading Package" },
+                    retention: { quote: '"I want ongoing transit updates"', content: "Advanced Gate & Transit Integration Mastermind", offer: "$47/mo Membership" },
+                    advocacy: { quote: '"I love sharing my chart results"', content: "Become an Alignment Affiliate Partner", offer: "30% Commission" }
+                },
+                problems: ["Inconsistent income", "Overwhelmed by corporate routines", "Doubt in decision making"],
+                outcomes: ["Financial freedom aligned with energy", "Flexible custom schedule", "Authentic personal brand"],
+                buyers: ["Burnt-out coaches", "Spiritual creators", "Life transition seekers"],
+                score: 89,
+                verdict: "✅ High Yield for Solo Creator",
+                feasibilityChecks: ["✅ High margin digital PDF reports", "✅ Excellent affiliate potential", "✅ Ideal for faceless screen-share content", "✅ High word-of-mouth viral quotient"],
+                ecosystem: {
+                    pillar: "The Definitive Guide to Human Design for Entrepreneurs",
+                    leadMagnet: "Free Interactive Bodygraph & Type Cheat Sheet",
+                    emailSeq: "5-Day Unbecoming Email Challenge",
+                    youtube: "How to Read Your Human Design Chart Step-by-Step",
+                    pinterest: "Infographics for 9 Energy Centers & Profiles",
+                    tiktok: "3 Signs You're Misaligned with Your HD Authority",
+                    social: "Carousel: Are You a Manifesting Generator?",
+                    articles: ["Projector Strategy for Lead Gen"]
+                },
+                pathways: [
+                    { name: "Digital PDF Reports", score: "96%", fit: "High", desc: "$27-$47 automated PDF chart breakdowns" },
+                    { name: "1:1 Strategy Readings", score: "92%", fit: "Immediate", desc: "$150-$350 custom Zoom sessions" },
+                    { name: "Affiliate Software Tools", score: "78%", fit: "Passive", desc: "Promote HD chart generators & software" }
+                ],
+                psychology: {
+                    pain: ["Feeling misunderstood by mainstream gurus", "Exhaustion from hustle culture"],
+                    fears: ["Making the wrong pivot", "Wasting money on generic coaching"],
+                    dream: ["Waking up with clear energetic alignment & incoming sales"],
+                    language: ["'Conditioning'", "'Sacral Response'", "'Deconditioning'", "'Inner Authority'"]
+                },
+                brief: {
+                    title: "Human Design for Solopreneurs: How to Find Your Energetic Advantage",
+                    meta: "Discover your Human Design type and authority to build an online business without burnout.",
+                    outline: ["1. Introduction to HD in Business", "2. The 5 Energy Types Explained", "3. Decision Making via Inner Authority", "4. Crafting Offers Aligned to Your Profile"],
+                    faqs: ["How do I find my Human Design type for free?", "Can Human Design predict business success?"],
+                    cta: "Download Your Free Custom Energy Blueprint Chart"
+                }
+            },
+            "Make Money Online": {
+                niche: "Solopreneurship & Wealth",
+                topic: "Digital Product Businesses",
+                product: "Ebook & Notion Dashboard Systems",
+                audience: "9-to-5 Workers Seeking Side Incomes",
+                urgency: "Immediate",
+                purchaseIntent: 92,
+                researchIntent: "High",
+                revenuePotential: "$25,000/mo",
+                clusters: [
+                    { name: "Need Extra Income", intent: "Replace daytime job income with 2 hours/day side hustle" },
+                    { name: "Job Dissatisfaction", intent: "Escape office politics and corporate burnout" }
+                ],
+                motivations: ["Achieve financial autonomy", "Work from anywhere in the world", "Gain control over daily schedule"],
+                segmentation: {
+                    awareness: { quote: '"I need extra money this month"', content: "10 Digital Products You Can Launch This Weekend", offer: "Side Hustle Roadmap" },
+                    research: { quote: '"How does Gumroad work?"', content: "Gumroad vs Lemon Squeezy for Beginners", offer: "Platform Comparison PDF" },
+                    comparison: { quote: '"Is course or ebook better?"', content: "Ebook vs Cohort Course Profit Margins", offer: "Profit Calculator" },
+                    decision: { quote: '"I am ready to build my asset"', content: "The 7-Day Digital Product Accelerator System", offer: "Buy Course ($97)" },
+                    retention: { quote: '"I launched my first product"', content: "Scaling to $10k/mo Mastermind Group", offer: "Private Discord" },
+                    advocacy: { quote: '"I made my first sale!"', content: "Share your Gumroad screenshot & earn 40%", offer: "Affiliate Program" }
+                },
+                problems: ["Lack of technical skills", "No existing audience", "Overwhelmed by choices"],
+                outcomes: ["First $1,000 online", "Automated Gumroad sales", "Location independence"],
+                buyers: ["Corporate employees", "Freelancers seeking productization"],
+                score: 91,
+                verdict: "✅ Extremely Lucrative for Solo Creators",
+                feasibilityChecks: ["✅ High demand for digital product blueprints", "✅ Infinite scaling zero marginal cost", "✅ Perfect fit for Twitter/X & LinkedIn text posts"],
+                ecosystem: {
+                    pillar: "How to Build a $5k/Mo Digital Product Empire Solo",
+                    leadMagnet: "The Ultimate $0 to $1k Digital Product Checklist",
+                    emailSeq: "5-Day Zero to Launch Mini Course",
+                    youtube: "I Built a $1000/Mo Gumroad Store in 24 Hours",
+                    pinterest: "Digital Product Idea Mindmaps",
+                    tiktok: "How I turn 1 Notion page into $47",
+                    social: "LinkedIn Breakdown: Anatomy of a $10k Launch",
+                    articles: ["How to Price Notion Templates"]
+                },
+                pathways: [
+                    { name: "Notion Systems & Ebooks", score: "98%", fit: "High", desc: "$19-$97 self-serve digital downloads" },
+                    { name: "Affiliate Tech Recommendations", score: "88%", fit: "Passive", desc: "ConvertKit, Notion, Framer referral income" },
+                    { name: "Cohort / Video Course", score: "82%", fit: "Scalable", desc: "$197-$497 deep-dive training" }
+                ],
+                psychology: {
+                    pain: ["Trapped in 9-to-5 grind", "Trading time directly for money"],
+                    fears: ["Wasting months without sales", "Imposter syndrome"],
+                    dream: ["Wake up to phone notifications saying 'You received $47'"],
+                    language: ["'MRR'", "'Digital Assets'", "'Side Hustle'", "'Passive Revenue'"]
+                },
+                brief: {
+                    title: "How to Launch Your First Digital Product in 7 Days (No Code)",
+                    meta: "Learn the step-by-step system to turn your knowledge into a profitable digital product.",
+                    outline: ["1. Validating Product Ideas", "2. Packaging in Notion/Canva", "3. Setting up Gumroad", "4. Organic Marketing"],
+                    faqs: ["Do I need a huge audience to sell ebooks?", "What digital product sells best?"],
+                    cta: "Get the Free 7-Day Digital Product Launch Checklist"
+                }
+            },
+            "Faceless YouTube": {
+                niche: "Faceless Content & Video Automation",
+                topic: "AI Storytelling & Shorts Channels",
+                product: "Video Editing Templates & Prompt Packs",
+                audience: "Introverted Creators & Passive Income Seekers",
+                urgency: "Moderate / High",
+                purchaseIntent: 86,
+                researchIntent: "High",
+                revenuePotential: "$18,000/mo",
+                clusters: [
+                    { name: "Camera Anxiety", intent: "Build YouTube income without showing face or using personal voice" },
+                    { name: "AI Video Automation", intent: "Leverage ElevenLabs, Midjourney & CapCut for rapid output" }
+                ],
+                motivations: ["Maintain full privacy online", "Build multi-channel video portfolios", "Generate YouTube AdSense & sponsor deals"],
+                segmentation: {
+                    awareness: { quote: '"I want to start YouTube but hate being on camera"', content: "7 Faceless Channel Niches Making $10k/mo Right Now", offer: "Niche Database PDF" },
+                    research: { quote: '"What AI tools do I need for faceless videos?"', content: "Full AI Tool Stack for Faceless Storytelling Channels", offer: "AI Voice & Prompt Stack" },
+                    comparison: { quote: '"ElevenLabs vs CapCut AI Voice generators"', content: "Realism Battle: Top 5 AI Voiceover Generators Tested", offer: "Voice Comparison Sheet" },
+                    decision: { quote: '"I want the complete automation blueprint"', content: "Faceless Channel Accelerator: 0 to Monetized", offer: "Mastery Course ($147)" },
+                    retention: { quote: '"My first video got 50k views!"', content: "Mastering YouTube Shorts Virality & AdSense Optimization", offer: "Inner Circle ($37/mo)" },
+                    advocacy: { quote: '"I love these CapCut templates"', content: "Refer creators & earn 35% monthly recurring", offer: "Affiliate Link" }
+                },
+                problems: ["Voiceover quality issues", "Time-consuming video editing", "Channel demonetization fear"],
+                outcomes: ["Monetized YouTube channel in 60 days", "Automated script-to-video workflow", "100% anonymous identity"],
+                buyers: ["Introverted solopreneurs", "Faceless digital marketers", "Side hustlers"],
+                score: 87,
+                verdict: "✅ Ideal for Faceless Creators",
+                feasibilityChecks: ["✅ 100% scalable with AI video workflows", "✅ High AdSense + Digital Product cross-sell potential", "✅ Can be operated entirely solo"],
+                ecosystem: {
+                    pillar: "The Complete Guide to Building a Faceless YouTube Empire",
+                    leadMagnet: "50 High-RPM Faceless Niche Ideas + AI Prompts",
+                    emailSeq: "3-Step Faceless Video Scripting Sequence",
+                    youtube: "I Tested 5 Faceless Channels for 30 Days (Results)",
+                    pinterest: "Storyboard Layouts & Visual Aesthetics",
+                    tiktok: "How AI Voices Are Replacing Traditional Creators",
+                    social: "Thread: How 1 Faceless Channel Made $8,400 Last Month",
+                    articles: ["How to Avoid Copyright Strikes on Faceless Shorts"]
+                },
+                pathways: [
+                    { name: "AI Prompt & Editing Packs", score: "94%", fit: "High", desc: "$29 CapCut & Premiere Pro preset bundles" },
+                    { name: "YouTube AdSense & Sponsorships", score: "89%", fit: "Passive", desc: "Automated video monetization" },
+                    { name: "Digital Course & Mastermind", score: "84%", fit: "Scalable", desc: "$147-$297 step-by-step training" }
+                ],
+                psychology: {
+                    pain: ["Fear of being judged by friends/family", "Slow video editing workflows"],
+                    fears: ["Spending weeks on videos that get 0 views", "YouTube copyright strikes"],
+                    dream: ["Faceless channel hitting monetization while remaining completely anonymous"],
+                    language: ["'Faceless Niche'", "'RPM'", "'ElevenLabs'", "'Shorts Automation'"]
+                },
+                brief: {
+                    title: "How to Launch a Faceless YouTube Channel with AI Tools",
+                    meta: "Learn how to script, voiceover, and edit faceless YouTube videos that monetize quickly.",
+                    outline: ["1. Selecting High-RPM Niches", "2. Writing Script Prompts", "3. AI Voice Generation", "4. Fast Editing in CapCut"],
+                    faqs: ["Does YouTube monetize AI voiceovers?", "How many videos should I post per week?"],
+                    cta: "Download 50 High-RPM Faceless Niche Prompts"
+                }
+            },
+            "Coaching & Consulting": {
+                niche: "High-Ticket Advisory & Mentorship",
+                topic: "Client Acquisition & Offer Packaging",
+                product: "1:1 Consulting & Cohort Masterminds",
+                audience: "Subject Matter Experts & Freelancers",
+                urgency: "High / Critical",
+                purchaseIntent: 95,
+                researchIntent: "Very High",
+                revenuePotential: "$35,000/mo",
+                clusters: [
+                    { name: "Income Ceiling", intent: "Transition from low-rate hourly freelancing to $3k-$5k packages" },
+                    { name: "Client Pipeline Instability", intent: "Build predictable organic lead generation systems" }
+                ],
+                motivations: ["Work with fewer, higher-paying clients", "Build authority position in industry", "Eliminate sales call rejection"],
+                segmentation: {
+                    awareness: { quote: '"I am tired of trading hours for low rates"', content: "Why Hourly Billing is Killing Your Consulting Growth", offer: "Value Pricing Calculator" },
+                    research: { quote: '"How do I structure a $3,000 consulting package?"', content: "The 3-Tier High Ticket Consulting Offer Framework", offer: "Offer Blueprint PDF" },
+                    comparison: { quote: '"Do I need a sales call or can I sell via chat?"', content: "DM Sales Funnels vs 45-Minute Zoom Discovery Calls", offer: "Sales Script Matrix" },
+                    decision: { quote: '"I need help positioning my signature offer"', content: "Apply for 1:1 Growth Advisory Coaching", offer: "Strategy Session Application" },
+                    retention: { quote: '"I hit my first $20k month!"', content: "Scaling to $50k/mo with Small Group Cohorts", offer: "VIP Mastermind" },
+                    advocacy: { quote: '"This transformed my business"', content: "Client Success Case Studies & Referral Rewards", offer: "$500 Referral Bonus" }
+                },
+                problems: ["Irregular monthly income spikes", "Imposter syndrome charging high rates", "Unqualified leads"],
+                outcomes: ["$3k-$10k signature offers", "Predictable 5-star clients", "High profit margins"],
+                buyers: ["Experienced freelancers", "Agency owners", "Corporate consultants"],
+                score: 93,
+                verdict: "✅ Maximum High-Ticket Revenue Fit",
+                feasibilityChecks: ["✅ Highest income per client ratio", "✅ Low technical barrier to start", "✅ Can scale into group cohorts later"],
+                ecosystem: {
+                    pillar: "The Definitive Guide to Closing $5,000 Consulting Deals",
+                    leadMagnet: "The High-Ticket Offer Architecture Worksheet",
+                    emailSeq: "5-Day Authority Building & Offer Breakdown",
+                    youtube: "How I Structure 1:1 Consulting Packages That Sell",
+                    pinterest: "Infographics for Pricing Models & Funnels",
+                    tiktok: "Stop Charging $50/Hour—Do This Instead",
+                    social: "LinkedIn Case Study: How We Shifted from Hourly to $4k Retainers",
+                    articles: ["How to Audit Your Consulting Funnel in 10 Minutes"]
+                },
+                pathways: [
+                    { name: "Signature 1:1 Consulting", score: "99%", fit: "Immediate", desc: "$2,500-$5,000 90-day advisory contracts" },
+                    { name: "Group Mentorship Cohorts", score: "91%", fit: "Scalable", desc: "$1,500 per seat 6-week program" },
+                    { name: "Self-Paced Course Systems", score: "75%", fit: "Passive", desc: "$297 onboarding video modules" }
+                ],
+                psychology: {
+                    pain: ["Client ghosting after proposals", "Feast-or-famine income cycles"],
+                    fears: ["Not delivering promised transformation", "Being perceived as pushy on calls"],
+                    dream: ["Consistently landing 3 new $4k clients every month with ease"],
+                    language: ["'Signature Offer'", "'High Ticket'", "'Discovery Call'", "'Value Pricing'"]
+                },
+                brief: {
+                    title: "How to Package and Price High-Ticket Consulting Offers",
+                    meta: "Learn the exact framework to transition from hourly freelancing to $3k-$5k advisory packages.",
+                    outline: ["1. Identifying Core Client Transformations", "2. Building the Offer Stack", "3. Value-Based Pricing", "4. Closing Without Pressure"],
+                    faqs: ["Do I need a website to land high-ticket clients?", "What is a good conversion rate on sales calls?"],
+                    cta: "Download the High-Ticket Offer Architecture Worksheet"
+                }
+            },
+            "Affiliate Marketing": {
+                niche: "Intent-First Product Recommendations",
+                topic: "High-Ticket SaaS & Tool Reviews",
+                product: "Affiliate Review Site & Buyer Guides",
+                audience: "B2B Tool Buyers & Solopreneurs",
+                urgency: "High / Purchase-Ready",
+                purchaseIntent: 96,
+                researchIntent: "High",
+                revenuePotential: "$20,000/mo",
+                clusters: [
+                    { name: "Software Selection", intent: "Find best software tool (e.g. CRM, email tool, landing page builder)" },
+                    { name: "Discount & Coupon Seeking", intent: "Discover active promo codes & bonus packages before purchasing" }
+                ],
+                motivations: ["Avoid buying wrong software subscription", "Compare pricing plans and feature sets", "Claim exclusive buyer bonuses"],
+                segmentation: {
+                    awareness: { quote: '"I need an email marketing tool for my business"', content: "10 Best Email Marketing Platforms for Creators", offer: "Tool Comparison Matrix" },
+                    research: { quote: '"Is ConvertKit worth it for beginners?"', content: "ConvertKit Deep-Dive Review & Real User Breakdown", offer: "Free Setup Guide" },
+                    comparison: { quote: '"ConvertKit vs ActiveCampaign vs Beehiiv"', content: "ConvertKit vs Beehiiv: Which Newsletter Tool Wins?", offer: "Interactive Quiz" },
+                    decision: { quote: '"I am ready to buy ConvertKit now"', content: "ConvertKit Discount Code + $500 Bonus Bundle", offer: "Claim Bonus Link" },
+                    retention: { quote: '"How do I setup my email sequence?"', content: "ConvertKit Automation Masterclass & Templates", offer: "Free Template Pack" },
+                    advocacy: { quote: '"I recommend this tool to everyone"', content: "Join Our Affiliate Partner Network", offer: "Earn 40% Recurring" }
+                },
+                problems: ["Confusing tier pricing", "Tool bloat", "Fear of switching platforms"],
+                outcomes: ["Right software fit first try", "Exclusive savings & free setup templates"],
+                buyers: ["Business owners", "Content creators", "Digital marketers"],
+                score: 92,
+                verdict: "✅ Top Passive Income Potential",
+                feasibilityChecks: ["✅ Recurring monthly affiliate payouts", "✅ 100% passive once content ranks", "✅ No customer support overhead"],
+                ecosystem: {
+                    pillar: "The Definitive SaaS & Digital Tool Buyers Guide",
+                    leadMagnet: "Complete Tech Stack Comparison Spreadsheet",
+                    emailSeq: "Software Savings & Bonus Vault Email Series",
+                    youtube: "ConvertKit vs Beehiiv Live Feature Battle",
+                    pinterest: "Tool Comparison Infographics & Feature Grids",
+                    tiktok: "3 Hidden Features in ConvertKit You Didn't Know",
+                    social: "X Thread: Why We Shifted Our Entire Tech Stack to Beehiiv",
+                    articles: ["Top 5 Alternatives to ActiveCampaign"]
+                },
+                pathways: [
+                    { name: "Monthly Recurring SaaS Affiliates", score: "98%", fit: "Passive", desc: "30%-40% lifetime recurring commissions" },
+                    { name: "Bonus Product Up-sells", score: "85%", fit: "High", desc: "Custom setup templates & bonus packs" },
+                    { name: "Sponsored Tool Placement", score: "80%", fit: "Direct", desc: "$500-$2,000 brand sponsorship per review" }
+                ],
+                psychology: {
+                    pain: ["Overpaying for bloated software", "Spending days migrating email lists"],
+                    fears: ["Picking a platform that goes out of business or breaks"],
+                    dream: ["Building a $10k/month recurring passive commission stack"],
+                    language: ["'Lifetime Recurring'", "'SaaS Review'", "'Promo Code'", "'Comparison'"]
+                },
+                brief: {
+                    title: "ConvertKit vs Beehiiv: Complete 2026 Comparison & Review",
+                    meta: "Compare features, pricing, and deliverability between ConvertKit and Beehiiv to pick the best tool.",
+                    outline: ["1. Overview & Pricing Breakdown", "2. Deliverability & Features", "3. Ease of Use", "4. Final Verdict & Exclusive Bonuses"],
+                    faqs: ["Which platform is cheaper for small lists?", "Can I migrate my subscribers easily?"],
+                    cta: "Claim Your Exclusive Bonus Package When Signing Up"
+                }
+            },
+            "B2B AI Automation": {
+                niche: "B2B AI & Workflow Automation",
+                topic: "Lead Generation & Voice Bots",
+                product: "Custom ChatGPT Voice & Workflow Automations",
+                audience: "Local Service Businesses & Agencies",
+                urgency: "Immediate / High",
+                purchaseIntent: 94,
+                researchIntent: "High",
+                revenuePotential: "$40,000/mo",
+                clusters: [
+                    { name: "Missed Calls & Lost Leads", intent: "Stop losing leads outside business hours with 24/7 AI receptionists" },
+                    { name: "Repetitive Admin Tasks", intent: "Automate CRM updates, appointment booking & invoice follow-ups" }
+                ],
+                motivations: ["Cut operational staffing costs", "Respond to incoming leads in under 60 seconds", "Scale revenue without hiring"],
+                segmentation: {
+                    awareness: { quote: '"Our team is missing leads after hours"', content: "How AI Voice Receptionists Recover $15k in Lost Calls", offer: "ROI Savings Audit" },
+                    research: { quote: '"How does Make.com connect to our CRM?"', content: "Top 5 AI Workflow Automations for Service Businesses", offer: "Automation Diagram PDF" },
+                    comparison: { quote: '"Custom AI bot vs hiring a virtual assistant"', content: "AI Voice Bot vs Overseas VA: Cost & Efficiency Battle", offer: "Cost Calculator" },
+                    decision: { quote: '"We want a custom AI receptionist built"', content: "Book an AI Automation Discovery Call & Audit", offer: "$3,000 Setup Package" },
+                    retention: { quote: '"The AI receptionist doubled our bookings!"', content: "Adding AI Outbound Call Campaigns & SMS Follow-ups", offer: "$497/mo Retainer" },
+                    advocacy: { quote: '"Our agency friends need this bot"', content: "White-Label Partner & Client Referral Network", offer: "20% Recurring Payout" }
+                },
+                problems: ["Slow lead response time", "High labor costs", "Complex API tech setups"],
+                outcomes: ["Sub-60 second lead response", "Automated appointment booking", "Lower overhead"],
+                buyers: ["HVAC & Plumbing owners", "Real estate agencies", "Dental clinics"],
+                score: 94,
+                verdict: "✅ High Ticket B2B Opportunity",
+                feasibilityChecks: ["✅ High setup fees ($2,500-$7,500)", "✅ Monthly recurring maintenance retainers", "✅ High perceived business value"],
+                ecosystem: {
+                    pillar: "The Complete Playbook for AI Automation in Local Business",
+                    leadMagnet: "Free Missed Call Revenue Leakage Calculator",
+                    emailSeq: "5-Day AI Business Transformation Blueprint",
+                    youtube: "Building a 24/7 AI Voice Receptionist in 30 Minutes",
+                    pinterest: "Workflow Diagrams for Make.com & Zapier",
+                    tiktok: "Watch This AI Bot Book a Plumbing Appointment Live",
+                    social: "LinkedIn Case Study: How We Saved a Real Estate Firm 20 Hrs/Wk",
+                    articles: ["How to Price AI Voice Bot Implementations"]
+                },
+                pathways: [
+                    { name: "AI Bot Implementation Fees", score: "97%", fit: "Immediate", desc: "$3,000-$6,000 one-time build out" },
+                    { name: "Monthly Maintenance Retainers", score: "93%", fit: "Recurring", desc: "$300-$750/mo server & prompt management" },
+                    { name: "White-Label Agency Kits", score: "81%", fit: "Scalable", desc: "$497 template snapshots for agencies" }
+                ],
+                psychology: {
+                    pain: ["Losing thousands to competitor call centers", "Staff burnout"],
+                    fears: ["AI sounding fake or hallucinating details"],
+                    dream: ["Full calendar booked automatically with 0 manual calls"],
+                    language: ["'Voice Agent'", "'Make.com'", "'Zapier'", "'Sub-60 Second Response'"]
+                },
+                brief: {
+                    title: "How to Build a 24/7 AI Voice Receptionist for Local Services",
+                    meta: "Discover how AI voice bots answer missed calls, qualify leads, and book appointments automatically.",
+                    outline: ["1. The Missed Lead Problem", "2. Architecture of AI Voice Bots", "3. CRM & Calendar Integration", "4. ROI & Case Studies"],
+                    faqs: ["Can the AI handle complex customer questions?", "How long does setup take?"],
+                    cta: "Book Your Free AI Workflow Audit Session"
+                }
+            },
+            "KDP & Printables": {
+                niche: "Passive Publishing & Digital Prints",
+                topic: "Planners, Trackers & Canva Kits",
+                product: "Printable Planners & Amazon KDP Books",
+                audience: "Busy Moms, Students & Productivity Enthusiasts",
+                urgency: "Moderate",
+                purchaseIntent: 90,
+                researchIntent: "High",
+                revenuePotential: "$8,500/mo",
+                clusters: [
+                    { name: "Organization & Habits", intent: "Organize chaotic schedules with aesthetic daily planners" },
+                    { name: "Etsy Gift Buyers", intent: "Find instant-download birthday & holiday planner gifts" }
+                ],
+                motivations: ["Instant gratification with digital downloads", "Aesthetic physical or digital organization", "Budget-friendly tools"],
+                segmentation: {
+                    awareness: { quote: '"I need to get my daily routine organized"', content: "10 Daily Habit Trackers That Boost Productivity", offer: "Free Sample Tracker" },
+                    research: { quote: '"Goodnotes vs Notability for digital planners"', content: "How to Use Digital Planners on iPad & Goodnotes", offer: "Digital Sticker Pack" },
+                    comparison: { quote: '"Etsy printable vs Amazon KDP physical book"', content: "Digital vs Physical Planners: Which Fits Your Style?", offer: "Planner Comparison PDF" },
+                    decision: { quote: '"I want the full 2026 Life Planner bundle"', content: "Get the All-in-One 2026 Digital Planner Vault", offer: "$17 Bundle Offer" },
+                    retention: { quote: '"I love this month’s layout!"', content: "Monthly Seasonal Planner Updates & Sticker Club", offer: "$7/mo Sticker Club" },
+                    advocacy: { quote: '"Look at my iPad planner setup on TikTok!"', content: "Share your aesthetic desk setup & earn 30%", offer: "Affiliate Link" }
+                },
+                problems: ["Disorganized routines", "Boring uninspired planners"],
+                outcomes: ["Aesthetic daily tracking", "Instant setup on iPad or print at home"],
+                buyers: ["Goodnotes iPad users", "Etsy shoppers", "Homeschooling moms"],
+                score: 85,
+                verdict: "✅ High Passive Volume Potential",
+                feasibilityChecks: ["✅ Low unit pricing ($5-$25) = high sales volume", "✅ Created once in Canva & sold infinitely", "✅ Great fit for Pinterest & TikTok aesthetic videos"],
+                ecosystem: {
+                    pillar: "The Ultimate Guide to Digital Planning & Habit Tracking",
+                    leadMagnet: "Free Aesthetic Daily Habit Tracker PDF",
+                    emailSeq: "7-Day Planning & Goal Setting Routine",
+                    youtube: "Plan With Me: Setting Up My iPad Goodnotes Planner",
+                    pinterest: "Aesthetic iPad Desk Setups & Daily Templates",
+                    tiktok: "Satisfying Digital Planning Video (ASMR)",
+                    social: "Instagram Reel: How I Track My Budget in Goodnotes",
+                    articles: ["Top 5 Free Digital Planner Apps"]
+                },
+                pathways: [
+                    { name: "Digital Printable Downloads", score: "96%", fit: "Passive", desc: "$7-$27 instant PDF planner bundles" },
+                    { name: "Amazon KDP Paperback Print", score: "88%", fit: "Passive", desc: "Print-on-demand physical journals" },
+                    { name: "Monthly Digital Sticker Club", score: "79%", fit: "Recurring", desc: "$5-$9/mo membership subscription" }
+                ],
+                psychology: {
+                    pain: ["Overwhelmed by messy paper notes", "Failing to stick to habits"],
+                    fears: ["Wasting money on planners that end up unused"],
+                    dream: ["A beautiful, organized daily workflow on iPad"],
+                    language: ["'Goodnotes'", "'Printable PDF'", "'Hyperlinked Planner'", "'Habit Tracker'"]
+                },
+                brief: {
+                    title: "The Ultimate Guide to Digital Planners for Goodnotes & iPad",
+                    meta: "Learn how to use hyperlinked digital planners to organize your schedule, habits, and goals.",
+                    outline: ["1. What is a Digital Planner?", "2. Setting up Goodnotes", "3. Daily & Weekly Routines", "4. Top Aesthetic Layouts"],
+                    faqs: ["Do I need an iPad Pro to use digital planners?", "Can I print digital planners at home?"],
+                    cta: "Download Your Free Aesthetic Habit Tracker Bundle"
+                }
+            },
+            "SaaS & Micro-Tools": {
+                niche: "No-Code & Micro SaaS",
+                topic: "Single-Feature Productivity Utilities",
+                product: "Micro SaaS & Chrome Extensions",
+                audience: "Freelancers, Creators & Remote Workers",
+                urgency: "High / Problem-Specific",
+                purchaseIntent: 93,
+                researchIntent: "High",
+                revenuePotential: "$30,000/mo",
+                clusters: [
+                    { name: "Workflow Friction", intent: "Eliminate repetitive manual task with a 1-click browser extension" },
+                    { name: "Data Scraping & Formatting", intent: "Extract and convert web data into usable Notion/CSV tables" }
+                ],
+                motivations: ["Save 5+ hours every week on tedious tasks", "Simple single-use software that just works", "No bloated enterprise pricing"],
+                segmentation: {
+                    awareness: { quote: '"I spend an hour manually copying data every day"', content: "5 Tools That Automate Copy-Pasting in Chrome", offer: "Free Utility Tool" },
+                    research: { quote: '"Is there a lightweight tool for this specific job?"', content: "How Micro SaaS Tools Beat Enterprise Software", offer: "Tool Comparison Chart" },
+                    comparison: { quote: '"Micro Tool vs Complex Zapier Workflow"', content: "1-Click Chrome Extension vs Multi-Step Zapier Setup", offer: "Speed Benchmark" },
+                    decision: { quote: '"I want to unlock unlimited tool usage"', content: "Upgrade to Pro Unlimited License ($9/mo)", offer: "$9/mo Pro Subscription" },
+                    retention: { quote: '"This tool saved me 10 hours this week!"', content: "Annual Founder Pass & Team Seats Upgrade", offer: "$79/year Deal" },
+                    advocacy: { quote: '"Everyone on my team needs this extension"', content: "Refer colleagues & earn 25% lifetime recurring", offer: "Affiliate Link" }
+                },
+                problems: ["Manual repetitive work", "Bloated software pricing ($99+/mo)"],
+                outcomes: ["1-click automated execution", "Clean lightweight workflow"],
+                buyers: ["Remote workers", "Growth hackers", "Digital agencies"],
+                score: 91,
+                verdict: "✅ High MRR & Enterprise Acquisition Target",
+                feasibilityChecks: ["✅ High recurring retention (low churn)", "✅ Built quickly using No-Code / Cursor AI", "✅ Potential micro-acquisition exit"],
+                ecosystem: {
+                    pillar: "The Rise of Micro-SaaS: How Single-Feature Tools Win",
+                    leadMagnet: "Top 20 Chrome Extensions for Solopreneur Productivity",
+                    emailSeq: "5 Productivity Hacks That Save 10 Hours/Week",
+                    youtube: "I Built a $2k/mo Chrome Extension in 48 Hours with AI",
+                    pinterest: "Productivity Shortcuts & Tool Infographics",
+                    tiktok: "This Chrome Extension Feels Illegal to Know",
+                    social: "Thread: How a Simple $9/mo Tool Scaled to $15k MRR",
+                    articles: ["How to Validate Micro SaaS Ideas Fast"]
+                },
+                pathways: [
+                    { name: "Monthly SaaS Subscription (MRR)", score: "97%", fit: "Immediate", desc: "$7-$19/mo recurring pro plans" },
+                    { name: "Lifetime Founder Deal (LTD)", score: "89%", fit: "Cashflow", desc: "$97 one-time lifetime license" },
+                    { name: "Acquisition Exit Sale", score: "82%", fit: "Exit", desc: "Sell micro tool on Acquire.com for 3-5x ARR" }
+                ],
+                psychology: {
+                    pain: ["Spending hours doing manual data entry", "Paying for enterprise software features never used"],
+                    fears: ["Software being slow, glitchy, or abandoned"],
+                    dream: ["1-click automation that effortlessly completes tedious tasks"],
+                    language: ["'Chrome Extension'", "'MRR'", "'Micro SaaS'", "'1-Click Automation'"]
+                },
+                brief: {
+                    title: "How to Automate Daily Tasks with Micro SaaS Tools",
+                    meta: "Discover how single-feature micro tools can save you 10+ hours a week on repetitive work.",
+                    outline: ["1. Identifying Workflow Friction", "2. Evaluating Micro Tools vs Enterprise SaaS", "3. 1-Click Browser Automation", "4. Team Deployment"],
+                    faqs: ["Are Chrome extensions safe to use?", "Can I cancel my monthly subscription anytime?"],
+                    cta: "Try the Free 1-Click Utility Extension Now"
+                }
+            }
+        };
+
+        window.onload = function() {
+            lucide.createIcons();
+            if (userGeminiApiKey) {
+                document.getElementById('apiStatusText').innerText = "Custom API Saved";
+            }
+            populatePresetDropdown();
+            loadPreset("Human Design");
+        };
+
+        function populatePresetDropdown() {
+            const select = document.getElementById('presetSelect');
+            select.innerHTML = Object.keys(PRESETS).map(key => `<option value="${key}">${key}</option>`).join('');
+        }
+
+        function openCategoryModal() { document.getElementById('categoryModal').classList.remove('hidden'); }
+        function closeCategoryModal() { document.getElementById('categoryModal').classList.add('hidden'); }
+
+        function saveNewCategory() {
+            const name = document.getElementById('newPresetName').value.trim();
+            const niche = document.getElementById('newPresetNiche').value.trim();
+            const topic = document.getElementById('newPresetTopic').value.trim();
+            const product = document.getElementById('newPresetProduct').value.trim();
+            const audience = document.getElementById('newPresetAudience').value.trim();
+
+            if (!name || !niche || !topic) {
+                alert('Please fill in at least the Preset Name, Niche, and Topic.');
+                return;
+            }
+
+            PRESETS[name] = {
+                niche, topic, product: product || "Digital Course & Coaching", audience: audience || "Solopreneurs",
+                urgency: "High / Immediate", purchaseIntent: 90, researchIntent: "High", revenuePotential: "$15,000/mo",
+                clusters: [
+                    { name: `${topic} Breakthrough`, intent: `Mastering ${topic} for ${audience}` },
+                    { name: `Strategy Implementation`, intent: `Deploying ${product} successfully` }
+                ],
+                motivations: [`Master ${topic}`, `Scale ${niche} revenue`, `Build automated funnels`],
+                segmentation: {
+                    awareness: { quote: '"I need help with ' + topic + '"', content: `Intro to ${topic}`, offer: "Free Cheat Sheet" },
+                    research: { quote: '"How does ' + product + ' work?"', content: `Guide to ${product}`, offer: "PDF Guide" },
+                    comparison: { quote: '"Comparing options"', content: `Top Tools for ${niche}`, offer: "Comparison Matrix" },
+                    decision: { quote: '"Ready to invest"', content: `Get ${product}`, offer: "Special Offer" },
+                    retention: { quote: '"Scaling up"', content: `Advanced Mastermind`, offer: "Community" },
+                    advocacy: { quote: '"Loving the results"', content: `Affiliate Program`, offer: "30% Commission" }
+                },
+                problems: [`Slow growth in ${niche}`, `Complexity around ${topic}`],
+                outcomes: [`High conversion rates`, `Scalable ${product} offers`],
+                buyers: [audience], score: 90, verdict: "✅ Highly Feasible for Solo Creator",
+                feasibilityChecks: ["✅ Low overhead", "✅ High digital profit margins", "✅ Easy content syndication"],
+                ecosystem: {
+                    pillar: `Ultimate Guide to ${topic}`, leadMagnet: `${topic} Checklist`, emailSeq: `5-Day Email Series`,
+                    youtube: `${topic} Tutorial`, pinterest: `${niche} Pins`, tiktok: `Quick Tips`, social: `Carousel`, articles: [`Guide`]
+                },
+                pathways: [
+                    { name: "Core Product Sales", score: "95%", fit: "High", desc: product },
+                    { name: "Consulting / Services", score: "88%", fit: "Active", desc: "1:1 high ticket advisory" }
+                ],
+                psychology: {
+                    pain: [`Frustration with slow traction in ${niche}`], fears: [`Wasting time on bad funnels`],
+                    dream: [`Predictable monthly revenue from ${product}`], language: [`"${topic}"`, `"${niche}"`]
+                },
+                brief: {
+                    title: `Mastering ${topic} in ${niche}`, meta: `Learn how to succeed with ${topic}.`,
+                    outline: [`1. Overview`, `2. Execution`, `3. Scaling`], faqs: [`How to start?`], cta: `Get Started Now`
+                }
+            };
+
+            populatePresetDropdown();
+            document.getElementById('presetSelect').value = name;
+            loadPreset(name);
+            closeCategoryModal();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            const selected = document.getElementById(tabId);
+            if (selected) selected.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-dk', 'bg-bl');
+                btn.classList.add('border-2', 'border-transparent');
+            });
+
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) {
+                activeNav.classList.add('border-2', 'border-dk', 'bg-bl');
+                activeNav.classList.remove('border-transparent');
+            }
+
+            if (tabId === 'tab-map' & currentData) {
+                setTimeout(renderOpportunityChart, 100);
+            }
+        }
+
+        function loadPreset(name) {
+            const preset = PRESETS[name] || PRESETS["Human Design"];
+            document.getElementById('inputNiche').value = preset.niche || name;
+            document.getElementById('inputTopic').value = preset.topic || "Growth & Monetization";
+            document.getElementById('inputProduct').value = preset.product || "Digital Product & Coaching";
+            document.getElementById('inputAudience').value = preset.audience || "Solopreneurs & Creators";
+            renderData(preset);
+        }
+
+        function openApiModal() { document.getElementById('apiModal').classList.remove('hidden'); }
+        function closeApiModal() { document.getElementById('apiModal').classList.add('hidden'); }
+        function saveApiKey() {
+            const val = document.getElementById('userApiKey').value.trim();
+            userGeminiApiKey = val;
+            localStorage.setItem('i2i_gemini_key', val);
+            document.getElementById('apiStatusText').innerText = val ? "Custom API Saved" : "Custom API Key";
+            closeApiModal();
+        }
+
+        async function runIntentAnalysis(e) {
+            e.preventDefault();
+            const niche = document.getElementById('inputNiche').value;
+            const topic = document.getElementById('inputTopic').value;
+            const product = document.getElementById('inputProduct').value;
+            const audience = document.getElementById('inputAudience').value;
+
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('submitBtn').disabled = true;
+
+            if (userGeminiApiKey) {
+                try {
+                    const prompt = `Act as Intent to Income™ AI. Analyze this solopreneur opportunity:
+Niche: ${niche}, Topic: ${topic}, Product: ${product}, Audience: ${audience}
+Return valid JSON only matching the schema for intent analysis.`;
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${userGeminiApiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json" } })
+                    });
+                    const jsonRes = await res.json();
+                    const text = jsonRes.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        renderData(JSON.parse(text));
+                    } else {
+                        fallbackSynthesize(niche, topic, product, audience);
+                    }
+                } catch(err) {
+                    fallbackSynthesize(niche, topic, product, audience);
+                }
+            } else {
+                setTimeout(() => fallbackSynthesize(niche, topic, product, audience), 600);
+            }
+        }
+
+        function fallbackSynthesize(niche, topic, product, audience) {
+            const synth = {
+                niche, topic,
+                urgency: "High / Immediate",
+                purchaseIntent: 89,
+                researchIntent: "High Readiness",
+                revenuePotential: "$15,000/mo",
+                clusters: [
+                    { name: `${topic} Acceleration`, intent: `Rapid execution for ${audience}` },
+                    { name: `Problem Diagnostic`, intent: `Identify underlying hurdles in ${niche}` },
+                    { name: `Implementation & Stack`, intent: `Select best tools and offers for ${product}` }
+                ],
+                motivations: [`Solve pressing pain points in ${niche}`, `Achieve faster results with ${product}`, `Gain clarity and avoid trial-and-error`],
+                segmentation: {
+                    awareness: { quote: '"I have a problem with ' + topic + '"', content: `5 Mistakes Most ${audience} Make`, offer: "Free Audit Template" },
+                    research: { quote: '"How can I fix ' + topic + '?"', content: `The Ultimate ${niche} Roadmap`, offer: "Strategy Guide PDF" },
+                    comparison: { quote: '"Which solution works best?"', content: `${product} vs Traditional Alternatives`, offer: "Decision Matrix" },
+                    decision: { quote: '"I am ready to buy ' + product + '"', content: `Get Started with ${product} Today`, offer: "Special VIP Offer" },
+                    retention: { quote: '"I already bought ' + product + '"', content: `Advanced ${topic} Masterclass`, offer: "Community Upgrade" },
+                    advocacy: { quote: '"I want to tell others"', content: `Become an Official ${niche} Ambassador`, offer: "30% Affiliate Link" }
+                },
+                problems: [`Frustration with slow progress in ${niche}`, `Overwhelmed by conflicting ${topic} advice`],
+                outcomes: [`Predictable revenue from ${product}`, `Saved time and streamlined workflows`],
+                buyers: [audience || "Solopreneurs", "Creators & Coaches"],
+                score: 90,
+                verdict: "✅ High Solopreneur Potential",
+                feasibilityChecks: [`✅ Easily managed by a 1-person team`, `✅ High margin potential with ${product}`, `✅ Ideal for content repurposing`],
+                ecosystem: {
+                    pillar: `The Comprehensive Guide to ${topic}`,
+                    leadMagnet: `Free ${topic} Execution Checklist`,
+                    emailSeq: `5-Day Email Crash Course`,
+                    youtube: `Step-by-Step ${topic} Tutorial`,
+                    pinterest: `Infographics for ${niche}`,
+                    tiktok: `3 Quick ${topic} Hacks`,
+                    social: `Carousel Breakdown`,
+                    articles: [`Top 7 Tools for ${niche}`]
+                },
+                pathways: [
+                    { name: "Digital Products & Templates", score: "95%", fit: "High", desc: "Sell structured systems and guides" },
+                    { name: "1:1 Strategy Consulting", score: "90%", fit: "High", desc: "Premium high-ticket client advisory" },
+                    { name: "Affiliate Recommendations", score: "82%", fit: "Passive", desc: "Recommend software tools" }
+                ],
+                psychology: {
+                    pain: [`Struggling to stand out in ${niche}`, `Wasting time on zero-ROI tactics`],
+                    fears: [`Failing publicly or losing investment`],
+                    dream: [`Achieving consistent $10k+ months doing work you love`],
+                    language: [`"${topic}"`, `"${niche} systems"`, `"High ticket"`]
+                },
+                brief: {
+                    title: `The Ultimate Guide to ${topic} (${niche})`,
+                    meta: `Learn how to leverage ${topic} in ${niche} to build a profitable digital business.`,
+                    outline: [`1. Understanding ${topic}`, `2. Core Pillars`, `3. Implementation`, `4. Monetization`],
+                    faqs: [`How long does it take to see results?`, `Do I need prior experience?`],
+                    cta: `Download the Free Blueprint Now`
+                }
+            };
+            renderData(synth);
+        }
+
+        function renderData(data) {
+            currentData = data;
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('submitBtn').disabled = false;
+
+            document.getElementById('engineUrgency').innerText = data.urgency || "High";
+            document.getElementById('enginePurchaseIntent').innerText = (data.purchaseIntent || 88) + " / 100";
+            document.getElementById('engineResearchIntent').innerText = data.researchIntent || "High";
+            document.getElementById('engineRevenuePotential').innerText = data.revenuePotential || "$15,000/mo";
+
+            document.getElementById('engineClustersList').innerHTML = (data.clusters || []).map((c, i) => `
+                <div class="p-2.5 border-2 border-dk bg-[#FFFCF9] flex items-start gap-2">
+                    <span class="px-1.5 py-0.5 bg-dk text-white font-black text-[9px]">#0${i+1}</span>
+                    <div>
+                        <span class="font-heading font-black text-xs block">${c.name}</span>
+                        <span class="text-gray-600 text-[11px] font-medium">${c.intent}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('engineMotivationsList').innerHTML = (data.motivations || []).map(m => `
+                <div class="p-2.5 border-2 border-dk bg-white flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                    <span class="font-bold">${m}</span>
+                </div>
+            `).join('');
+
+            const segGrid = document.getElementById('segmentationGrid');
+            const stages = [
+                { key: 'awareness', label: 'Awareness', bg: 'bg-pink-100' },
+                { key: 'research', label: 'Research', bg: 'bg-cyan-100' },
+                { key: 'comparison', label: 'Comparison', bg: 'bg-amber-100' },
+                { key: 'decision', label: 'Decision', bg: 'bg-emerald-100' },
+                { key: 'retention', label: 'Retention', bg: 'bg-purple-100' },
+                { key: 'advocacy', label: 'Advocacy', bg: 'bg-orange-100' }
+            ];
+            segGrid.innerHTML = stages.map(st => {
+                const item = (data.segmentation & data.segmentation[st.key]) || { quote: 'Sample thought', content: 'Sample Content', offer: 'Lead Magnet' };
+                return `
+                    <div class="brutal-card ${st.bg} p-4 space-y-3">
+                        <div class="flex items-center justify-between border-b-2 border-dk pb-1">
+                            <span class="font-heading font-black uppercase text-xs">${st.label}</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </div>
+                        <p class="text-xs font-bold italic bg-white p-2 border-2 border-dk">${item.quote}</p>
+                        <div>
+                            <span class="text-[9px] uppercase font-black text-gray-500">Content Opportunity:</span>
+                            <span class="text-xs font-black block">${item.content}</span>
+                        </div>
+                        <div class="pt-1">
+                            <span class="text-[9px] uppercase font-black text-gray-500">Recommended Offer:</span>
+                            <span class="text-[11px] font-bold bg-white px-2 py-0.5 border-2 border-dk inline-block mt-0.5">${item.offer}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('clusterProblems').innerHTML = (data.problems || []).map(p => `<li>${p}</li>`).join('');
+            document.getElementById('clusterOutcomes').innerHTML = (data.outcomes || []).map(o => `<li>${o}</li>`).join('');
+
+            document.getElementById('contentUniverseGrid').innerHTML = `
+                <div class="p-3 border-2 border-dk bg-cyan-100 space-y-1">
+                    <span class="font-black block uppercase text-[9px] text-gray-600">Beginner Articles</span>
+                    <span class="font-black">${data.ecosystem?.articles?.[0] || "Introductory Guide"}</span>
+                </div>
+                <div class="p-3 border-2 border-dk bg-pink-100 space-y-1">
+                    <span class="font-black block uppercase text-[9px] text-gray-600">Product Reviews</span>
+                    <span class="font-black">${data.topic} Tool Comparison</span>
+                </div>
+                <div class="p-3 border-2 border-dk bg-amber-100 space-y-1">
+                    <span class="font-black block uppercase text-[9px] text-gray-600">Comparison Posts</span>
+                    <span class="font-black">Traditional vs ${data.niche} Approach</span>
+                </div>
+                <div class="p-3 border-2 border-dk bg-emerald-100 space-y-1">
+                    <span class="font-black block uppercase text-[9px] text-gray-600">Offer Landing Page</span>
+                    <span class="font-black">${data.product || "High-Converting Funnel"}</span>
+                </div>
+            `;
+
+            document.getElementById('overallScoreNumber').innerText = data.score || 88;
+            const scoreMatrix = [
+                { name: "Search & Intent Demand", val: 88, color: "bg-cyan-300" },
+                { name: "Buyer Commercial Intent", val: 92, color: "bg-emerald-300" },
+                { name: "Emotional Pain Urgency", val: 85, color: "bg-amber-300" },
+                { name: "Low Competition Gap", val: 78, color: "bg-pink-300" },
+                { name: "Monetization Potential", val: 95, color: "bg-or" }
+            ];
+            document.getElementById('scoringVectorList').innerHTML = scoreMatrix.map(m => `
+                <div class="space-y-1">
+                    <div class="flex justify-between font-black">
+                        <span>${m.name}</span>
+                        <span>${m.val}/100</span>
+                    </div>
+                    <div class="w-full h-3 bg-gray-100 border-2 border-dk overflow-hidden p-0.5">
+                        <div class="${m.color} h-full border border-dk" style="width: ${m.val}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('feasibilityVerdict').innerText = data.verdict || "✅ Highly Feasible";
+            document.getElementById('feasibilityChecklist').innerHTML = (data.feasibilityChecks || [
+                "✅ Easy for solo creator", "✅ Strong digital product fit"
+            ]).map(c => `
+                <div class="p-2.5 border-2 border-dk bg-white flex items-center gap-2">
+                    <span>${c}</span>
+                </div>
+            `).join('');
+
+            const eco = data.ecosystem || {};
+            const ecoItems = [
+                { title: "Pillar Content", val: eco.pillar, bg: "bg-amber-100" },
+                { title: "Lead Magnet", val: eco.leadMagnet, bg: "bg-pink-100" },
+                { title: "Email Sequence", val: eco.emailSeq, bg: "bg-cyan-100" },
+                { title: "YouTube Video", val: eco.youtube, bg: "bg-emerald-100" },
+                { title: "Pinterest Pins", val: eco.pinterest, bg: "bg-orange-100" },
+                { title: "TikTok / Shorts", val: eco.tiktok, bg: "bg-purple-100" },
+                { title: "Social Carousel", val: eco.social, bg: "bg-pink-100" },
+                { title: "Support Article", val: eco.articles?.[0] || "Support Post", bg: "bg-white" }
+            ];
+            document.getElementById('ecosystemGrid').innerHTML = ecoItems.map(item => `
+                <div class="brutal-card ${item.bg} p-3.5 space-y-2">
+                    <div class="flex items-center justify-between border-b border-dk pb-1">
+                        <span class="font-heading font-black uppercase text-[9px]">${item.title}</span>
+                        <i data-lucide="check" class="w-3 h-3"></i>
+                    </div>
+                    <p class="font-black text-xs leading-tight">${item.val}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('pathwaysGrid').innerHTML = (data.pathways || []).map(p => `
+                <div class="brutal-card bg-white p-4 space-y-3">
+                    <div class="flex items-center justify-between border-b-2 border-dk pb-1.5">
+                        <span class="font-heading font-black text-sm">${p.name}</span>
+                        <span class="px-2 py-0.5 bg-or border-2 border-dk text-xs font-black">${p.score}</span>
+                    </div>
+                    <p class="text-xs font-bold text-gray-700">${p.desc}</p>
+                    <div class="flex items-center justify-between text-[10px] font-black uppercase bg-[#FFFCF9] p-1.5 border-2 border-dk">
+                        <span>Model Fit:</span>
+                        <span class="text-emerald-700">${p.fit}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const psych = data.psychology || {};
+            document.getElementById('psychPain').innerHTML = (psych.pain || []).map(p => `<li>${p}</li>`).join('');
+            document.getElementById('psychFears').innerHTML = (psych.fears || []).map(f => `<li>${f}</li>`).join('');
+            document.getElementById('psychDream').innerHTML = (psych.dream || []).map(d => `<li>${d}</li>`).join('');
+            document.getElementById('psychLanguage').innerHTML = (psych.language || []).map(l => `<li>${l}</li>`).join('');
+
+            const brief = data.brief || {};
+            document.getElementById('briefContent').innerHTML = `
+                <div class="space-y-4">
+                    <div class="p-3 border-2 border-dk bg-amber-100 space-y-1">
+                        <span class="text-[9px] uppercase font-black text-gray-600 block">SEO Title</span>
+                        <h3 class="font-heading font-black text-base">${brief.title || "Title"}</h3>
+                    </div>
+                    <div class="p-3 border-2 border-dk bg-white space-y-1">
+                        <span class="text-[9px] uppercase font-black text-gray-600 block">Meta Description</span>
+                        <p class="text-xs font-bold">${brief.meta || "Meta Description"}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-3 border-2 border-dk bg-cyan-100 space-y-2">
+                            <span class="text-[9px] uppercase font-black text-gray-600 block">Article Outline</span>
+                            <ul class="list-disc list-inside space-y-1 font-black">
+                                ${(brief.outline || []).map(o => `<li>${o}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="p-3 border-2 border-dk bg-pink-100 space-y-2">
+                            <span class="text-[9px] uppercase font-black text-gray-600 block">Key FAQ Opportunities</span>
+                            <ul class="list-disc list-inside space-y-1 font-black">
+                                ${(brief.faqs || []).map(f => `<li>${f}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="p-3 border-2 border-dk bg-emerald-100 space-y-1">
+                        <span class="text-[9px] uppercase font-black text-gray-600 block">Call To Action & Offer Placement</span>
+                        <span class="font-heading font-black text-sm">${brief.cta || "Download Lead Magnet"}</span>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+        }
+
+        function renderOpportunityChart() {
+            const ctx = document.getElementById('opportunityChart');
+            if (!ctx) return;
+            if (opportunityChartInstance) opportunityChartInstance.destroy();
+
+            opportunityChartInstance = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        {
+                            label: currentData ? currentData.topic : 'Analyzed Niche',
+                            data: [{ x: 85, y: 90, r: 18 }],
+                            backgroundColor: '#F18B25',
+                            borderColor: '#111111',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Saturated Keywords',
+                            data: [{ x: 95, y: 35, r: 12 }],
+                            backgroundColor: '#C20F0A',
+                            borderColor: '#111111',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: 'Search Demand & Intent', font: { family: 'Inter', weight: 'bold' } }, min: 0, max: 100 },
+                        y: { title: { display: true, text: 'Monetization Potential', font: { family: 'Inter', weight: 'bold' } }, min: 0, max: 100 }
+                    }
+                }
+            });
+        }
+
+        function copyBrief() {
+            const content = document.getElementById('briefContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Content brief copied to clipboard!');
+            }).catch(() => {
+                document.execCommand('copy');
+            });
+        }
+    </script>
+</body>
+</html>
