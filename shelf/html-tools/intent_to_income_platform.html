@@ -103,7 +103,10 @@
       ::-webkit-scrollbar { width: 8px; height: 8px; }
       ::-webkit-scrollbar-track { background: #FFFCF9; border-left: 1px solid #111111; }
       ::-webkit-scrollbar-thumb { background: #111111; }
-    </style>
+    
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
+</style>
 
 <!-- DigitallyDefined Canonical Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

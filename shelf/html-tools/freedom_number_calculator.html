@@ -59,7 +59,10 @@
         .slider-slate::-webkit-slider-thumb {
             background: #111111 !important;
         }
-    </style>
+    
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
+</style>
     
     <script>
         tailwind.config = {

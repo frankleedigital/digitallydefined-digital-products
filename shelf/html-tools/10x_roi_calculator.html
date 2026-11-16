@@ -114,6 +114,9 @@ input[type=range].rr::-webkit-slider-thumb{background:var(--rd)}
 .btn.gh:hover{background:#111111;border-color:#5F5F5F}
 footer{text-align:center;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F5F5F;padding:2rem 1rem 1rem;border-top:1px solid #111111;margin-top:3rem}
 footer a{color:var(--or);text-decoration:none}
+
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
 </style>
 
 <!-- DigitallyDefined Canonical Fonts -->

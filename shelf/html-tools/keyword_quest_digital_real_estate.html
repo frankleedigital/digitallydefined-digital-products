@@ -101,7 +101,10 @@
             100% { background-color: transparent; }
         }
         .timer-warning { animation: pulse-red 0.5s infinite; }
-    </style>
+    
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
+</style>
 
 <!-- DigitallyDefined Canonical Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

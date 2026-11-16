@@ -83,7 +83,10 @@
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #F18B25;
         }
-    </style>
+    
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
+</style>
 
 <!-- DigitallyDefined Canonical Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

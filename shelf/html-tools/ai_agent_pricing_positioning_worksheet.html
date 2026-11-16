@@ -134,7 +134,10 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: sharpFade 0.2s ease-in-out; }
         @keyframes sharpFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+    
+/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
+.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
+</style>
 
 <!-- DigitallyDefined Canonical Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
