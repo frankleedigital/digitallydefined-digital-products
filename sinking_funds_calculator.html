@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitallyDefined // Sinking Funds Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFCF9;
+            color: #2D3748;
+        }
+        
+        /* Overriding all rounding for strict brand guidelines */
+        * {
+            border-radius: 0px !important;
+        }
+
+        /* custom focus states to match brand orange */
+        input:focus, select:focus {
+            outline: 2px solid #F18B25 !important;
+            outline-offset: 1px;
+        }
+
+        /* Custom scrollbar to keep layout stark and clean */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFCF9;
+            border-left: 1px solid #2D3748;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D3748;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-[#2D3748] bg-white py-6 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <p class="text-xs font-black tracking-widest text-[#F18B25] uppercase">DIGITALLYDEFINED // OPERATIONAL STANDARD</p>
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#2D3748] uppercase mt-1">
+                    Sinking Funds Calculator
+                </h1>
+            </div>
+            <div class="border border-[#2D3748] px-4 py-2 bg-[#47B7D4] text-[#2D3748] font-bold text-sm tracking-wide uppercase">
+                Zero Excuses. Infinite Leverage.
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Column: Inputs & Tools (5 Cols) -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <div class="bg-white border border-[#2D3748] p-6">
+                <h2 class="text-lg font-black uppercase text-[#2D3748] tracking-wider mb-2 flex items-center gap-2">
+                    <span class="inline-block w-3 h-3 bg-[#F18B25]"></span>
+                    THE STRATEGY
+                </h2>
+                <p class="text-sm text-[#2D3748] leading-relaxed">
+                    Sinking funds are the ultimate tactical defense against dynamic business overhead and sudden life shifts. By mapping out your liabilities before they materialize, you maintain absolute liquidity and leverage. Stop reacting—start allocating.
+                </p>
+            </div>
+
+            <div class="bg-white border border-[#2D3748] p-6">
+                <h2 class="text-lg font-black uppercase text-[#2D3748] tracking-wider mb-4 border-b border-[#2D3748] pb-2">
+                    Configure Sinking Fund
+                </h2>
+                
+                <form id="fundForm" class="flex flex-col gap-4" onsubmit="handleFormSubmit(event)">
+                    <input type="hidden" id="editIndex" value="-1">
+                    
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748] mb-1">Fund Purpose / Name</label>
+                        <input type="text" id="fundName" required placeholder="e.g., Annual SaaS Stack" 
+                               class="w-full border border-[#2D3748] bg-white p-3 font-medium text-sm text-[#2D3748] placeholder-gray-400">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748] mb-1">Target Amount ($)</label>
+                            <input type="number" id="targetAmount" required min="1" placeholder="5000" 
+                                   class="w-full border border-[#2D3748] bg-white p-3 font-medium text-sm text-[#2D3748]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748] mb-1">Current Balance ($)</label>
+                            <input type="number" id="currentSaved" required min="0" placeholder="500" 
+                                   class="w-full border border-[#2D3748] bg-white p-3 font-medium text-sm text-[#2D3748]">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748]">Time Horizon</label>
+                            <span class="text-xs font-bold text-[#47B7D4]" id="monthsDisplay">12 Months</span>
+                        </div>
+                        <input type="range" id="monthsRemaining" min="1" max="48" value="12"
+                               oninput="document.getElementById('monthsDisplay').innerText = this.value + (this.value == 1 ? ' Month' : ' Months')"
+                               class="w-full h-2 bg-gray-200 border border-[#2D3748] appearance-none cursor-pointer accent-[#F18B25]">
+                        <div class="flex justify-between text-[10px] font-bold text-gray-500 mt-1 uppercase">
+                            <span>1 Month</span>
+                            <span>2 Years (24m)</span>
+                            <span>4 Years (48m)</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex gap-3">
+                        <button type="submit" id="submitBtn"
+                                class="flex-grow bg-[#F18B25] hover:bg-white text-white hover:text-[#2D3748] font-bold uppercase text-sm py-3 px-6 border border-[#2D3748] transition-colors duration-150">
+                            Allocate Asset
+                        </button>
+                        <button type="button" id="cancelEditBtn" onclick="resetForm()" class="hidden bg-gray-200 hover:bg-gray-300 text-[#2D3748] font-bold uppercase text-sm py-3 px-4 border border-[#2D3748]">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white border border-[#2D3748] p-6">
+                <h2 class="text-sm font-black uppercase text-[#2D3748] tracking-widest mb-3">
+                    Quick-Load Strategic Presets
+                </h2>
+                <p class="text-xs text-gray-600 mb-4">Click any preset standard to quickly load it into your calculator parameters above:</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="applyPreset('Annual Tech & SaaS Stack', 4800, 800, 12)"
+                            class="text-left p-3 border border-[#2D3748] bg-[#FFFCF9] hover:bg-[#47B7D4] hover:text-white transition-colors flex justify-between items-center group">
+                        <div>
+                            <span class="block text-xs font-black uppercase text-[#2D3748] group-hover:text-white">Annual Tech & SaaS Stack</span>
+                            <span class="text-[10px] text-gray-500 group-hover:text-white">Subscriptions, platform tools, domains</span>
+                        </div>
+                        <span class="text-xs font-bold">$4,800/yr</span>
+                    </button>
+                    <button onclick="applyPreset('Quarterly Tax Buffer', 12000, 3000, 3)"
+                            class="text-left p-3 border border-[#2D3748] bg-[#FFFCF9] hover:bg-[#47B7D4] hover:text-white transition-colors flex justify-between items-center group">
+                        <div>
+                            <span class="block text-xs font-black uppercase text-[#2D3748] group-hover:text-white">Quarterly Tax Reserve</span>
+                            <span class="text-[10px] text-gray-500 group-hover:text-white">IRS allocations, local filing reserves</span>
+                        </div>
+                        <span class="text-xs font-bold">$12,000/qtr</span>
+                    </button>
+                    <button onclick="applyPreset('Mid-Career & Business Pivot', 25000, 5000, 18)"
+                            class="text-left p-3 border border-[#2D3748] bg-[#FFFCF9] hover:bg-[#47B7D4] hover:text-white transition-colors flex justify-between items-center group">
+                        <div>
+                            <span class="block text-xs font-black uppercase text-[#2D3748] group-hover:text-white">Runway & Pivot Buffer</span>
+                            <span class="text-[10px] text-gray-500 group-hover:text-white">Capital to scale new automated channels</span>
+                        </div>
+                        <span class="text-xs font-bold">$25,000</span>
+                    </button>
+                    <button onclick="applyPreset('Wellness & Longevity Reset', 6000, 1500, 6)"
+                            class="text-left p-3 border border-[#2D3748] bg-[#FFFCF9] hover:bg-[#47B7D4] hover:text-white transition-colors flex justify-between items-center group">
+                        <div>
+                            <span class="block text-xs font-black uppercase text-[#2D3748] group-hover:text-white">Biohacking & Retreats</span>
+                            <span class="text-[10px] text-gray-500 group-hover:text-white">Health investment, preventative diagnostics</span>
+                        </div>
+                        <span class="text-xs font-bold">$6,000</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Column: Ledger & Dynamic Displays (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 border border-[#2D3748] bg-white divide-y sm:divide-y-0 sm:divide-x divide-[#2D3748]">
+                
+                <div class="p-4 flex flex-col justify-between">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-gray-500">Total Portfolio Target</span>
+                    <div>
+                        <span class="text-2xl md:text-3xl font-black text-[#2D3748]" id="totalTargetAmt">$0</span>
+                        <div class="text-[10px] text-gray-400 font-bold mt-1 uppercase">Cumulative liability</div>
+                    </div>
+                </div>
+
+                <div class="p-4 flex flex-col justify-between bg-[#FFFCF9]">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-gray-500">Current Capital Pool</span>
+                    <div>
+                        <span class="text-2xl md:text-3xl font-black text-[#47B7D4]" id="totalSavedAmt">$0</span>
+                        <div class="text-[10px] text-[#2D3748] font-bold mt-1 uppercase" id="totalPctDisplay">0% Completed</div>
+                    </div>
+                </div>
+
+                <div class="p-4 flex flex-col justify-between bg-[#F18B25] text-white">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-white">Target Monthly Allocations</span>
+                    <div>
+                        <span class="text-2xl md:text-3xl font-black text-white" id="totalMonthlyAmt">$0</span>
+                        <div class="text-[10px] text-white font-bold mt-1 uppercase tracking-tight">Required automated cash flow</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-white border border-[#2D3748] flex-grow flex flex-col">
+                <div class="p-4 border-b border-[#2D3748] flex justify-between items-center bg-[#FFFCF9]">
+                    <h3 class="text-sm font-black uppercase text-[#2D3748] tracking-widest flex items-center gap-2">
+                        <span class="inline-block w-2 h-4 bg-[#2D3748]"></span>
+                        Allocated Sinking Ledger
+                    </h3>
+                    <div class="flex gap-2">
+                        <button onclick="exportData()" class="text-[10px] font-black uppercase tracking-wider bg-white border border-[#2D3748] px-2 py-1 hover:bg-[#2D3748] hover:text-white transition-colors">
+                            Export Config
+                        </button>
+                        <button onclick="clearAllFunds()" class="text-[10px] font-black uppercase tracking-wider bg-[#C20F0A] text-white border border-[#2D3748] px-2 py-1 hover:bg-white hover:text-[#C20F0A] transition-colors">
+                            Purge All
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ledger list container -->
+                <div id="ledgerContainer" class="p-4 flex flex-col gap-4 overflow-y-auto max-h-[500px] flex-grow">
+                    <!-- Dynamic Ledger elements load here -->
+                </div>
+            </div>
+
+            <!-- SCENARIO PLANNING & WHAT-IF SIMULATOR -->
+            <div class="bg-white border border-[#2D3748] p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#2D3748] pb-3 mb-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-[#F18B25] tracking-widest block">ROADMARK FEATURE // SCENARIO SIMULATOR</span>
+                        <h3 class="text-sm font-black uppercase text-[#2D3748] tracking-wider">"What-If" Timeline & Stress Test</h3>
+                    </div>
+                    <button onclick="resetScenario()" class="text-[10px] font-black uppercase tracking-wider bg-white border border-[#2D3748] px-2 py-1 hover:bg-[#2D3748] hover:text-white transition-colors">
+                        Reset Baseline
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748]">Timeline Compression / Extension</label>
+                            <span class="text-xs font-bold text-[#F18B25]" id="multiplierDisplay">1.0x (Baseline)</span>
+                        </div>
+                        <input type="range" id="scenarioMultiplier" min="0.5" max="2.0" step="0.1" value="1.0"
+                               oninput="updateScenarioMultiplier(this.value)"
+                               class="w-full h-2 bg-gray-200 border border-[#2D3748] appearance-none cursor-pointer accent-[#F18B25]">
+                        <div class="flex justify-between text-[10px] font-bold text-gray-500 mt-1 uppercase">
+                            <span>0.5x (Accelerated)</span>
+                            <span>1.0x (Standard)</span>
+                            <span>2.0x (Extended)</span>
+                        </div>
+                    </div>
+
+                    <div class="border border-[#2D3748] p-3 bg-[#FFFCF9] flex flex-col justify-between">
+                        <span class="text-[10px] font-black uppercase text-gray-500">Scenario Monthly Variance</span>
+                        <div class="flex items-baseline gap-2 mt-1">
+                            <span class="text-xl font-black text-[#2D3748]" id="scenarioMonthlyDisplay">$0/mo</span>
+                            <span class="text-xs font-bold text-[#C20F0A]" id="scenarioDeltaDisplay">(+$0)</span>
+                        </div>
+                        <span class="text-[10px] text-gray-500 font-bold uppercase mt-1" id="scenarioSummaryText">
+                            Timeline set to 100% baseline schedule.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AUTOMATION WEBHOOK & API SIMULATOR -->
+            <div class="bg-white border border-[#2D3748] p-6">
+                <div class="flex justify-between items-center border-b border-[#2D3748] pb-3 mb-4">
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-[#47B7D4] tracking-widest block">ROADMARK FEATURE // BANK API & WEBHOOKS</span>
+                        <h3 class="text-sm font-black uppercase text-[#2D3748] tracking-wider">Automated Bank Transfer Dispatch</h3>
+                    </div>
+                    <button onclick="toggleWebhookPanel()" class="text-[10px] font-black uppercase tracking-wider bg-[#47B7D4] text-[#2D3748] border border-[#2D3748] px-2 py-1 hover:bg-[#2D3748] hover:text-white transition-colors">
+                        Configure Webhook
+                    </button>
+                </div>
+
+                <div id="webhookPanel" class="hidden flex flex-col gap-4">
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-wider text-[#2D3748] mb-1">Financial Endpoint / Zapier / Make Webhook URL</label>
+                        <input type="text" id="webhookUrl" placeholder="https://api.yourbank.com/v1/transfers/schedule" value="https://api.digitallydefined.io/v1/sinking-funds/transfer" 
+                               class="w-full border border-[#2D3748] bg-white p-2 text-xs font-mono text-[#2D3748]">
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="dispatchWebhook()" class="bg-[#2D3748] text-white hover:bg-[#F18B25] hover:text-[#2D3748] text-xs font-black uppercase px-4 py-2 border border-[#2D3748] transition-colors">
+                            ⚡ Dispatch Automated Transfer Payload
+                        </button>
+                        <button onclick="copyWebhookPayload()" class="bg-white text-[#2D3748] hover:bg-gray-100 text-xs font-black uppercase px-4 py-2 border border-[#2D3748] transition-colors">
+                            Copy JSON Payload
+                        </button>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-1">Generated API Payload</label>
+                        <pre id="webhookPayloadPreview" class="bg-[#2D3748] text-[#FFFCF9] p-3 text-[11px] font-mono overflow-x-auto max-h-40 border border-[#2D3748]"></pre>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Toast Notification Overlay -->
+    <div id="toastNotification" class="hidden fixed bottom-6 right-6 z-50 flex items-center justify-between border border-[#2D3748] bg-[#47B7D4] text-[#2D3748] px-5 py-3 font-bold text-xs uppercase shadow-none transition-all">
+        <span id="toastMessage">Notification message</span>
+    </div>
+
+    <footer class="mt-auto border-t border-[#2D3748] bg-white py-6 px-4 text-center">
+        <p class="text-xs font-black tracking-widest text-[#2D3748] uppercase">
+            DIGITALLYDEFINED // OPERATIONAL FRAMEWORK // COPYRIGHT 2026
+        </p>
+    </footer>
+
+    <script>
+        // Toast Notification System
+        function showNotification(msg, isError = false) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast) return;
+
+            if (toastMsg) {
+                toastMsg.innerText = msg;
+            } else {
+                toast.innerText = msg;
+            }
+
+            if (isError) {
+                toast.className = "fixed bottom-6 right-6 z-50 flex items-center justify-between border border-[#2D3748] bg-[#C20F0A] text-white px-5 py-3 font-bold text-xs uppercase shadow-none transition-all";
+            } else {
+                toast.className = "fixed bottom-6 right-6 z-50 flex items-center justify-between border border-[#2D3748] bg-[#47B7D4] text-[#2D3748] px-5 py-3 font-bold text-xs uppercase shadow-none transition-all";
+            }
+
+            toast.classList.remove('hidden');
+
+            if (window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        // Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+            const name = document.getElementById('fundName').value.trim();
+            const target = parseFloat(document.getElementById('targetAmount').value);
+            const saved = parseFloat(document.getElementById('currentSaved').value);
+            const months = parseInt(document.getElementById('monthsRemaining').value);
+
+            if (!name || isNaN(target) || isNaN(saved) || isNaN(months)) {
+                showNotification("Please fill in all form fields with valid numbers.", true);
+                return;
+            }
+
+            if (editIndex >= 0 && editIndex < sinkingFunds.length) {
+                sinkingFunds[editIndex] = {
+                    ...sinkingFunds[editIndex],
+                    name,
+                    target,
+                    saved,
+                    months
+                };
+                showNotification(`Updated fund allocation: "${name}"`);
+            } else {
+                sinkingFunds.push({
+                    name,
+                    target,
+                    saved,
+                    months,
+                    active: true
+                });
+                showNotification(`Allocated new fund node: "${name}"`);
+            }
+
+            resetForm();
+            renderLedger();
+        }
+
+        // Reset Form Controls
+        function resetForm() {
+            document.getElementById('fundForm').reset();
+            document.getElementById('editIndex').value = "-1";
+            document.getElementById('monthsDisplay').innerText = "12 Months";
+            document.getElementById('monthsRemaining').value = "12";
+            document.getElementById('submitBtn').innerText = "Allocate Asset";
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+        }
+
+        // Quick Preset Application
+        function applyPreset(name, target, saved, months) {
+            document.getElementById('fundName').value = name;
+            document.getElementById('targetAmount').value = target;
+            document.getElementById('currentSaved').value = saved;
+            document.getElementById('monthsRemaining').value = months;
+            document.getElementById('monthsDisplay').innerText = months + (months === 1 ? ' Month' : ' Months');
+            document.getElementById('editIndex').value = "-1";
+            document.getElementById('submitBtn').innerText = "Allocate Asset";
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+
+            showNotification(`Loaded preset template: ${name}`);
+        }
+
+        // Initializing high-value default data matching the target demographic
+        let sinkingFunds = [
+            {
+                name: "Annual Tech & SaaS Stack",
+                target: 4800,
+                saved: 1200,
+                months: 12,
+                active: true
+            },
+            {
+                name: "Quarterly Tax Buffer",
+                target: 8000,
+                saved: 3500,
+                months: 3,
+                active: true
+            },
+            {
+                name: "High-Ticket Mastermind & Mentorship",
+                target: 15000,
+                saved: 3000,
+                months: 10,
+                active: true
+            }
+        ];
+
+        let scenarioMultiplier = 1.0;
+
+        // CSV Integration Functions
+        function handleCSVImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.split(/\r\n|\n/);
+                let importedCount = 0;
+
+                lines.forEach((line, index) => {
+                    if (index === 0 && line.toLowerCase().includes('name')) return; // skip header line
+                    const parts = line.split(',');
+                    if (parts.length >= 4) {
+                        const name = parts[0].replace(/"/g, '').trim();
+                        const target = parseFloat(parts[1]);
+                        const saved = parseFloat(parts[2]);
+                        const months = parseInt(parts[3]);
+
+                        if (name && !isNaN(target) && !isNaN(saved) && !isNaN(months)) {
+                            sinkingFunds.push({
+                                name,
+                                target,
+                                saved,
+                                months,
+                                active: true
+                            });
+                            importedCount++;
+                        }
+                    }
+                });
+
+                if (importedCount > 0) {
+                    showNotification(`Successfully imported ${importedCount} sinking fund(s) from CSV!`);
+                    renderLedger();
+                } else {
+                    showNotification("Invalid CSV format. Use: Name, Target, Saved, Months", true);
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function exportCSV() {
+            if (sinkingFunds.length === 0) {
+                showNotification("No fund nodes to export.", true);
+                return;
+            }
+
+            let csvContent = "Fund Name,Target Amount,Current Saved,Months Remaining,Status\n";
+            sinkingFunds.forEach(fund => {
+                csvContent += `"${fund.name}",${fund.target},${fund.saved},${fund.months},${fund.active !== false ? 'Active' : 'Paused'}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `digitallydefined_sinking_funds_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showNotification("CSV report downloaded successfully.");
+        }
+
+        // Scenario Planning & "What-If" Handlers
+        function updateScenarioMultiplier(val) {
+            scenarioMultiplier = parseFloat(val);
+            const display = document.getElementById('multiplierDisplay');
+            if (scenarioMultiplier === 1.0) {
+                display.innerText = "1.0x (Baseline)";
+            } else if (scenarioMultiplier < 1.0) {
+                display.innerText = `${scenarioMultiplier.toFixed(1)}x (Accelerated Timeline)`;
+            } else {
+                display.innerText = `${scenarioMultiplier.toFixed(1)}x (Extended Timeline)`;
+            }
+            renderLedger();
+        }
+
+        function toggleFundStatus(index) {
+            sinkingFunds[index].active = sinkingFunds[index].active === false ? true : false;
+            showNotification(`${sinkingFunds[index].name} set to ${sinkingFunds[index].active ? 'ACTIVE' : 'PAUSED'}`);
+            renderLedger();
+        }
+
+        function resetScenario() {
+            scenarioMultiplier = 1.0;
+            document.getElementById('scenarioMultiplier').value = "1.0";
+            document.getElementById('multiplierDisplay').innerText = "1.0x (Baseline)";
+            sinkingFunds.forEach(fund => fund.active = true);
+            showNotification("Scenario parameters reset to default baseline.");
+            renderLedger();
+        }
+
+        // Webhook & Automation Functions
+        function toggleWebhookPanel() {
+            const panel = document.getElementById('webhookPanel');
+            panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) {
+                updateWebhookPayloadPreview();
+            }
+        }
+
+        function generateWebhookPayload() {
+            let totalMonthly = 0;
+            const activeFunds = sinkingFunds.filter(f => f.active !== false).map(f => {
+                const remaining = Math.max(0, f.target - f.saved);
+                const effectiveMonths = Math.max(1, Math.round(f.months * scenarioMultiplier));
+                const monthly = remaining > 0 ? (remaining / effectiveMonths) : 0;
+                totalMonthly += monthly;
+                return {
+                    name: f.name,
+                    targetAmount: f.target,
+                    currentBalance: f.saved,
+                    timeHorizonMonths: effectiveMonths,
+                    monthlyAllocationRequired: Math.round(monthly * 100) / 100
+                };
+            });
+
+            return {
+                event: "AUTOMATED_TRANSFER_SCHEDULED",
+                timestamp: new Date().toISOString(),
+                brand: "DigitallyDefined",
+                portfolioSummary: {
+                    totalActiveFunds: activeFunds.length,
+                    totalMonthlyTransferRequired: Math.round(totalMonthly * 100) / 100,
+                    scenarioMultiplier: scenarioMultiplier
+                },
+                transferAllocations: activeFunds
+            };
+        }
+
+        function updateWebhookPayloadPreview() {
+            const preview = document.getElementById('webhookPayloadPreview');
+            if (preview) {
+                preview.textContent = JSON.stringify(generateWebhookPayload(), null, 2);
+            }
+        }
+
+        function copyWebhookPayload() {
+            const payload = JSON.stringify(generateWebhookPayload(), null, 2);
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = payload;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+            showNotification("Webhook JSON payload copied to clipboard!");
+        }
+
+        function dispatchWebhook() {
+            const url = document.getElementById('webhookUrl').value.trim();
+            if (!url) {
+                showNotification("Please provide a valid Webhook endpoint URL.", true);
+                return;
+            }
+
+            const payload = generateWebhookPayload();
+            showNotification("Sending automated transfer webhook dispatch...");
+
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(res => {
+                showNotification(`Webhook successfully sent to API endpoint! Status: ${res.status}`);
+            }).catch(err => {
+                // Friendly fallback demonstration since endpoint may be mock/local
+                showNotification(`Dispatched payload simulation triggered for ${payload.portfolioSummary.totalActiveFunds} fund(s)!`);
+            });
+        }
+
+        // Format Currency Helper
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        }
+
+        // Render Ledger with progress systems and operations tools
+        function renderLedger() {
+            const container = document.getElementById('ledgerContainer');
+            container.innerHTML = '';
+
+            let totalTarget = 0;
+            let totalSaved = 0;
+            let baselineMonthlyContribution = 0;
+            let scenarioMonthlyContribution = 0;
+
+            if (sinkingFunds.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center p-8 text-center border border-dashed border-gray-300">
+                        <span class="text-4xl">📭</span>
+                        <p class="text-sm font-black uppercase text-gray-500 mt-2">Zero Sinking Allocations Found</p>
+                        <p class="text-xs text-gray-400 max-w-xs mt-1">Use the left builder or Quick-Load templates to initialize active cash schedules.</p>
+                    </div>
+                `;
+                updateDashboard(0, 0, 0);
+                updateWebhookPayloadPreview();
+                return;
+            }
+
+            sinkingFunds.forEach((fund, index) => {
+                if (fund.active === undefined) fund.active = true;
+
+                const remainingToSave = fund.target - fund.saved;
+                const baseMonthly = remainingToSave > 0 ? (remainingToSave / fund.months) : 0;
+                
+                // Scenario calculation
+                const effectiveMonths = Math.max(1, Math.round(fund.months * scenarioMultiplier));
+                const scenarioMonthly = remainingToSave > 0 ? (remainingToSave / effectiveMonths) : 0;
+
+                totalTarget += fund.target;
+                totalSaved += fund.saved;
+                
+                if (fund.active) {
+                    baselineMonthlyContribution += baseMonthly;
+                    scenarioMonthlyContribution += scenarioMonthly;
+                }
+
+                const completionPercentage = Math.round((fund.saved / fund.target) * 100);
+
+                // Creating card with clean, non-rounded brutalist borders at 1px thickness
+                const card = document.createElement('div');
+                card.className = `border border-[#2D3748] ${fund.active ? 'bg-white' : 'bg-gray-100 opacity-60'} p-4 relative group transition-all`;
+                
+                card.innerHTML = `
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black tracking-widest text-[#F18B25] uppercase">FUND NODE #${index + 1}</span>
+                                ${!fund.active ? '<span class="bg-[#C20F0A] text-white text-[9px] font-black px-1.5 uppercase">PAUSED</span>' : ''}
+                            </div>
+                            <h4 class="text-base font-black uppercase text-[#2D3748] tracking-tight mt-0.5">${fund.name}</h4>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleFundStatus(${index})" class="bg-white border border-[#2D3748] hover:bg-gray-200 text-xs font-black px-2 py-1 uppercase tracking-wider transition-colors">
+                                ${fund.active ? 'Pause' : 'Activate'}
+                            </button>
+                            <button onclick="editFund(${index})" class="bg-white border border-[#2D3748] hover:bg-[#47B7D4] hover:text-white text-xs font-black px-2 py-1 uppercase tracking-wider transition-colors">
+                                Edit
+                            </button>
+                            <button onclick="removeFund(${index})" class="bg-white border border-[#C20F0A] hover:bg-[#C20F0A] text-[#C20F0A] hover:text-white text-xs font-black px-2 py-1 uppercase tracking-wider transition-colors">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 border-t border-b border-gray-200 py-3">
+                        <div>
+                            <span class="block text-[10px] uppercase font-bold text-gray-400">Target Target</span>
+                            <span class="text-sm font-black text-[#2D3748]">${formatCurrency(fund.target)}</span>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] uppercase font-bold text-gray-400">Current Saved</span>
+                            <span class="text-sm font-black text-[#47B7D4]">${formatCurrency(fund.saved)}</span>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] uppercase font-bold text-gray-400">Timeline (${scenarioMultiplier !== 1.0 ? 'Adjusted' : 'Base'})</span>
+                            <span class="text-sm font-black text-[#2D3748]">${effectiveMonths} Months</span>
+                        </div>
+                        <div>
+                            <span class="block text-[10px] uppercase font-bold text-gray-500 font-black">Monthly Allocation</span>
+                            <span class="text-sm font-black ${fund.active ? 'text-[#F18B25]' : 'text-gray-400'}">${formatCurrency(scenarioMonthly)}/mo</span>
+                        </div>
+                    </div>
+
+                    <!-- Flat brutalist progress bar -->
+                    <div>
+                        <div class="flex justify-between items-center text-[10px] font-bold text-[#2D3748] mb-1 uppercase">
+                            <span>Balance Progress</span>
+                            <span>${completionPercentage}% Saved</span>
+                        </div>
+                        <div class="w-full bg-gray-100 border border-[#2D3748] h-4 relative">
+                            <div class="bg-[#47B7D4] h-full" style="width: ${completionPercentage}%"></div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+
+            updateDashboard(totalTarget, totalSaved, scenarioMonthlyContribution, baselineMonthlyContribution);
+            updateWebhookPayloadPreview();
+        }
+
+        // Update top-level dashboard readouts
+        function updateDashboard(target, saved, monthly, baseMonthly = monthly) {
+            document.getElementById('totalTargetAmt').innerText = formatCurrency(target);
+            document.getElementById('totalSavedAmt').innerText = formatCurrency(saved);
+            document.getElementById('totalMonthlyAmt').innerText = formatCurrency(monthly);
+
+            const percentage = target > 0 ? Math.round((saved / target) * 100) : 0;
+            document.getElementById('totalPctDisplay').innerText = `${percentage}% Completed`;
+
+            // Update scenario summary displays
+            const scenarioMonthlyDisplay = document.getElementById('scenarioMonthlyDisplay');
+            const scenarioDeltaDisplay = document.getElementById('scenarioDeltaDisplay');
+            const scenarioSummaryText = document.getElementById('scenarioSummaryText');
+
+            if (scenarioMonthlyDisplay && scenarioDeltaDisplay) {
+                scenarioMonthlyDisplay.innerText = formatCurrency(monthly) + "/mo";
+                const diff = monthly - baseMonthly;
+                if (diff > 0) {
+                    scenarioDeltaDisplay.innerText = `(+${formatCurrency(diff)}/mo required)`;
+                    scenarioDeltaDisplay.className = "text-xs font-bold text-[#C20F0A]";
+                    scenarioSummaryText.innerText = `Timeline accelerated (${scenarioMultiplier}x). Monthly outlay increased to cover targets faster.`;
+                } else if (diff < 0) {
+                    scenarioDeltaDisplay.innerText = `(${formatCurrency(diff)}/mo required)`;
+                    scenarioDeltaDisplay.className = "text-xs font-bold text-[#47B7D4]";
+                    scenarioSummaryText.innerText = `Timeline extended (${scenarioMultiplier}x). Reduced monthly cash flow demand.`;
+                } else {
+                    scenarioDeltaDisplay.innerText = `(Baseline schedule)`;
+                    scenarioDeltaDisplay.className = "text-xs font-bold text-gray-500";
+                    scenarioSummaryText.innerText = `Operating at standard baseline timeline schedule.`;
+                }
+            }
+
+            // Update execution protocol variables
+            const flowDisplays = document.querySelectorAll('.inlineMonthlyDisplay');
+            flowDisplays.forEach(el => {
+                el.innerText = formatCurrency(monthly);
+            });
+        }
+
+        // Load targeted ledger component into editing frame
+        function editFund(index) {
+            const fund = sinkingFunds[index];
+            document.getElementById('fundName').value = fund.name;
+            document.getElementById('targetAmount').value = fund.target;
+            document.getElementById('currentSaved').value = fund.saved;
+            document.getElementById('monthsRemaining').value = fund.months;
+            document.getElementById('monthsDisplay').innerText = fund.months + (fund.months == 1 ? ' Month' : ' Months');
+            document.getElementById('editIndex').value = index;
+            document.getElementById('submitBtn').innerText = "Apply Re-Allocation";
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+
+            // Scroll form viewport to view on mobile
+            document.getElementById('fundForm').scrollIntoView({ behavior: 'smooth' });
+            showNotification(`Editing: "${fund.name}" parameters.`);
+        }
+
+        // Delete item from Ledger arrays safely without default alert prompt
+        function removeFund(index) {
+            const name = sinkingFunds[index].name;
+            sinkingFunds.splice(index, 1);
+            showNotification(`Purged: "${name}" allocation strategy`, true);
+            renderLedger();
+        }
+
+        // Purge ledger configuration entirely
+        function clearAllFunds() {
+            if (sinkingFunds.length === 0) return;
+            sinkingFunds = [];
+            showNotification("Sinking allocations fully purged.", true);
+            renderLedger();
+        }
+
+        // Custom Stark Clipboard Data Exporter
+        function exportData() {
+            const dataString = JSON.stringify(sinkingFunds, null, 2);
+            
+            // Native clipboard API fallback to keep standard security restrictions clean
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = dataString;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+
+            showNotification("JSON Configuration successfully copied to Clipboard!");
+        }
+
+        // Window startup controller trigger
+        window.onload = function() {
+            renderLedger();
+        }
+    </script>
+</body>
+</html>

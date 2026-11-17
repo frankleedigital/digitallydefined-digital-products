@@ -1,0 +1,15 @@
+
+:root{--dd-bg:#FFFCF9;--dd-ink:#111;--dd-frame:#111;--dd-orange:#F18B25;--dd-blue:#47B7D4;--dd-red:#C20F0A;--dd-green:#2A9D5C;--dd-head:'Inter',sans-serif;--dd-body:'DM Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{scroll-behavior:smooth}
+body{background:var(--dd-bg);color:var(--dd-ink);font-family:var(--dd-body);line-height:1.6;font-size:16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3,h4{font-family:var(--dd-head);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.02}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+.bar{position:sticky;top:0;z-index:50;background:var(--dd-bg);border-bottom:2px solid var(--dd-ink);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px}
+.bar .mark{font-family:var(--dd-head);font-weight:900;font-size:18px;letter-spacing:-.02em}
+.bar .mark em{font-style:italic;color:var(--dd-orange)}
+.bar .lbl{font-family:var(--dd-head);font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#555}
+.hero{padding:38px 0 24px;border-bottom:2px solid var(--dd-ink);margin-bottom:26px}
+.eyebrow{display:inline-block;font-family:var(--dd-head);font-weight:900;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dd-orange);border:1px solid var(--dd-ink);background:#fff;padding:5px 10px;margin-bottom:14px}
+.hero h1{font-size:clamp(28px,5vw,44px);margin-bottom:12px}
+.hero p{font-size:17px;color:#4b5563;max-width:60ch}
