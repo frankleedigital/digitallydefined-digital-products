@@ -192,7 +192,7 @@
       margin-top: 1rem;
     }
 
-    .btn-buy:hover { background: #0F0F0F; color: #FFF; }
+    .btn-buy:hover { background: #111111; color: #FFF; }
 
     .accordion { margin: 1.5rem 0; border: 1px solid var(--dd-frame); }
     .accordion-header {
@@ -267,8 +267,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -484,14 +484,22 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body>
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">The Digital Landlord Playbook</span></header>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span><span class="dd-brandbar-label">The Digital Landlord Playbook</span></header>
 
   <div class="progress-bar" id="progressBar"></div>
   <header>
     <nav class="container">
-      <div class="logo">DIGITALLY<span style="color: var(--dd-orange); font-style: italic;">DEFINED</span>.</div>
       <div class="nav-links">
         <a href="#model" data-target="model">Model</a>
         <a href="#research" data-target="research">Research</a>

@@ -115,8 +115,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -332,14 +332,22 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">DigitallyDefined // Clicks to Cash Sovereignty</span></header>
 <!-- DigitallyDefined Official Header -->
 <nav class="dd-brand-topbar" style="background:#FFFCF9; border-bottom:1px solid #111111; padding:0.9rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; font-family:'Inter', sans-serif; position:sticky; top:0; z-index:9999;">
   <div style="display:flex; align-items:center; gap:0.6rem;">
     <a href="https://dashboard.digitallydefined.agency" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:#111111;">
-      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #111111; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">Digitally<em style="color:#F18B25; font-style:italic;">Defined</em></span>
+      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #111111; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span>
     </a>
     <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#5F5F5F; display:none;">Faceless Digital Real Estate</span>
   </div>

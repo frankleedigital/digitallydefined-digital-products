@@ -140,8 +140,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -357,9 +357,18 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">Intent to Income™</span></header>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span><span class="dd-brandbar-label">Intent to Income™</span></header>
 
     <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 flex flex-col">
         <nav class="flex justify-between items-center border-b-2 border-dk pb-4 mb-6 flex-wrap gap-4">

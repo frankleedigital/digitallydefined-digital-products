@@ -205,8 +205,8 @@ a{color:inherit;text-decoration:none}
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -422,15 +422,23 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body>
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">50 AI Prompts for Women Building Digital Products That Sell</span></header>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span><span class="dd-brandbar-label">50 AI Prompts for Women Building Digital Products That Sell</span></header>
 
 <div class="dd-page">
 
   <!-- TOPBAR -->
   <div class="dd-topbar">
-    <div class="dd-logo">Digitally<span>Defined</span>.</div>
     <nav class="dd-topnav">
       <a href="#how">How to Use</a>
       <a href="#prompts">Prompts</a>

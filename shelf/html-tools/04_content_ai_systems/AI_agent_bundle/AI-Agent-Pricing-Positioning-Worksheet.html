@@ -134,16 +134,7 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: sharpFade 0.2s ease-in-out; }
         @keyframes sharpFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    
-/* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
-.dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
-</style>
-
-<!-- DigitallyDefined Canonical Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<!-- DigitallyDefined Brand Standards (Strict 0px Soft-Brutalism) -->
+    </style>
 <style id="dd-brand-standard">
 /* ============================================================================
    DigitallyDefined — Official Brand Standard v2.0
@@ -171,8 +162,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -388,9 +379,17 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body class="min-h-screen p-4 md:p-6 font-dmsans selection:bg-dd-blue selection:text-white">
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">AI Agent Pricing &amp; Positioning Worksheet</span></header>
 
     <!-- Toast -->
     <div id="toast" class="fixed top-4 right-4 z-50 hidden">

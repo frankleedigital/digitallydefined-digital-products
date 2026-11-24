@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigitallyDefined - Social Media Monetization Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFFCF9;
+    --text: #2D3748;
+    --frame: #000000;
+    --blue: #47B7D4;
+    --orange: #F18B25;
+    --red: #c20f0a;
+    --font-head: 'Inter', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dd-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .dd-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--frame);
+    margin-bottom: 60px;
+  }
+
+  .dd-logo-wrap {
+    display: inline-block;
+    border: 1.5px solid var(--frame);
+    padding: 10px 22px;
+    background: #fff;
+  }
+
+  .dd-logo-text {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .dd-logo-text .dd-logo-black {
+    color: var(--frame);
+    font-style: normal;
+  }
+
+  .dd-logo-text .dd-logo-orange {
+    color: var(--orange);
+    font-style: italic;
+  }
+
+  .dd-brand-tag {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text);
+    opacity: 0.7;
+    text-align: right;
+  }
+
+  .dd-hero {
+    text-align: center;
+    padding: 40px 0 80px;
+  }
+
+  .dd-hero-kicker {
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .dd-hero h1 {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.05;
+    color: var(--frame);
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+
+  .dd-hero p {
+    font-family: var(--font-body);
+    font-size: 18px;
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--text);
+  }
+
+  .dd-section {
+    margin-bottom: 80px;
+  }
+
+  .dd-section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--frame);
+  }
+
+  .dd-section-num {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 48px;
+    color: var(--frame);
+    line-height: 1;
+    min-width: 60px;
+  }
+
+  .dd-section-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--frame);
+    margin-bottom: 4px;
+  }
+
+  .dd-section-sub {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text);
+    opacity: 0.75;
+  }
+
+  .dd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .dd-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .dd-card {
+    border: 1px solid var(--frame);
+    padding: 28px;
+    background: var(--bg);
+  }
+
+  .dd-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--frame);
+  }
+
+  .dd-card-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--frame);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dd-card-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 900;
+    font-family: var(--font-head);
+  }
+
+  .dd-card-icon.orange { background: var(--orange); }
+  .dd-card-icon.red { background: var(--red); }
+
+  .dd-input-group {
+    margin-bottom: 20px;
+  }
+
+  .dd-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dd-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--frame);
+    background: var(--bg);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--frame);
+    font-weight: 700;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+
+  .dd-input:focus {
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--blue);
+  }
+
+  .dd-range-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .dd-range {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--frame);
+    outline: none;
+    border-radius: 0;
+  }
+
+  .dd-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--orange);
+    cursor: pointer;
+    border-radius: 0;
+    border: 2px solid var(--frame);
+  }
+
+  .dd-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--orange);
+    cursor: pointer;
+    border-radius: 0;
+    border: 2px solid var(--frame);
+  }
+
+  .dd-range-val {
+    min-width: 90px;
+    text-align: right;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--frame);
+  }
+
+  .dd-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .dd-toggle:last-child { border-bottom: none; }
+
+  .dd-toggle-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .dd-toggle-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--frame);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .dd-toggle-box.active {
+    background: var(--blue);
+  }
+
+  .dd-toggle-box.active::after {
+    content: '✓';
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .dd-toggle-box.orange.active { background: var(--orange); }
+
+  .dd-metric {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .dd-metric:last-child { border-bottom: none; }
+
+  .dd-metric-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+
+  .dd-metric-value {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--frame);
+  }
+
+  .dd-metric-value.blue { color: var(--blue); }
+  .dd-metric-value.orange { color: var(--orange); }
+  .dd-metric-value.red { color: var(--red); }
+
+  .dd-metric-sub {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .dd-result-card {
+    border: 2px solid var(--frame);
+    padding: 32px;
+    background: var(--bg);
+  }
+
+  .dd-result-total {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 64px);
+    color: var(--frame);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .dd-result-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .dd-banner {
+    background: var(--orange);
+    border: 2px solid var(--frame);
+    padding: 24px;
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .dd-banner-text {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 20px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .dd-btn {
+    display: inline-block;
+    padding: 18px 36px;
+    background: var(--frame);
+    color: white;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid var(--frame);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .dd-btn:hover {
+    background: var(--bg);
+    color: var(--frame);
+  }
+
+  .dd-btn.orange {
+    background: var(--orange);
+    border-color: var(--orange);
+  }
+
+  .dd-btn.orange:hover {
+    background: var(--bg);
+    color: var(--orange);
+  }
+
+  .dd-cta-bar {
+    background: var(--frame);
+    color: white;
+    padding: 40px 32px;
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  .dd-cta-bar h3 {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .dd-cta-bar p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+
+  .dd-platform-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .dd-platform-row:last-child { border-bottom: none; }
+
+  .dd-platform-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--frame);
+  }
+
+  .dd-platform-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--frame);
+    background: var(--bg);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--frame);
+    outline: none;
+  }
+
+  .dd-platform-input:focus {
+    background: #fff;
+  }
+
+  .dd-note {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text);
+    opacity: 0.7;
+    font-style: italic;
+    margin-top: 12px;
+  }
+
+  .dd-divider {
+    border: none;
+    border-top: 1px solid var(--frame);
+    margin: 20px 0;
+  }
+
+  .dd-bar-chart {
+    margin-top: 20px;
+  }
+
+  .dd-bar-row {
+    margin-bottom: 14px;
+  }
+
+  .dd-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .dd-bar-track {
+    height: 12px;
+    background: rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .dd-bar-fill {
+    height: 100%;
+    background: var(--blue);
+    transition: width 0.4s ease;
+  }
+
+  .dd-bar-fill.orange { background: var(--orange); }
+  .dd-bar-fill.red { background: var(--red); }
+
+  @media (max-width: 768px) {
+    .dd-brand { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .dd-brand-tag { text-align: left; }
+    .dd-grid-2 { grid-template-columns: 1fr; }
+    .dd-platform-row { grid-template-columns: 1fr; gap: 8px; }
+    .dd-section-header { flex-direction: column; gap: 12px; }
+    .dd-section-num { font-size: 36px; }
+    .dd-logo-text { font-size: 22px; }
+  }
+</style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
+</head>
+<body>
+<div class="dd-page">
+
+  <!-- Brand Lockup with Real Logo -->
+  <div class="dd-brand">
+    <div class="dd-logo-wrap">
+      <div class="dd-logo-text">
+        <span class="dd-logo-black">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span>
+      </div>
+    </div>
+    <div class="dd-brand-tag">Sovereign Wealth for Gen X Women</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="dd-hero">
+    <div class="dd-hero-kicker">Social Media Monetization Calculator</div>
+    <h1>TURN YOUR<br>FOLLOWING INTO<br>CASH FLOW.</h1>
+    <p>Stop posting for likes. Start posting for leverage. Calculate your real monthly income from affiliate marketing, digital products, sponsorships, and email — no face required.</p>
+  </div>
+
+  <!-- Section 01: Platform Audit -->
+  <div class="dd-section">
+    <div class="dd-section-header">
+      <div class="dd-section-num">01</div>
+      <div>
+        <div class="dd-section-title">THE PLATFORM AUDIT</div>
+        <div class="dd-section-sub">Tell us where your audience lives. Be honest — we'll work with what you've got.</div>
+      </div>
+    </div>
+
+    <div class="dd-grid-2">
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Your Audience Numbers</div>
+          <div class="dd-card-icon">IG</div>
+        </div>
+
+        <div class="dd-platform-row">
+          <div class="dd-platform-name">Instagram</div>
+          <input type="number" class="dd-platform-input" id="ig-followers" value="5000" min="0">
+          <input type="number" class="dd-platform-input" id="ig-engagement" value="4" min="0" max="100" placeholder="%">
+        </div>
+        <div class="dd-platform-row">
+          <div class="dd-platform-name">YouTube</div>
+          <input type="number" class="dd-platform-input" id="yt-followers" value="1000" min="0">
+          <input type="number" class="dd-platform-input" id="yt-engagement" value="6" min="0" max="100" placeholder="%">
+        </div>
+        <div class="dd-platform-row">
+          <div class="dd-platform-name">TikTok</div>
+          <input type="number" class="dd-platform-input" id="tt-followers" value="10000" min="0">
+          <input type="number" class="dd-platform-input" id="tt-engagement" value="8" min="0" max="100" placeholder="%">
+        </div>
+        <div class="dd-platform-row">
+          <div class="dd-platform-name">Facebook</div>
+          <input type="number" class="dd-platform-input" id="fb-followers" value="2000" min="0">
+          <input type="number" class="dd-platform-input" id="fb-engagement" value="3" min="0" max="100" placeholder="%">
+        </div>
+        <div class="dd-platform-row">
+          <div class="dd-platform-name">Email List</div>
+          <input type="number" class="dd-platform-input" id="em-followers" value="500" min="0">
+          <input type="number" class="dd-platform-input" id="em-engagement" value="35" min="0" max="100" placeholder="%">
+        </div>
+
+        <div class="dd-note">Followers / Subscribers · Engagement rate %</div>
+      </div>
+
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Content Cadence</div>
+          <div class="dd-card-icon orange"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Posts Per Week</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="posts-per-week" min="1" max="14" value="5">
+            <div class="dd-range-val" id="posts-val">5 / wk</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Hours Per Week on Content</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="hours-per-week" min="2" max="40" value="10">
+            <div class="dd-range-val" id="hours-val">10 hrs</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Months in the Game</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="months-active" min="1" max="60" value="6">
+            <div class="dd-range-val" id="months-val">6 mo</div>
+          </div>
+        </div>
+
+        <hr class="dd-divider">
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Total Reach</div>
+          <div class="dd-metric-value" id="total-reach">18,500</div>
+          <div class="dd-metric-sub">Combined audience across platforms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 02: Monetization Mix -->
+  <div class="dd-section">
+    <div class="dd-section-header">
+      <div class="dd-section-num">02</div>
+      <div>
+        <div class="dd-section-title">THE MONETIZATION MIX</div>
+        <div class="dd-section-sub">Toggle the revenue streams you want to activate. Adjust the sliders to match your reality.</div>
+      </div>
+    </div>
+
+    <div class="dd-grid">
+
+      <!-- Affiliate -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Affiliate Marketing</div>
+          <div class="dd-toggle-box active" data-toggle="aff" id="aff-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Avg. Commission Per Sale ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="aff-commission" min="5" max="500" value="35">
+            <div class="dd-range-val" id="aff-commission-val">$35</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Monthly Affiliate Sales</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="aff-sales" min="0" max="200" value="15">
+            <div class="dd-range-val" id="aff-sales-val">15</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value blue" id="aff-revenue">$525</div>
+        </div>
+      </div>
+
+      <!-- Digital Products -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Digital Products</div>
+          <div class="dd-toggle-box orange active" data-toggle="dp" id="dp-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Product Price ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="dp-price" min="9" max="497" value="47">
+            <div class="dd-range-val" id="dp-price-val">$47</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Monthly Sales</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="dp-sales" min="0" max="100" value="20">
+            <div class="dd-range-val" id="dp-sales-val">20</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value orange" id="dp-revenue">$940</div>
+        </div>
+      </div>
+
+      <!-- Sponsorships -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Sponsored Posts</div>
+          <div class="dd-toggle-box active" data-toggle="sp" id="sp-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Rate Per Post ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="sp-rate" min="50" max="5000" value="250">
+            <div class="dd-range-val" id="sp-rate-val">$250</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Posts Per Month</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="sp-posts" min="0" max="12" value="4">
+            <div class="dd-range-val" id="sp-posts-val">4</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value blue" id="sp-revenue">$1,000</div>
+        </div>
+      </div>
+
+      <!-- Email Monetization -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Email Monetization</div>
+          <div class="dd-toggle-box orange active" data-toggle="em" id="em-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Revenue Per Subscriber/Mo ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="em-rps" min="0.1" max="5" step="0.1" value="0.8">
+            <div class="dd-range-val" id="em-rps-val">$0.80</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Active Subscribers</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="em-subs" min="100" max="50000" step="100" value="500">
+            <div class="dd-range-val" id="em-subs-val">500</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value orange" id="em-revenue">$400</div>
+        </div>
+      </div>
+
+      <!-- Membership -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Membership / Community</div>
+          <div class="dd-toggle-box active" data-toggle="mem" id="mem-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Monthly Membership Fee ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="mem-fee" min="9" max="199" value="27">
+            <div class="dd-range-val" id="mem-fee-val">$27</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Active Members</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="mem-members" min="0" max="1000" value="30">
+            <div class="dd-range-val" id="mem-members-val">30</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value blue" id="mem-revenue">$810</div>
+        </div>
+      </div>
+
+      <!-- Coaching / Consulting -->
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">1:1 Coaching / Consulting</div>
+          <div class="dd-toggle-box orange active" data-toggle="cc" id="cc-toggle"></div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Session Rate ($)</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="cc-rate" min="50" max="500" value="150">
+            <div class="dd-range-val" id="cc-rate-val">$150</div>
+          </div>
+        </div>
+
+        <div class="dd-input-group">
+          <label class="dd-label">Sessions Per Month</label>
+          <div class="dd-range-wrap">
+            <input type="range" class="dd-range" id="cc-sessions" min="0" max="40" value="8">
+            <div class="dd-range-val" id="cc-sessions-val">8</div>
+          </div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Monthly Revenue</div>
+          <div class="dd-metric-value orange" id="cc-revenue">$1,200</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div class="dd-banner">
+    <div class="dd-banner-text">NO FACE. NO FLUFF. JUST ASSETS.</div>
+  </div>
+
+  <!-- Section 03: Revenue Projection -->
+  <div class="dd-section">
+    <div class="dd-section-header">
+      <div class="dd-section-num">03</div>
+      <div>
+        <div class="dd-section-title">THE REVENUE PROJECTION</div>
+        <div class="dd-section-sub">Your monthly, quarterly, and annual income from social media monetization.</div>
+      </div>
+    </div>
+
+    <div class="dd-grid-2">
+
+      <div class="dd-result-card">
+        <div class="dd-result-label">Projected Monthly Income</div>
+        <div class="dd-result-total" id="monthly-total">$4,875</div>
+        <div class="dd-metric-sub" id="monthly-sub">From 6 active revenue streams</div>
+
+        <hr class="dd-divider">
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Quarterly Projection</div>
+          <div class="dd-metric-value blue" id="quarterly-total">$14,625</div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Annual Projection</div>
+          <div class="dd-metric-value orange" id="annual-total">$58,500</div>
+        </div>
+
+        <div class="dd-metric">
+          <div class="dd-metric-label">Hourly ROI (vs. time invested)</div>
+          <div class="dd-metric-value red" id="hourly-roi">$12.19/hr</div>
+          <div class="dd-metric-sub">Scale to $100+/hr within 12 months</div>
+        </div>
+      </div>
+
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Revenue Breakdown</div>
+          <div class="dd-card-icon orange"></div>
+        </div>
+
+        <div class="dd-bar-chart" id="bar-chart">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 04: Scale Plan -->
+  <div class="dd-section">
+    <div class="dd-section-header">
+      <div class="dd-section-num">04</div>
+      <div>
+        <div class="dd-section-title">THE 90-DAY SCALE PLAN</div>
+        <div class="dd-section-sub">What it takes to 3x these numbers in the next quarter.</div>
+      </div>
+    </div>
+
+    <div class="dd-grid">
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Month 1 — Foundation</div>
+          <div class="dd-card-icon">01</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Focus</div>
+          <div class="dd-metric-value" style="font-size:18px;">Pick ONE platform. Build ONE product. Launch ONE funnel.</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Target</div>
+          <div class="dd-metric-value blue" id="m1-target">$1,500/mo</div>
+        </div>
+      </div>
+
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Month 2 — Signal</div>
+          <div class="dd-card-icon orange">02</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Focus</div>
+          <div class="dd-metric-value" style="font-size:18px;">Add email list. Launch affiliate stack. Post daily.</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Target</div>
+          <div class="dd-metric-value orange" id="m2-target">$3,200/mo</div>
+        </div>
+      </div>
+
+      <div class="dd-card">
+        <div class="dd-card-header">
+          <div class="dd-card-title">Month 3 — Scale</div>
+          <div class="dd-card-icon red">03</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Focus</div>
+          <div class="dd-metric-value" style="font-size:18px;">Add sponsorships. Launch membership. Automate.</div>
+        </div>
+        <div class="dd-metric">
+          <div class="dd-metric-label">Target</div>
+          <div class="dd-metric-value red" id="m3-target">$5,800/mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Bar -->
+  <div class="dd-cta-bar">
+    <h3>READY TO BUILD YOUR DIGITAL REAL ESTATE?</h3>
+    <p>Stop trading hours for dollars. Start building assets that pay you while you sleep, travel, or ignore your inbox.</p>
+    <a href="#" class="dd-btn orange">Get The Monetization Blueprint →</a>
+  </div>
+
+</div>
+
+<script>
+  // Toggle handlers
+  document.querySelectorAll('.dd-toggle-box').forEach(box => {
+    box.addEventListener('click', () => {
+      box.classList.toggle('active');
+      calculate();
+    });
+  });
+
+  // Range input handlers
+  const rangeInputs = document.querySelectorAll('.dd-range');
+  rangeInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      updateRangeLabel(input);
+      calculate();
+    });
+  });
+
+  // Platform inputs
+  const platformInputs = document.querySelectorAll('.dd-platform-input');
+  platformInputs.forEach(input => {
+    input.addEventListener('input', calculate);
+  });
+
+  function updateRangeLabel(input) {
+    const id = input.id;
+    const val = parseFloat(input.value);
+    const label = document.getElementById(id + '-val');
+    if (!label) return;
+
+    if (id === 'posts-per-week') label.textContent = val + ' / wk';
+    else if (id === 'hours-per-week') label.textContent = val + ' hrs';
+    else if (id === 'months-active') label.textContent = val + ' mo';
+    else if (id === 'aff-commission') label.textContent = '$' + val;
+    else if (id === 'aff-sales') label.textContent = val;
+    else if (id === 'dp-price') label.textContent = '$' + val;
+    else if (id === 'dp-sales') label.textContent = val;
+    else if (id === 'sp-rate') label.textContent = '$' + val;
+    else if (id === 'sp-posts') label.textContent = val;
+    else if (id === 'em-rps') label.textContent = '$' + val.toFixed(2);
+    else if (id === 'em-subs') label.textContent = val;
+    else if (id === 'mem-fee') label.textContent = '$' + val;
+    else if (id === 'mem-members') label.textContent = val;
+    else if (id === 'cc-rate') label.textContent = '$' + val;
+    else if (id === 'cc-sessions') label.textContent = val;
+  }
+
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function fmtNum(n) {
+    return Math.round(n).toLocaleString();
+  }
+
+  function isActive(id) {
+    const el = document.getElementById(id + '-toggle');
+    return el && el.classList.contains('active');
+  }
+
+  function calculate() {
+    // Total reach
+    const ig = parseInt(document.getElementById('ig-followers').value) || 0;
+    const yt = parseInt(document.getElementById('yt-followers').value) || 0;
+    const tt = parseInt(document.getElementById('tt-followers').value) || 0;
+    const fb = parseInt(document.getElementById('fb-followers').value) || 0;
+    const em = parseInt(document.getElementById('em-followers').value) || 0;
+    const totalReach = ig + yt + tt + fb + em;
+    document.getElementById('total-reach').textContent = fmtNum(totalReach);
+
+    // Revenue streams
+    const streams = [];
+
+    if (isActive('aff')) {
+      const comm = parseFloat(document.getElementById('aff-commission').value);
+      const sales = parseInt(document.getElementById('aff-sales').value);
+      const rev = comm * sales;
+      document.getElementById('aff-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Affiliate Marketing', value: rev, color: 'blue' });
+    } else {
+      document.getElementById('aff-revenue').textContent = '$0';
+    }
+
+    if (isActive('dp')) {
+      const price = parseFloat(document.getElementById('dp-price').value);
+      const sales = parseInt(document.getElementById('dp-sales').value);
+      const rev = price * sales;
+      document.getElementById('dp-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Digital Products', value: rev, color: 'orange' });
+    } else {
+      document.getElementById('dp-revenue').textContent = '$0';
+    }
+
+    if (isActive('sp')) {
+      const rate = parseFloat(document.getElementById('sp-rate').value);
+      const posts = parseInt(document.getElementById('sp-posts').value);
+      const rev = rate * posts;
+      document.getElementById('sp-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Sponsored Posts', value: rev, color: 'blue' });
+    } else {
+      document.getElementById('sp-revenue').textContent = '$0';
+    }
+
+    if (isActive('em')) {
+      const rps = parseFloat(document.getElementById('em-rps').value);
+      const subs = parseInt(document.getElementById('em-subs').value);
+      const rev = rps * subs;
+      document.getElementById('em-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Email Monetization', value: rev, color: 'orange' });
+    } else {
+      document.getElementById('em-revenue').textContent = '$0';
+    }
+
+    if (isActive('mem')) {
+      const fee = parseFloat(document.getElementById('mem-fee').value);
+      const members = parseInt(document.getElementById('mem-members').value);
+      const rev = fee * members;
+      document.getElementById('mem-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Membership', value: rev, color: 'blue' });
+    } else {
+      document.getElementById('mem-revenue').textContent = '$0';
+    }
+
+    if (isActive('cc')) {
+      const rate = parseFloat(document.getElementById('cc-rate').value);
+      const sessions = parseInt(document.getElementById('cc-sessions').value);
+      const rev = rate * sessions;
+      document.getElementById('cc-revenue').textContent = fmt(rev);
+      streams.push({ name: 'Coaching / Consulting', value: rev, color: 'orange' });
+    } else {
+      document.getElementById('cc-revenue').textContent = '$0';
+    }
+
+    const monthly = streams.reduce((sum, s) => sum + s.value, 0);
+    const quarterly = monthly * 3;
+    const annual = monthly * 12;
+
+    const hours = parseInt(document.getElementById('hours-per-week').value) || 10;
+    const hourly = hours > 0 ? (monthly / (hours * 4.33)) : 0;
+
+    document.getElementById('monthly-total').textContent = fmt(monthly);
+    document.getElementById('monthly-sub').textContent = 'From ' + streams.length + ' active revenue stream' + (streams.length !== 1 ? 's' : '');
+    document.getElementById('quarterly-total').textContent = fmt(quarterly);
+    document.getElementById('annual-total').textContent = fmt(annual);
+    document.getElementById('hourly-roi').textContent = '$' + hourly.toFixed(2) + '/hr';
+
+    // Scale targets
+    document.getElementById('m1-target').textContent = fmt(monthly * 0.5);
+    document.getElementById('m2-target').textContent = fmt(monthly * 1.2);
+    document.getElementById('m3-target').textContent = fmt(monthly * 2.5);
+
+    // Bar chart
+    const maxVal = Math.max(...streams.map(s => s.value), 1);
+    const chartEl = document.getElementById('bar-chart');
+    chartEl.innerHTML = '';
+    streams.forEach(s => {
+      const pct = (s.value / maxVal) * 100;
+      const row = document.createElement('div');
+      row.className = 'dd-bar-row';
+      row.innerHTML = `
+        <div class="dd-bar-label">
+          <span>${s.name}</span>
+          <span style="font-weight:700;">${fmt(s.value)}/mo</span>
+        </div>
+        <div class="dd-bar-track">
+          <div class="dd-bar-fill ${s.color}" style="width:${pct}%"></div>
+        </div>
+      `;
+      chartEl.appendChild(row);
+    });
+
+    if (streams.length === 0) {
+      chartEl.innerHTML = '<div class="dd-note">Toggle on at least one revenue stream to see your breakdown.</div>';
+    }
+  }
+
+  // Initial calculation
+  calculate();
+</script>
+</body>
+</html>

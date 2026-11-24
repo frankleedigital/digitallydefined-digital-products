@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitallyDefined - Keyword Quest: Rank & Rent Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFBF4;
+            color: #2D3748;
+        }
+
+        .brutalist-card {
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            border-radius: 0px;
+            box-shadow: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-brutalist {
+            background-color: #F18B25;
+            color: white;
+            border: 1px solid #000000;
+            border-radius: 0px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: none;
+            transition: all 0.1s;
+        }
+
+        .btn-brutalist:hover:not(:disabled) {
+            background-color: #e07d1b;
+        }
+
+        .btn-brutalist:active:not(:disabled) {
+            background-color: #c96e14;
+        }
+
+        .btn-brutalist:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .input-brutalist {
+            border: 1px solid #000000;
+            border-radius: 0px;
+            padding: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .intent-tag {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid #000000;
+            border-radius: 0px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .intent-informational { background-color: #E0F2FE; color: #0369A1; }
+        .intent-navigational { background-color: #DCFCE7; color: #15803D; }
+        .intent-commercial { background-color: #FEF3C7; color: #B45309; }
+        .intent-transactional { background-color: #FEE2E2; color: #B91C1C; }
+
+        .mode-btn {
+            padding: 8px 16px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            border: 1px solid black;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #ffffff;
+            color: #2D3748;
+        }
+        .mode-btn.active {
+            background: black;
+            color: #47B7D4;
+        }
+
+        @keyframes pulse-red {
+            0% { background-color: transparent; }
+            50% { background-color: #fee2e2; }
+            100% { background-color: transparent; }
+        }
+        .timer-warning { animation: pulse-red 0.5s infinite; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#F18B25',
+                        brandBlue: '#47B7D4',
+                        accentRed: '#C20F0A',
+                        warmBg: '#FFFBF4',
+                        slateDark: '#2D3748',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brandOrange selection:text-white pb-12">
+
+    <header class="border-b border-black bg-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 border border-black bg-brandOrange flex items-center justify-center">
+                    <span class="text-white font-black text-base">DD</span>
+                </div>
+                <div>
+                    <span class="font-black text-lg sm:text-xl tracking-tight text-black">
+                        DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>
+                    </span>
+                    <p class="text-[8px] uppercase tracking-wider text-brandBlue font-extrabold block mt-[-4px]">Rank &amp; Rent Edition for Women 40+</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <div id="auth-status" class="hidden md:block text-[10px] font-black uppercase text-gray-500">Local Mode</div>
+                <div class="brutalist-card px-3 py-1.5 bg-white text-black flex items-center gap-1.5">
+                    <span class="text-[10px] font-black uppercase">Monthly Rent:</span>
+                    <span class="text-sm sm:text-base font-black text-brandOrange" id="monthly-rent">$0/mo</span>
+                </div>
+                <div class="brutalist-card px-3 py-1.5 bg-brandBlue text-black flex items-center gap-1.5">
+                    <span class="text-[10px] font-black uppercase">Score:</span>
+                    <span class="text-sm sm:text-base font-black text-black" id="total-score">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="relative bg-white border-b border-black py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center relative z-10">
+                <span class="inline-flex items-center px-3 py-1 border border-black bg-brandOrange text-white text-[10px] font-bold uppercase tracking-wider mb-4">
+                    Build. Rank. Rent Out.
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-black leading-tight mb-4">
+                    DIGITAL LANDLADY: <br>
+                    <span class="bg-brandBlue text-black px-2 py-0.5 inline-block border border-black transform rotate-1 mt-1">KEYWORD QUEST</span>
+                </h1>
+                <p class="text-sm sm:text-base text-black max-w-xl mx-auto font-medium leading-relaxed mb-6 mt-4">
+                    Build faceless local &amp; micro-niche websites without chasing algorithms or dancing on camera. Spot high-intent buyer searches, crush weak competition, and pitch local business owners for recurring monthly rent.
+                </p>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+            <section class="brutalist-card p-6 bg-white mb-8 border border-black">
+                <button onclick="toggleHowTo()" class="w-full flex justify-between items-center focus:outline-none">
+                    <span class="text-sm sm:text-base font-black uppercase tracking-tight flex items-center gap-2">
+                        <span class="bg-brandOrange text-white px-2 py-0.5 text-xs font-black">GUIDE</span>
+                        The Rank &amp; Rent Landlady Blueprint
+                    </span>
+                    <span id="howto-toggle-icon" class="font-black text-xl">[-]</span>
+                </button>
+                <div id="howto-content" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-black">
+                    <div class="space-y-2">
+                        <h4 class="font-black text-xs uppercase text-brandOrange flex items-center gap-1.5"><i data-lucide="compass" class="w-4 h-4"></i> 1. Acquisition Mode</h4>
+                        <p class="text-xs text-gray-700 font-medium leading-relaxed">
+                            Acquire high-intent local &amp; niche plots. Solve mission prompts to rank digital properties ready for monthly tenants.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-black text-xs uppercase text-brandBlue flex items-center gap-1.5"><i data-lucide="zap" class="w-4 h-4"></i> 2. Intent Sorter</h4>
+                        <p class="text-xs text-gray-700 font-medium leading-relaxed">
+                            Spot urgent buyer leads versus DIY tire-kickers under clock pressure to build your streak multiplier.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-black text-xs uppercase text-accentRed flex items-center gap-1.5"><i data-lucide="target" class="w-4 h-4"></i> 3. Difficulty Crusher</h4>
+                        <p class="text-xs text-gray-700 font-medium leading-relaxed">
+                            Inspect live SERP rumors to uncover low-KD goldmines while dodging national franchises and fake easy scores.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-black text-xs uppercase text-black flex items-center gap-1.5"><i data-lucide="handshake" class="w-4 h-4"></i> 4. Pitch &amp; Close</h4>
+                        <p class="text-xs text-gray-700 font-medium leading-relaxed">
+                            Turn ranked sites into recurring cash flow by pitching local business owners with the 10x ROI value angle.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+            <!-- Centered Mode Switcher -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="switchMode('acquisition')" id="mode-acquisition" class="mode-btn active">01. Acquisition</button>
+                <button onclick="switchMode('intent')" id="mode-intent" class="mode-btn">02. Intent Sorter</button>
+                <button onclick="switchMode('difficulty')" id="mode-difficulty" class="mode-btn">03. Diff Crusher</button>
+                <button onclick="switchMode('pitch')" id="mode-pitch" class="mode-btn">04. Pitch &amp; Close</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- ACQUISITION MODE VIEW -->
+                    <div id="view-acquisition" class="game-view space-y-6">
+                        <section class="brutalist-card p-6 sm:p-8">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-white px-3 py-1 text-xs font-black uppercase" id="level-display">LEVEL 1</span>
+                                    <h2 class="text-xl sm:text-3xl font-black uppercase" id="mission-title">Mission Title</h2>
+                                </div>
+                                <span class="text-xs font-black uppercase text-brandOrange" id="level-rent-tag">Est. Rent: $650/mo</span>
+                            </div>
+                            <p class="text-sm sm:text-base font-medium mb-6 leading-snug text-gray-700" id="mission-desc"></p>
+                            
+                            <div class="bg-gray-50 p-5 border border-black">
+                                <h3 class="text-xs font-black text-black uppercase tracking-widest mb-3">Target Rank &amp; Rent Plots (Click to Autofill or Type Below):</h3>
+                                <div id="target-list" class="space-y-3"></div>
+                            </div>
+                        </section>
+
+                        <section class="brutalist-card p-6 sm:p-8 bg-white">
+                            <label class="block text-xs font-black uppercase text-black mb-3 tracking-widest">Market Research Console</label>
+                            <div class="flex flex-col sm:flex-row gap-0 border border-black">
+                                <input type="text" id="kw-input" placeholder="Enter or click a target keyword phrase..." class="input-brutalist flex-grow text-base sm:text-lg font-bold border-none" onkeydown="if(event.key==='Enter') handleResearch()">
+                                <button onclick="handleResearch()" id="research-btn" class="btn-brutalist px-8 py-4 text-base border-t sm:border-t-0 sm:border-l border-black">Execute</button>
+                            </div>
+                            <p id="feedback-msg" class="mt-4 font-black text-xs sm:text-sm min-h-[1.5rem] uppercase italic"></p>
+                        </section>
+                    </div>
+
+                    <!-- INTENT SORTER VIEW -->
+                    <div id="view-intent" class="game-view hidden space-y-6">
+                        <section class="brutalist-card p-6 sm:p-8 bg-white">
+                            <div class="flex flex-wrap justify-between items-center gap-3 mb-6">
+                                <div>
+                                    <h2 class="text-xl sm:text-2xl font-black uppercase">Intent Blitz</h2>
+                                    <p class="text-xs font-bold text-gray-600">Sort buyer &amp; lead intent fast. Misses cost -50 pts!</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="text-sm sm:text-base font-black border border-black px-3 py-1 bg-brandOrange text-white" id="intent-streak">Streak: 0x</div>
+                                    <div id="intent-timer" class="text-lg sm:text-xl font-black border border-black px-4 py-1 bg-gray-50">12.0s</div>
+                                </div>
+                            </div>
+                            <div class="py-10 px-4 border-y border-black mb-6 text-center bg-brandBlue/5">
+                                <span id="intent-kw-display" class="text-xl sm:text-3xl font-black uppercase tracking-tight text-black">LOADING...</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <button onclick="checkIntent('Transactional')" class="btn-brutalist bg-red-600 py-4 text-xs sm:text-sm">Transactional (Ready to Hire/Buy)</button>
+                                <button onclick="checkIntent('Commercial')" class="btn-brutalist bg-yellow-500 text-black py-4 text-xs sm:text-sm">Commercial (Comparing Options)</button>
+                                <button onclick="checkIntent('Informational')" class="btn-brutalist bg-blue-600 py-4 text-xs sm:text-sm">Informational (DIY / Learning)</button>
+                                <button onclick="checkIntent('Navigational')" class="btn-brutalist bg-green-600 py-4 text-xs sm:text-sm">Navigational (Brand / Login)</button>
+                            </div>
+                            <p id="intent-feedback" class="mt-6 text-center font-black uppercase italic text-xs min-h-[1.5rem]"></p>
+                        </section>
+                    </div>
+
+                    <!-- DIFFICULTY CRUSHER VIEW -->
+                    <div id="view-difficulty" class="game-view hidden space-y-6">
+                        <section class="brutalist-card p-6 sm:p-8 space-y-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-black pb-4">
+                                <div>
+                                    <h2 class="text-xl sm:text-2xl font-black uppercase mb-1">Market Rumors: SERP Inspector</h2>
+                                    <p class="text-xs sm:text-sm text-gray-600 font-bold">Niche: <span class="text-black underline" id="diff-niche">Niche</span> &bull; Uncover <span class="text-brandOrange font-black" id="diff-found-count">0 / 2</span> low-KD gems!</p>
+                                </div>
+                                <button onclick="startDiffGame()" class="btn-brutalist bg-black text-brandBlue px-4 py-2 text-xs">New Market &rarr;</button>
+                            </div>
+                            <div id="diff-rumors-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                            <div id="diff-results" class="space-y-3"></div>
+                        </section>
+                    </div>
+
+                    <!-- PITCH & CLOSE BONUS ROUND VIEW -->
+                    <div id="view-pitch" class="game-view hidden space-y-6">
+                        <section class="brutalist-card p-6 sm:p-8 space-y-5 bg-white">
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-black pb-4">
+                                <div>
+                                    <span class="bg-brandOrange text-white px-2.5 py-0.5 text-[10px] font-black uppercase border border-black">Bonus Round: Tenant Acquisition</span>
+                                    <h2 class="text-xl sm:text-2xl font-black uppercase mt-1" id="pitch-title">Pitch the Local Roofer</h2>
+                                </div>
+                                <span class="text-xs font-black uppercase bg-brandBlue text-black px-3 py-1 border border-black" id="pitch-value">Contract: +$750/mo</span>
+                            </div>
+
+                            <div class="p-4 bg-gray-50 border border-black space-y-2">
+                                <span class="text-[10px] font-black uppercase text-gray-500 block">Your Ranked Asset &amp; Prospect</span>
+                                <p class="text-sm font-medium text-gray-800 leading-relaxed" id="pitch-scenario"></p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <span class="text-xs font-black uppercase text-black block">Choose Your Landlady Pitch Angle:</span>
+                                <div id="pitch-choices" class="space-y-3"></div>
+                            </div>
+
+                            <div id="pitch-feedback" class="hidden p-4 border border-black text-xs sm:text-sm font-bold"></div>
+
+                            <div class="flex justify-end pt-2">
+                                <button onclick="nextPitchScenario()" class="btn-brutalist bg-black text-white px-5 py-2.5 text-xs">Next Prospect &rarr;</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Analysis & Inventory -->
+                <div class="lg:col-span-5 space-y-6">
+                    <section id="analysis-panel" class="hidden brutalist-card p-6 bg-[#F0F9FF]">
+                        <h3 class="text-xs font-black text-black uppercase tracking-widest mb-4 border-b border-black pb-2 flex items-center gap-1.5"><i data-lucide="bar-chart-2" class="w-4 h-4"></i> Live Market Data</h3>
+                        <div id="analysis-content" class="space-y-4"></div>
+                    </section>
+
+                    <section class="brutalist-card p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xs font-black text-black uppercase tracking-widest flex items-center gap-1.5"><i data-lucide="building-2" class="w-4 h-4 text-brandOrange"></i> Secured Digital Real Estate</h3>
+                            <span class="text-[10px] font-black uppercase text-brandBlue" id="asset-count">0 Plots</span>
+                        </div>
+                        <div id="found-inventory" class="flex flex-wrap gap-2 min-h-[80px] content-start">
+                            <p class="text-gray-400 font-bold text-xs uppercase italic">No assets secured yet...</p>
+                        </div>
+                    </section>
+
+                    <section class="brutalist-card p-6 bg-black text-white">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-black uppercase text-brandOrange block">Active Monthly Rent Roll</span>
+                                <span class="text-2xl font-black" id="sidebar-rent-total">$0/mo</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] font-black uppercase text-brandBlue block">35x Exit Valuation</span>
+                                <span class="text-lg font-black" id="sidebar-exit-val">$0</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button id="next-btn" onclick="nextLevel()" class="hidden w-full py-4 btn-brutalist bg-black text-brandBlue text-base sm:text-lg">
+                        Next Acquisition &rarr;
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'keyword-quest-v3';
+        const LOCAL_STORAGE_KEY = `dd_keyword_quest_state_${appId}`;
+
+        const scenarios = [
+            {
+                level: 1,
+                name: "Emergency Local Drain Rescue",
+                rentBonus: 650,
+                desc: "A mid-sized city has urgent pipe and drain emergencies, and local plumbers gladly pay recurring monthly rent for exclusive phone calls.",
+                targets: [
+                    { kw: "emergency drain cleaning near me", hint: "Urgent Local Service Intent" },
+                    { kw: "24 hour clogged sewer line repair", hint: "High-Ticket Emergency Pain" },
+                    { kw: "hydro jetting drain cost estimate", hint: "Quote-Ready Homeowner" }
+                ],
+                data: {
+                    "emergency drain cleaning near me": { vol: 480, diff: 14, intent: "Transactional", note: "GOLDMINE ASSET. Immediate buyer urgency + local map pack opportunity. Easy $650/mo tenant." },
+                    "24 hour clogged sewer line repair": { vol: 210, diff: 12, intent: "Transactional", note: "HIGH TICKET CALLS. Homeowners with backed-up lines hire the very first site they trust." },
+                    "hydro jetting drain cost estimate": { vol: 310, diff: 18, intent: "Commercial", note: "QUOTE MAGNET. Captures property owners comparing serious drain solutions." }
+                }
+            },
+            {
+                level: 2,
+                name: "Suburb Fence & Deck Quote Hub",
+                rentBonus: 800,
+                desc: "Suburban homeowners want privacy fences and custom decks built before summer. Local contractors hate chasing shared leads and will rent an exclusive site.",
+                targets: [
+                    { kw: "vinyl privacy fence installation cost", hint: "Estimate-Seeking Homeowner" },
+                    { kw: "custom composite deck builders local", hint: "High-Margin Contractor Lead" },
+                    { kw: "cedar fence repair and replacement", hint: "Urgent Yard Fix" }
+                ],
+                data: {
+                    "vinyl privacy fence installation cost": { vol: 620, diff: 19, intent: "Commercial", note: "ESTIMATE GOLD. High buyer readiness—perfect anchor page for a fence contractor lease." },
+                    "custom composite deck builders local": { vol: 340, diff: 16, intent: "Transactional", note: "BIG CONTRACT VALUE. A single deck build pays for 6 months of your site rent." },
+                    "cedar fence repair and replacement": { vol: 290, diff: 15, intent: "Transactional", note: "FAST TURNAROUND. Storm-damaged fences create immediate phone leads." }
+                }
+            },
+            {
+                level: 3,
+                name: "The Sideways Roof Leak Angle",
+                rentBonus: 950,
+                desc: "Big roofing franchises dominate generic 'roofing' searches. Use sideways modifier stacks to capture underserved commercial and specialty roof leads.",
+                targets: [
+                    { kw: "commercial flat roof leak repair", hint: "Sideways B2B Modifier Stack" },
+                    { kw: "metal roof hail damage inspection", hint: "Insurance Claim Urgency" },
+                    { kw: "emergency roof tarp service", hint: "Immediate Storm Response" }
+                ],
+                data: {
+                    "commercial flat roof leak repair": { vol: 190, diff: 13, intent: "Transactional", note: "B2B LANDLADY WIN. Commercial property managers pay top dollar for fast leak stops." },
+                    "metal roof hail damage inspection": { vol: 260, diff: 17, intent: "Commercial", note: "HIGH PAYOUT. Specialty material modifier dodges generic mega-directories." },
+                    "emergency roof tarp service": { vol: 140, diff: 11, intent: "Transactional", note: "ZERO FLUFF. Active water intrusion means instant phone calls for your tenant." }
+                }
+            },
+            {
+                level: 4,
+                name: "High-Ticket Med-Spa & Wellness",
+                rentBonus: 1100,
+                desc: "Cosmetic and wellness clinics have high lifetime client values, meaning even 5 booked appointments a month makes your site an indispensable utility.",
+                targets: [
+                    { kw: "microneedling with prp pricing", hint: "High-Intent Treatment Query" },
+                    { kw: "mobile iv hydration therapy at home", hint: "Convenience + Booking Intent" },
+                    { kw: "pelvic floor physical therapy clinic", hint: "Underserved Local Specialty" }
+                ],
+                data: {
+                    "microneedling with prp pricing": { vol: 430, diff: 21, intent: "Commercial", note: "CLINIC MAGNET. High-value aesthetic clients researching package rates." },
+                    "mobile iv hydration therapy at home": { vol: 390, diff: 16, intent: "Transactional", note: "PREMIUM CONVENIENCE. Ready-to-book wellness buyers with low SERP competition." },
+                    "pelvic floor physical therapy clinic": { vol: 510, diff: 18, intent: "Transactional", note: "UNDERSERVED NICHE. High demand and weak local clinic websites make ranking fast." }
+                }
+            },
+            {
+                level: 5,
+                name: "Event & Wedding Vendor Directory",
+                rentBonus: 850,
+                desc: "Event hosts and brides book specialty vendors months in advance. Build a focused local showcase site and rent out the lead form to an eager vendor.",
+                targets: [
+                    { kw: "mobile bar rental for weddings", hint: "Event Host Booking Intent" },
+                    { kw: "luxury picnic setup service", hint: "Trending Low-KD Micro-Niche" },
+                    { kw: "360 photo booth rental packages", hint: "Package Price Shopper" }
+                ],
+                data: {
+                    "mobile bar rental for weddings": { vol: 490, diff: 17, intent: "Commercial", note: "VENDOR GOLD. High booking ticket makes monthly rent an easy yes for mobile bartenders." },
+                    "luxury picnic setup service": { vol: 380, diff: 14, intent: "Transactional", note: "WEAK SERPS. Mostly social links on Page 1—a clean local site ranks effortlessly." },
+                    "360 photo booth rental packages": { vol: 550, diff: 20, intent: "Commercial", note: "PACKAGE BUYERS. Event planners actively comparing rental bundles." }
+                }
+            },
+            {
+                level: 6,
+                name: "Faceless Digital & Newsletter Empire",
+                rentBonus: 1250,
+                desc: "Combine rank and rent principles with faceless digital assets—capturing high-intent solopreneur searches that convert into paid newsletter subscribers and template sales.",
+                targets: [
+                    { kw: "faceless digital marketing guide pdf", hint: "Camera-Free Asset Buyer" },
+                    { kw: "paid substack newsletter ideas", hint: "Recurring Revenue Builder" },
+                    { kw: "canva digital product templates to sell", hint: "Passive Shop Starter" }
+                ],
+                data: {
+                    "faceless digital marketing guide pdf": { vol: 310, diff: 18, intent: "Transactional", note: "SOVEREIGN ASSET. Attracts women 40+ seeking camera-free digital income blueprints." },
+                    "paid substack newsletter ideas": { vol: 360, diff: 19, intent: "Commercial", note: "RECURRING MODEL. High-intent creators ready to launch subscription publications." },
+                    "canva digital product templates to sell": { vol: 890, diff: 24, intent: "Commercial", note: "SCALABLE CASHFLOW. Evergreen demand from digital shop builders." }
+                }
+            }
+        ];
+
+        const intentPool = [
+            { kw: "emergency AC repair near me tonight", intent: "Transactional" },
+            { kw: "best local roofing contractor cost", intent: "Commercial" },
+            { kw: "how to unclog a bathroom sink yourself", intent: "Informational" },
+            { kw: "yelp business login", intent: "Navigational" },
+            { kw: "hire mobile dog groomer price", intent: "Transactional" },
+            { kw: "vinyl fence vs wood fence cost", intent: "Commercial" },
+            { kw: "what causes foundation cracks in basements", intent: "Informational" },
+            { kw: "google search console sign in", intent: "Navigational" },
+            { kw: "same day carpet cleaning quote", intent: "Transactional" },
+            { kw: "best substack alternatives for creators", intent: "Commercial" },
+            { kw: "how to start a faceless instagram page", intent: "Informational" },
+            { kw: "canva pro login", intent: "Navigational" },
+            { kw: "book deep house cleaning service", intent: "Transactional" },
+            { kw: "affordable dumpster rental sizes", intent: "Commercial" },
+            { kw: "why is my water heater popping", intent: "Informational" },
+            { kw: "quickbooks online sign in", intent: "Navigational" }
+        ];
+
+        const diffPool = {
+            "Local Home Services": [
+                { kw: "crawl space encapsulation cost", diff: 14, vol: 680, gem: true, note: "Weak local SERPs + high-ticket contractor leads ($750/mo rent)." },
+                { kw: "plumbing", diff: 94, vol: 90000, gem: false, note: "National mega-brands & huge ad budgets." },
+                { kw: "emergency tree limb removal", diff: 16, vol: 410, gem: true, note: "Urgent storm calls + outdated local pages ($800/mo rent)." },
+                { kw: "home depot near me", diff: 19, vol: 50000, gem: false, note: "Trap! Low KD score, but 100% big-box store navigation." }
+            ],
+            "Specialty Clinics & Wellness": [
+                { kw: "mobile iv hydration at home", diff: 15, vol: 520, gem: true, note: "Thin competitor pages + high-ticket bookings ($850/mo rent)." },
+                { kw: "health", diff: 98, vol: 120000, gem: false, note: "Impossible medical authority sites." },
+                { kw: "pelvic floor therapy clinic", diff: 18, vol: 490, gem: true, note: "Underserved local search with eager patients ($750/mo rent)." },
+                { kw: "what is wellness", diff: 22, vol: 8400, gem: false, note: "Vague informational curiosity with zero local rent value." }
+            ],
+            "Event & Wedding Vendors": [
+                { kw: "luxury picnic setup rental", diff: 13, vol: 440, gem: true, note: "Mostly social links on Page 1—easy organic win ($650/mo rent)." },
+                { kw: "weddings", diff: 95, vol: 110000, gem: false, note: "Dominated by The Knot & mega-directories." },
+                { kw: "mobile coffee cart catering", diff: 17, vol: 390, gem: true, note: "High-intent event hosts booking vendors ($700/mo rent)." },
+                { kw: "free bridal shower games", diff: 24, vol: 6100, gem: false, note: "Free printable browsers—not vendor buyers." }
+            ],
+            "Faceless Digital Assets": [
+                { kw: "low stress digital products over 40", diff: 12, vol: 540, gem: true, note: "Hyper-targeted audience + strong buyer intent ($900/mo asset)." },
+                { kw: "make money online", diff: 96, vol: 150000, gem: false, note: "Brutal global competition." },
+                { kw: "paid newsletter topic ideas", diff: 16, vol: 620, gem: true, note: "Creators ready to launch recurring newsletters ($800/mo asset)." },
+                { kw: "what is the internet", diff: 20, vol: 14000, gem: false, note: "Basic definition query with zero monetization." }
+            ]
+        };
+
+        const pitchScenarios = [
+            {
+                title: "The Local Roofing Contractor",
+                rent: 750,
+                scenario: "Your site 'flat-roof-repair-[city].com' is ranking Top 3 and generating 12 commercial leak quote requests a month. Each roof job is worth $8,000+ to a local roofer.",
+                choices: [
+                    {
+                        text: "Use the 10x ROI Rule: 'If one commercial roof leak job nets you $8,000+, renting this exclusive lead site for $750/mo is an essential utility, not an expense.'",
+                        correct: true,
+                        feedback: "CLOSED! Framing the $750/mo rent against an $8,000+ job makes it a no-brainer 10x ROI utility."
+                    },
+                    {
+                        text: "Talk for 30 minutes about H1 tags, backlink ratios, and domain authority metrics.",
+                        correct: false,
+                        feedback: "PASSED! Business owners don't buy SEO jargon—they rent exclusive phone calls and booked jobs."
+                    },
+                    {
+                        text: "Offer the site completely for free forever with no agreement.",
+                        correct: false,
+                        feedback: "PASSED! Free leads with zero commitment get ignored—structure a clean trial-to-monthly lease."
+                    }
+                ]
+            },
+            {
+                title: "The Emergency Drain Plumber",
+                rent: 650,
+                scenario: "Your emergency drain site is bringing in 18 urgent homeowner calls per month. The plumber currently wastes $2,500/mo on shared lead apps where 5 competitors fight for the same call.",
+                choices: [
+                    {
+                        text: "Highlight exclusivity: 'Stop paying $2,500/mo to fight 5 competitors on shared apps—lock in 100% exclusive calls from our ranked site for $650/mo flat.'",
+                        correct: true,
+                        feedback: "CLOSED! Exclusive leads at a fraction of shared-lead app costs is an instant win for local pros."
+                    },
+                    {
+                        text: "Demand a 3-year non-refundable upfront contract before showing any call proof.",
+                        correct: false,
+                        feedback: "PASSED! Let real call recordings or a short test batch prove value first so closing is effortless."
+                    },
+                    {
+                        text: "Tell them to go learn SEO and build their own website.",
+                        correct: false,
+                        feedback: "PASSED! They are busy under sinks—they want to rent your digital real estate, not become webmasters."
+                    }
+                ]
+            },
+            {
+                title: "The Med-Spa Clinic Owner",
+                rent: 1100,
+                scenario: "Your aesthetic clinic showcase page ranks for 'microneedling with PRP pricing [city]' and captures 15 consultation requests a month (average client package: $1,400).",
+                choices: [
+                    {
+                        text: "Show the math: 'Just ONE booked PRP package ($1,400) covers your entire $1,100/mo site lease—the other 14 consultations are pure profit.'",
+                        correct: true,
+                        feedback: "CLOSED! When a single client covers the entire monthly rent, signing the lease is automatic."
+                    },
+                    {
+                        text: "Pitch them generic social media meme templates unrelated to local bookings.",
+                        correct: false,
+                        feedback: "PASSED! Keep the focus locked on high-intent local searchers already asking for pricing."
+                    },
+                    {
+                        text: "Underprice your asset at $25/mo so they assume it doesn't work.",
+                        correct: false,
+                        feedback: "PASSED! Charge sovereign rates aligned with the real revenue your digital property produces."
+                    }
+                ]
+            }
+        ];
+
+        let user = null;
+        let db = null;
+        let auth = null;
+        let gameState = {
+            totalScore: 0,
+            monthlyRent: 0,
+            foundKeywords: [],
+            completedLevels: [],
+            closedPitches: [],
+            currentLevel: 0
+        };
+
+        let activeMode = 'acquisition';
+        let currentIntentIdx = 0;
+        let intentTimer = 12;
+        let intentStreak = 0;
+        let intentInterval;
+        let currentNiche = "Local Home Services";
+        let diffFoundCount = 0;
+        let currentPitchIdx = 0;
+
+        function loadLocalState() {
+            try {
+                const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (raw) {
+                    gameState = { ...gameState, ...JSON.parse(raw) };
+                }
+            } catch (e) {
+                console.warn("Local storage load skipped:", e);
+            }
+        }
+
+        async function saveProgress() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(gameState));
+            } catch (e) {
+                console.warn("Local storage save skipped:", e);
+            }
+
+            if (!user || !db) return;
+            try {
+                const userRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'gameState');
+                await setDoc(userRef, gameState);
+            } catch (e) {
+                console.error("Cloud storage error:", e);
+            }
+        }
+
+        window.toggleHowTo = function() {
+            const content = document.getElementById('howto-content');
+            const icon = document.getElementById('howto-toggle-icon');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.textContent = '[-]';
+            } else {
+                content.classList.add('hidden');
+                icon.textContent = '[+]';
+            }
+        };
+
+        function updateUI() {
+            document.getElementById('total-score').textContent = gameState.totalScore.toLocaleString();
+            const rent = gameState.monthlyRent || 0;
+            document.getElementById('monthly-rent').textContent = `$${rent.toLocaleString()}/mo`;
+            document.getElementById('sidebar-rent-total').textContent = `$${rent.toLocaleString()}/mo`;
+            document.getElementById('sidebar-exit-val').textContent = `$${(rent * 35).toLocaleString()}`;
+            document.getElementById('asset-count').textContent = `${gameState.foundKeywords.length} Plots`;
+            updateInventoryUI();
+            checkWin();
+            
+            if (activeMode === 'acquisition') {
+                const s = scenarios[gameState.currentLevel] || scenarios[0];
+                s.targets.forEach(t => {
+                    const el = document.getElementById(`target-${t.kw.replace(/\s+/g, '-')}`);
+                    if (el && gameState.foundKeywords.includes(t.kw)) {
+                        el.innerHTML = `<span class="text-xs sm:text-sm font-black">${t.kw}</span><span class="text-xs font-black text-brandBlue">SECURED ✓</span>`;
+                    }
+                });
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        window.switchMode = function(mode) {
+            activeMode = mode;
+            document.querySelectorAll('.game-view').forEach(v => v.classList.add('hidden'));
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`view-${mode}`).classList.remove('hidden');
+            document.getElementById(`mode-${mode}`).classList.add('active');
+            
+            if (mode === 'intent') startIntentGame();
+            else clearInterval(intentInterval);
+
+            if (mode === 'difficulty') startDiffGame();
+            if (mode === 'acquisition') initAcquisition();
+            if (mode === 'pitch') renderPitchScenario();
+            if (window.lucide) lucide.createIcons();
+        };
+
+        window.fillKeyword = function(kw) {
+            const input = document.getElementById('kw-input');
+            if (input) {
+                input.value = kw;
+                input.focus();
+            }
+        };
+
+        function initAcquisition() {
+            if (gameState.currentLevel >= scenarios.length) gameState.currentLevel = 0;
+            const s = scenarios[gameState.currentLevel];
+            document.getElementById('level-display').textContent = `LEVEL ${s.level}`;
+            document.getElementById('mission-title').textContent = s.name;
+            document.getElementById('mission-desc').textContent = s.desc;
+            document.getElementById('level-rent-tag').textContent = `Est. Rent: +$${s.rentBonus}/mo`;
+            
+            const list = document.getElementById('target-list');
+            list.innerHTML = '';
+            s.targets.forEach(t => {
+                const isFound = gameState.foundKeywords.includes(t.kw);
+                const div = document.createElement('div');
+                div.id = `target-${t.kw.replace(/\s+/g, '-')}`;
+                div.className = "flex flex-wrap items-center justify-between gap-2 p-3.5 bg-white border border-black cursor-pointer hover:bg-[#FFFBF4]";
+                div.onclick = () => window.fillKeyword(t.kw);
+                if (isFound) {
+                    div.innerHTML = `<span class="text-xs sm:text-sm font-black">${t.kw}</span><span class="text-xs font-black text-brandBlue">SECURED ✓</span>`;
+                } else {
+                    div.innerHTML = `<span class="text-xs sm:text-sm font-black text-black">"${t.kw}"</span><span class="text-[10px] font-black text-brandOrange uppercase italic">Hint: ${t.hint}</span>`;
+                }
+                list.appendChild(div);
+            });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        window.handleResearch = async function() {
+            const input = document.getElementById('kw-input');
+            const val = input.value.trim().toLowerCase();
+            if (!val) return;
+
+            const s = scenarios[gameState.currentLevel];
+            const data = s.data[val];
+            const panel = document.getElementById('analysis-panel');
+            const content = document.getElementById('analysis-content');
+
+            panel.classList.remove('hidden');
+            if (data) {
+                content.innerHTML = `
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-lg sm:text-xl font-black text-black">${val}</span>
+                        <div class="intent-tag intent-${data.intent.toLowerCase()}">${data.intent}</div>
+                    </div>
+                    <div class="grid grid-cols-2 border border-black bg-white">
+                        <div class="p-3 border-r border-black"><span class="block text-[10px] font-black text-gray-400">VOLUME</span><span class="text-xl font-black">${data.vol}</span></div>
+                        <div class="p-3"><span class="block text-[10px] font-black text-gray-400">DIFF</span><span class="text-xl font-black">${data.diff}</span></div>
+                    </div>
+                    <div class="bg-white p-3 border border-black font-bold text-xs">${data.note}</div>
+                `;
+
+                const targetObj = s.targets.find(t => t.kw === val);
+                if (targetObj && !gameState.foundKeywords.includes(val)) {
+                    gameState.foundKeywords.push(val);
+                    gameState.totalScore += 500;
+                    await saveProgress();
+                    updateUI();
+                }
+            } else {
+                content.innerHTML = `<p class="font-black uppercase text-accentRed text-xs">Noise Detected. No rank &amp; rent value for this phrase.</p>`;
+            }
+            input.value = '';
+            if (window.lucide) lucide.createIcons();
+        };
+
+        function startIntentGame() {
+            currentIntentIdx = Math.floor(Math.random() * intentPool.length);
+            document.getElementById('intent-kw-display').textContent = `"${intentPool[currentIntentIdx].kw}"`;
+            intentTimer = Math.max(6, 12 - intentStreak * 0.5);
+            updateIntentTimer();
+            clearInterval(intentInterval);
+            intentInterval = setInterval(() => {
+                intentTimer -= 0.1;
+                updateIntentTimer();
+                if (intentTimer <= 0) {
+                    intentTimer = 0;
+                    window.checkIntent('None');
+                }
+            }, 100);
+        }
+
+        function updateIntentTimer() {
+            const el = document.getElementById('intent-timer');
+            if (!el) return;
+            el.textContent = intentTimer.toFixed(1) + 's';
+        }
+
+        window.checkIntent = async function(userChoice) {
+            clearInterval(intentInterval);
+            const correct = intentPool[currentIntentIdx].intent;
+            const feedback = document.getElementById('intent-feedback');
+            
+            if (userChoice === correct) {
+                intentStreak++;
+                const pts = 200 + (intentStreak - 1) * 50;
+                feedback.textContent = `SPOT ON! +${pts} PTS (${intentStreak}x STREAK)`;
+                feedback.className = "mt-6 text-center font-black uppercase italic text-brandBlue text-xs";
+                gameState.totalScore += pts;
+                await saveProgress();
+            } else {
+                intentStreak = 0;
+                gameState.totalScore = Math.max(0, gameState.totalScore - 50);
+                feedback.textContent = `STREAK BROKEN (-50 PTS). THAT WAS ${correct.toUpperCase()}.`;
+                feedback.className = "mt-6 text-center font-black uppercase italic text-accentRed text-xs";
+                await saveProgress();
+            }
+            document.getElementById('intent-streak').textContent = `Streak: ${intentStreak}x`;
+            updateUI();
+            setTimeout(startIntentGame, 1400);
+        };
+
+        window.startDiffGame = function() {
+            const niches = Object.keys(diffPool);
+            const nextIdx = (niches.indexOf(currentNiche) + 1) % niches.length;
+            currentNiche = niches[nextIdx];
+            diffFoundCount = 0;
+            document.getElementById('diff-niche').textContent = currentNiche;
+            document.getElementById('diff-found-count').textContent = "0 / 2";
+            document.getElementById('diff-results').innerHTML = '';
+
+            const grid = document.getElementById('diff-rumors-grid');
+            grid.innerHTML = diffPool[currentNiche].map((item, idx) => `
+                <button id="rumor-card-${idx}" onclick="inspectMarketRumor(${idx})" class="p-4 border border-black bg-white hover:bg-[#FFFBF4] text-left space-y-1.5 transition-colors">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-black text-xs sm:text-sm text-black">"${item.kw}"</span>
+                        <span class="px-2 py-0.5 border border-black bg-gray-100 text-[10px] font-black uppercase">Inspect</span>
+                    </div>
+                    <p id="rumor-note-${idx}" class="text-[11px] font-bold text-gray-500">Click to analyze KD &amp; SERP reality...</p>
+                </button>
+            `).join('');
+        };
+
+        window.inspectMarketRumor = async function(idx) {
+            const item = diffPool[currentNiche][idx];
+            const card = document.getElementById(`rumor-card-${idx}`);
+            const note = document.getElementById(`rumor-note-${idx}`);
+            if (!card || card.dataset.checked === 'true') return;
+            card.dataset.checked = 'true';
+
+            const list = document.getElementById('diff-results');
+            const div = document.createElement('div');
+            div.className = `p-3.5 border border-black flex flex-wrap justify-between items-center gap-2 ${item.gem ? 'bg-green-50' : 'bg-red-50'}`;
+            div.innerHTML = `
+                <div>
+                    <p class="font-black uppercase text-xs sm:text-sm">${item.kw}</p>
+                    <p class="text-[11px] font-bold text-gray-700">KD: ${item.diff} | VOL: ${item.vol.toLocaleString()} — ${item.note}</p>
+                </div>
+                <span class="font-black text-xs ${item.gem ? 'text-green-700' : 'text-accentRed'}">${item.gem ? 'GEM +300 PTS' : 'TRAP -25 PTS'}</span>
+            `;
+            list.prepend(div);
+
+            if (item.gem) {
+                diffFoundCount++;
+                card.classList.add('bg-green-50');
+                note.textContent = `KD ${item.diff} • VOL ${item.vol.toLocaleString()} (Winner)`;
+                gameState.totalScore += 300;
+            } else {
+                card.classList.add('bg-red-50');
+                note.textContent = `KD ${item.diff} • VOL ${item.vol.toLocaleString()} (Skip)`;
+                gameState.totalScore = Math.max(0, gameState.totalScore - 25);
+            }
+
+            document.getElementById('diff-found-count').textContent = `${Math.min(2, diffFoundCount)} / 2`;
+            await saveProgress();
+            updateUI();
+        };
+
+        function renderPitchScenario() {
+            const p = pitchScenarios[currentPitchIdx % pitchScenarios.length];
+            document.getElementById('pitch-title').textContent = p.title;
+            document.getElementById('pitch-value').textContent = `Contract: +$${p.rent}/mo`;
+            document.getElementById('pitch-scenario').textContent = p.scenario;
+            const fb = document.getElementById('pitch-feedback');
+            fb.classList.add('hidden');
+
+            document.getElementById('pitch-choices').innerHTML = p.choices.map((ch, i) => `
+                <button onclick="selectPitchChoice(${i})" class="w-full p-4 border border-black bg-white hover:bg-[#FFFBF4] text-left text-xs sm:text-sm font-bold flex items-start gap-2.5">
+                    <span class="px-2 py-0.5 border border-black bg-brandBlue text-black text-[10px] font-black">${String.fromCharCode(65 + i)}</span>
+                    <span>${ch.text}</span>
+                </button>
+            `).join('');
+        }
+
+        window.selectPitchChoice = async function(i) {
+            const p = pitchScenarios[currentPitchIdx % pitchScenarios.length];
+            const ch = p.choices[i];
+            const fb = document.getElementById('pitch-feedback');
+            fb.classList.remove('hidden');
+
+            if (ch.correct) {
+                fb.className = "p-4 border border-black text-xs sm:text-sm font-bold bg-green-50 text-black";
+                fb.textContent = ch.feedback;
+                if (!gameState.closedPitches) gameState.closedPitches = [];
+                if (!gameState.closedPitches.includes(currentPitchIdx)) {
+                    gameState.closedPitches.push(currentPitchIdx);
+                    gameState.monthlyRent = (gameState.monthlyRent || 0) + p.rent;
+                    gameState.totalScore += 600;
+                    await saveProgress();
+                    updateUI();
+                }
+            } else {
+                fb.className = "p-4 border border-black text-xs sm:text-sm font-bold bg-red-50 text-accentRed";
+                fb.textContent = ch.feedback;
+            }
+        };
+
+        window.nextPitchScenario = function() {
+            currentPitchIdx = (currentPitchIdx + 1) % pitchScenarios.length;
+            renderPitchScenario();
+        };
+
+        function updateInventoryUI() {
+            const inv = document.getElementById('found-inventory');
+            if (!inv) return;
+            if (gameState.foundKeywords.length > 0) {
+                inv.innerHTML = gameState.foundKeywords.map(f => `<span class="px-2.5 py-1 bg-black text-brandBlue font-black text-[10px] uppercase border border-black">${f}</span>`).join('');
+            }
+        }
+
+        async function checkWin() {
+            const s = scenarios[gameState.currentLevel] || scenarios[0];
+            const allTargetsFound = s.targets.every(t => gameState.foundKeywords.includes(t.kw));
+            if (allTargetsFound) {
+                if (!gameState.completedLevels) gameState.completedLevels = [];
+                if (!gameState.completedLevels.includes(gameState.currentLevel)) {
+                    gameState.completedLevels.push(gameState.currentLevel);
+                    gameState.monthlyRent = (gameState.monthlyRent || 0) + s.rentBonus;
+                    await saveProgress();
+                    document.getElementById('monthly-rent').textContent = `$${gameState.monthlyRent.toLocaleString()}/mo`;
+                    document.getElementById('sidebar-rent-total').textContent = `$${gameState.monthlyRent.toLocaleString()}/mo`;
+                    document.getElementById('sidebar-exit-val').textContent = `$${(gameState.monthlyRent * 35).toLocaleString()}`;
+                }
+                const btn = document.getElementById('next-btn');
+                const msg = document.getElementById('feedback-msg');
+                if (btn && gameState.currentLevel < scenarios.length - 1) {
+                    btn.classList.remove('hidden');
+                    msg.textContent = `AREA SECURED (+$${s.rentBonus}/MO RENT). SCALE TO NEXT PLOT.`;
+                } else if (msg) {
+                    msg.textContent = "EMPIRE FULLY CONSOLIDATED. YOU ARE THE RANK & RENT DIGITAL LANDLADY.";
+                }
+            }
+        }
+
+        window.nextLevel = async function() {
+            if (gameState.currentLevel < scenarios.length - 1) {
+                gameState.currentLevel++;
+                await saveProgress();
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('feedback-msg').textContent = '';
+                initAcquisition();
+                updateUI();
+            }
+        };
+
+        const initApp = async () => {
+            loadLocalState();
+            initAcquisition();
+            updateUI();
+
+            const authStatus = document.getElementById('auth-status');
+            if (typeof __firebase_config !== 'undefined') {
+                try {
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+
+                    onAuthStateChanged(auth, async (currentUser) => {
+                        user = currentUser;
+                        if (user) {
+                            if (authStatus) authStatus.textContent = 'Synced ✓';
+                            try {
+                                const userRef = doc(db, 'artifacts', appId, 'users', user.uid, 'profile', 'gameState');
+                                const snap = await getDoc(userRef);
+                                if (snap.exists()) {
+                                    gameState = { ...gameState, ...snap.data() };
+                                    initAcquisition();
+                                    updateUI();
+                                }
+                            } catch (err) {
+                                console.warn("Cloud read fallback:", err);
+                            }
+                        }
+                    });
+
+                    await signInAnonymously(auth);
+                } catch (e) {
+                    console.warn("Firebase unavailable, running in local mode:", e);
+                    if (authStatus) authStatus.textContent = 'Local Mode';
+                }
+            } else if (authStatus) {
+                authStatus.textContent = 'Local Mode';
+            }
+        };
+
+        initApp();
+    </script>
+</body>
+</html>

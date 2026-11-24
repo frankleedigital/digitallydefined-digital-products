@@ -107,7 +107,7 @@
             border-left: 1px solid #5F5F5F;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #0F0F0F;
+            background: #111111;
         }
     
 /* Hide duplicate logo instances inside page layout (leaving only the top-left brandbar logo active) */
@@ -146,8 +146,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -363,47 +363,33 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-brandOrange selection:text-white pb-12">
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">DigitallyDefined</span></header>
 <!-- DigitallyDefined Official Header -->
 <nav class="dd-brand-topbar" style="background:#FFFCF9; border-bottom:1px solid #5F5F5F; padding:0.9rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; font-family:'Inter', sans-serif; position:sticky; top:0; z-index:9999;">
   <div style="display:flex; align-items:center; gap:0.6rem;">
     <a href="https://dashboard.digitallydefined.agency" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:#B8B8B8;">
-      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">Digitally<em style="color:#F18B25; font-style:italic;">Defined</em></span>
+      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span>
     </a>
     <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#B8B8B8; display:none;">Faceless Digital Real Estate</span>
   </div>
-  <div style="display:flex; align-items:center; gap:0.6rem;">
-    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.3rem 0.6rem; font-family:'Inter', monospace;">Automated Asset Engine</span>
+  <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+    <a href="#howToUse" style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#5F5F5F; text-decoration:none; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.3rem 0.6rem;">How To Use</a>
+    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; border:1px solid #5F5F5F; background:#FFFFFF; padding:0.3rem 0.6rem; font-family:'Inter', monospace;">Automated Asset Engine v2.0</span>
     <a href="https://dashboard.digitallydefined.agency/quiz" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; background:#F18B25; color:#B8B8B8; border:1px solid #5F5F5F; padding:0.3rem 0.7rem; text-decoration:none;">Take Free Quiz →</a>
   </div>
 </nav>
 
 
-    <header class="border-b border-black bg-white sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 border border-black bg-brandOrange flex items-center justify-center">
-                    <span class="text-white font-black text-base">DD</span>
-                </div>
-                <div>
-                    <span class="font-black text-lg sm:text-xl tracking-tight text-black">
-                        <span class="text-black">DIGITALLY</span><span class="text-brandOrange italic">DEFINED</span>
-                    </span>
-                    <p class="text-[8px] uppercase tracking-wider text-brandBlue font-extrabold block mt-[-4px]">Sovereign Wealth for Gen X Women</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-3">
-                <a href="#howToUse" class="hidden sm:inline-flex items-center gap-1 text-xs font-black uppercase text-black hover:text-brandOrange mr-2">
-                    <i data-lucide="help-circle" class="w-4 h-4"></i> How To Use
-                </a>
-                <span class="inline-flex items-center px-2.5 py-1 border border-black bg-orange-50 text-black text-[10px] font-bold">
-                    <span class="w-2 h-2 bg-brandOrange border border-black mr-1.5"></span> Automated Asset Engine v2.0
-                </span>
-            </div>
-        </div>
-    </header>
 
     <main class="flex-grow">
         <section class="relative bg-white border-b border-black py-10 sm:py-12 px-4 sm:px-6 lg:px-8">

@@ -596,8 +596,8 @@
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -813,14 +813,22 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body>
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">The Digital Empire Blueprint</span></header>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span><span class="dd-brandbar-label">The Digital Empire Blueprint</span></header>
 
 <!-- NAVIGATION -->
 <nav class="dd-nav">
     <div class="dd-nav-inner">
-        <div class="dd-logo">DIGITALLY<span class="dd-logo-italic">DEFINED</span></div>
         <a href="#download" class="dd-nav-cta">Get Blueprint →</a>
     </div>
 </nav>
@@ -1260,9 +1268,9 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
             <head><meta charset="UTF-8"></head>
             <body style="margin:0; padding:0; background:#FFFCF9; font-family:'Inter', sans-serif; color:#B8B8B8;">
                 <div style="max-width:600px; margin:0 auto; background:#FFFFFF; border: 1px solid #5F5F5F;">
-                    <div style="background:#0F0F0F; color:#FFFFFF; padding:24px; border-bottom: 1px solid #F18B25;">
+                    <div style="background:#111111; color:#FFFFFF; padding:24px; border-bottom: 1px solid #F18B25;">
                         <div style="font-weight:900; font-size:20px; letter-spacing:-0.02em;">
-                            DIGITALLY<span style="color:#F18B25; font-style:italic;">DEFINED</span>
+                            DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>
                         </div>
                     </div>
                     <div style="padding:32px;">
@@ -1291,7 +1299,7 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
                             <strong style="color:#B8B8B8;">The DigitallyDefined Team</strong>
                         </p>
                     </div>
-                    <div style="background:#0F0F0F; color:#B8B8B8; padding:16px 24px; font-size:12px; text-align:center;">
+                    <div style="background:#111111; color:#B8B8B8; padding:16px 24px; font-size:12px; text-align:center;">
                         © ${new Date().getFullYear()} DigitallyDefined. All rights reserved.
                     </div>
                 </div>

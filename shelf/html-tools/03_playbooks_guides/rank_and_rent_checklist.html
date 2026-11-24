@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank & Rent Execution Checklist | DigitallyDefined</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* DIGITALLYDEFINED BRAND TOKENS */
+        :root {
+            --dd-bg: #FFFCF9;
+            --dd-text: #2D3748;
+            --dd-frame: #000000;
+            --dd-accent-primary: #47B7D4;
+            --dd-accent-secondary: #F18B25;
+            --dd-accent-tertiary: #c20f0a;
+            --dd-font-head: 'Inter', sans-serif;
+            --dd-font-body: 'DM Sans', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--dd-bg);
+            color: var(--dd-text);
+            font-family: var(--dd-font-body);
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* LAYOUT CLASSES */
+        .dd-page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dd-section {
+            margin-bottom: 32px;
+        }
+
+        .dd-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* CARD STYLING */
+        .dd-card {
+            background: #FFFFFF;
+            border: 1px solid var(--dd-frame);
+            padding: 24px;
+            position: relative;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 {
+            font-family: var(--dd-font-head);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--dd-text);
+        }
+
+        h1 { font-size: 2rem; margin-bottom: 8px; line-height: 1.1; }
+        h2 { font-size: 1.1rem; margin-bottom: 16px; border-bottom: 1px solid var(--dd-frame); padding-bottom: 8px; }
+        p { font-size: 0.95rem; margin-bottom: 1rem; }
+
+        /* CHECKLIST ITEMS */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .checklist-item:last-child { margin-bottom: 0; }
+
+        /* CUSTOM SQUARE CHECKBOX */
+        .dd-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 1px solid var(--dd-frame);
+            background: #fff;
+            cursor: pointer;
+            margin-top: 2px;
+            position: relative;
+        }
+
+        .dd-checkbox:checked {
+            background-color: var(--dd-accent-primary);
+            border-color: var(--dd-frame);
+        }
+
+        .dd-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* ACCENT UTILITIES */
+        .accent-tag {
+            display: inline-block;
+            font-family: var(--dd-font-head);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border: 1px solid var(--dd-frame);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .tag-blue { background: var(--dd-accent-primary); }
+        .tag-orange { background: var(--dd-accent-secondary); }
+        .tag-red { background: var(--dd-accent-tertiary); color: #fff; }
+
+        /* FOOTER / BRANDING */
+        .dd-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--dd-frame);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            font-family: var(--dd-font-head);
+            text-transform: uppercase;
+        }
+
+        /* PRINT OPTIMIZATION */
+        @media print {
+            body { background: #fff; }
+            .dd-page { padding: 0; max-width: 100%; }
+            .dd-card { break-inside: avoid; }
+            .no-print { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .dd-grid-2 { grid-template-columns: 1fr; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
+</head>
+<body>
+
+    <div class="dd-page">
+        
+        <!-- HEADER SECTION -->
+        <div class="dd-section">
+            <div class="dd-card" style="border-bottom: 3px solid var(--dd-frame);">
+                <span class="accent-tag tag-blue">Bonus Asset • Value $19</span>
+                <h1>The Print-and-Execute Checklist</h1>
+                <p style="margin-bottom: 0; font-weight: 500;">Your 30-Day Rank & Rent Launch Tracker. Tape this to your wall. Check things off. Build the asset.</p>
+            </div>
+        </div>
+
+        <!-- PHASE 1 & 2 GRID -->
+        <div class="dd-section dd-grid-2">
+            
+            <!-- DAYS 1-3 -->
+            <div class="dd-card">
+                <span class="accent-tag tag-orange">Days 1–3</span>
+                <h2>Niche & Location Validation</h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Select high-ticket niche ($1k+ job value)</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Target city pop. 50k–200k</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Verify weak competition on Page 1</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Purchase domain (Namecheap/GoDaddy)</span>
+                </label>
+            </div>
+
+            <!-- DAYS 4-7 -->
+            <div class="dd-card">
+                <span class="accent-tag tag-orange">Days 4–7</span>
+                <h2>Asset Construction</h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Install WordPress + Astra/GeneratePress</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Build 5 core pages (Home, Services x3, Contact)</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Setup CallRail tracking number</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Place CTA & Phone # above the fold</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- PHASE 3 & 4 GRID -->
+        <div class="dd-section dd-grid-2">
+            
+            <!-- DAYS 8-14 -->
+            <div class="dd-card">
+                <span class="accent-tag tag-blue">Days 8–14</span>
+                <h2>Local SEO Foundation</h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Optimize Title Tag & Meta Description</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Create Google Business Profile (GBP)</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Submit to 3 local directories</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Write/optimize main service page content</span>
+                </label>
+            </div>
+
+            <!-- DAYS 15-21 -->
+            <div class="dd-card">
+                <span class="accent-tag tag-blue">Days 15–21</span>
+                <h2>Content & Authority</h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Publish 2 AI-generated blog posts</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Add FAQ schema to service page</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Post weekly update to GBP</span>
+                </label>
+                <label class="checklist-item">
+                    <input type="checkbox" class="dd-checkbox">
+                    <span>Secure 1 niche-relevant backlink</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- PHASE 5 FULL WIDTH -->
+        <div class="dd-section">
+            <div class="dd-card" style="border-left: 4px solid var(--dd-accent-tertiary);">
+                <span class="accent-tag tag-red">Days 22–30</span>
+                <h2>Monetization & Handoff</h2>
+                
+                <div class="dd-grid-2">
+                    <div>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span>Collect CallRail data (min. 5 calls)</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span>Identify 5 prospect businesses</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span>Send "Win-Win" cold email/script</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span>Record 60-sec proof video</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span>Sign rental agreement</span>
+                        </label>
+                        <label class="checklist-item">
+                            <input type="checkbox" class="dd-checkbox">
+                            <span><strong>COLLECT FIRST RENT CHECK 🎉</strong></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="dd-footer">
+            <span>DigitallyDefined.online</span>
+            <span>Rank & Rent Quick-Start Kit • Bonus</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

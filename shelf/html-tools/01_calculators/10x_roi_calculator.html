@@ -151,8 +151,8 @@ footer a{color:var(--or);text-decoration:none}
   --dd-bg:             #FFFCF9 !important;  /* page */
   --dd-card:           #FFFFFF !important;  /* card / panel face */
   --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #0F0F0F !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFFC9 !important;  /* brand banner strip */
+  --dd-dark:           #111111 !important;  /* brutal-dark block */
+  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
 
   /* Derived washes — tints of the 3 roles, no new hues introduced */
   --dd-wash-orange: #FFF0DE !important;
@@ -368,9 +368,18 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 }
 
 </style>
+  <style>
+/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+[style] { box-shadow: none !important; }
+  </style>
 </head>
 <body>
-<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em>DEFINED.</em></span><span class="dd-brandbar-label">10x ROI Calculator</span></header>
+<header class="dd-brandbar" role="banner"><span class="dd-brandmark">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span><span class="dd-brandbar-label">10x ROI Calculator</span></header>
 
 <script>
 // ============================================
@@ -501,12 +510,6 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
     overlay.id = 'dd-gate';
     overlay.innerHTML = `
       <div class="gate-inner">
-        <div class="dd-logo">
-          <div>
-            <div class="dd-logo-name">Digitally<em>Defined</em></div>
-            <div class="dd-logo-sub">For Gen X Women Reinventing Themselves, Digitally</div>
-          </div>
-        </div>
         <h2>10X ROI <span>Calculator</span></h2>
         <p class="gate-sub">This calculator shows you the monthly yield of a digital property in 30 seconds — no sign-up, no tracking.</p>
         <p class="gate-why">Full access unlocks the complete yield model. Get it on Gumroad and bring this calculator back with your token.</p>
@@ -524,12 +527,6 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
 <div class="wrap">
 
 <nav>
-  <div class="dd-logo">
-    <div>
-      <div class="dd-logo-name">Digitally<em>Defined</em></div>
-      <div class="dd-logo-sub">For Gen X Women Reinventing Themselves, Digitally</div>
-    </div>
-  </div>
   <span class="dd-badge">10x ROI Calculator</span>
   <div class="dd-privacy">Your inputs stay on this device. No sign-up. No tracking.</div>
 </nav>
