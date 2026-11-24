@@ -45,13 +45,13 @@ html,body{background:var(--bg);color:var(--text);transition:background .25s,colo
 .t-1{color:var(--text)}.t-2{color:var(--text-2)}.t-3{color:var(--text-3)}.t-4{color:var(--text-4)}
 .accent{color:var(--accent)}.accent-2{color:var(--accent-2)}.accent-3{color:var(--accent-3)}.success{color:var(--success)}.danger{color:var(--danger)}
 .dd-card{background:var(--bg-2);border:1px solid var(--frame-3);transition:all .2s}
-.dd-card-b{background:var(--bg-2);border:2px solid var(--frame);box-shadow:var(--shadow);transition:all .15s}
+.dd-card-b{background:var(--bg-2);border:2px solid var(--frame);box-shadow:none;transition:all .15s}
 .dd-card-b:hover{box-shadow:6px 6px 0 var(--frame);transform:translate(-1px,-1px)}
-.dd-btn{background:var(--btn-bg);color:var(--btn-text);border:2px solid var(--frame);padding:10px 20px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;font-size:12px;cursor:pointer;box-shadow:var(--shadow-sm);font-family:'Inter',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
-.dd-btn:hover{transform:translate(-1px,-1px);box-shadow:var(--shadow)}
+.dd-btn{background:var(--btn-bg);color:var(--btn-text);border:2px solid var(--frame);padding:10px 20px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;font-size:12px;cursor:pointer;box-shadow:none;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.dd-btn:hover{transform:translate(-1px,-1px);box-shadow:none}
 .dd-btn:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--frame)}
 .dd-btn:disabled{opacity:.5;cursor:not-allowed}
-.dd-btn-sec{background:transparent;color:var(--text);box-shadow:var(--shadow-sm)}
+.dd-btn-sec{background:transparent;color:var(--text);box-shadow:none}
 .dd-btn-accent{background:var(--accent);color:var(--text-inv);border-color:var(--accent)}
 .dd-btn-danger{background:var(--accent-3);color:#fff;border-color:var(--accent-3)}
 .dd-btn-success{background:var(--success);color:#fff;border-color:var(--success)}
@@ -68,7 +68,7 @@ html,body{background:var(--bg);color:var(--text);transition:background .25s,colo
 .theme-toggle:hover{background:var(--bg-4);border-color:var(--accent)}
 .theme-option{padding:16px;border:2px solid var(--frame);background:var(--bg-2);cursor:pointer;transition:all .15s;text-align:left;position:relative}
 .theme-option:hover{background:var(--bg-4)}
-.theme-option.selected{border-color:var(--accent);box-shadow:var(--shadow);transform:translate(-1px,-1px)}
+.theme-option.selected{border-color:var(--accent);box-shadow:none;transform:translate(-1px,-1px)}
 .theme-option.selected::after{content:'✓';position:absolute;top:8px;right:8px;width:24px;height:24px;background:var(--accent);color:var(--text-inv);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg-3)}
@@ -76,7 +76,7 @@ html,body{background:var(--bg);color:var(--text);transition:background .25s,colo
 @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
 .live-dot{animation:livePulse 1.5s infinite}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-.skeleton{background:linear-gradient(90deg,var(--frame-3) 25%,var(--bg-4) 50%,var(--frame-3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton{background:background(90deg,var(--frame-3) 25%,var(--bg-4) 50%,var(--frame-3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
@@ -108,10 +108,10 @@ body{overflow-x:hidden}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:900}
 .saved-btn.saved{color:var(--accent-2)}
 .progress-bar{height:8px;background:var(--frame-3);overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 1s}
+.progress-fill{height:100%;background:background(90deg,var(--accent),var(--accent-2));transition:width 1s}
 .stat-number{font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-.02em}
 .section-label{font-family:'Inter',sans-serif;font-weight:900;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-3);padding:4px 8px;background:var(--bg-3);border:1px solid var(--frame-3);display:inline-block}
-.hero-gradient{background:linear-gradient(135deg,var(--bg-2) 0%,var(--bg-3) 100%);border:2px solid var(--frame);position:relative;overflow:hidden}
+.hero-gradient{background:background(135deg,var(--bg-2) 0%,var(--bg-3) 100%);border:2px solid var(--frame);position:relative;overflow:hidden}
 .theme-flash{position:fixed;inset:0;z-index:9999;pointer-events:none;background:var(--accent);opacity:0;transition:opacity .2s}
 .theme-flash.active{opacity:.15}
 /* ★ AUTH STATUS INDICATOR ★ */
@@ -355,8 +355,8 @@ body{overflow-x:hidden}
 <h3 class="font-black text-lg t-1 mb-4">Annual Yield by Account</h3>
 <div class="space-y-4">
 <div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Taxable Brokerage</span><span class="text-sm font-black success">$12,480/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Traditional IRA</span><span class="text-sm font-black success">$8,920/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:60%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div></div>
-<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">401(k)</span><span class="text-sm font-black success">$5,760/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:39%;background:linear-gradient(90deg,#47B7D4,#47B7D4)"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Traditional IRA</span><span class="text-sm font-black success">$8,920/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:60%;background:background(90deg,#8b5cf6,#a78bfa)"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">401(k)</span><span class="text-sm font-black success">$5,760/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:39%;background:background(90deg,#47B7D4,#47B7D4)"></div></div></div>
 <div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Roth IRA</span><span class="text-sm font-black success">$3,840/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:26%"></div></div></div>
 </div>
 <div class="mt-4 pt-4 grid grid-cols-3 gap-4" style="border-top:2px solid var(--frame)"><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Annual</p><p class="text-xl font-black stat-number success">$31,000</p></div><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Monthly</p><p class="text-xl font-black stat-number success">$2,583</p></div><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Yield</p><p class="text-xl font-black stat-number t-1">3.7%</p></div></div>
@@ -422,7 +422,7 @@ body{overflow-x:hidden}
 <div class="p-4 cursor-pointer bg-4" style="border:2px solid var(--frame)" onclick="launchAssetFlow('email-course')"><div class="flex justify-between"><div class="flex items-center gap-2"><span class="text-xl">📧</span><div><p class="text-sm font-black t-1">Niche Email Course</p><p class="text-xs t-3 font-semibold">5-day automated · $47</p></div></div><span class="text-xs font-black accent">+$400/mo</span></div></div>
 <div class="p-4 cursor-pointer bg-4" style="border:2px solid var(--frame)" onclick="launchAssetFlow('podcast')"><div class="flex justify-between"><div class="flex items-center gap-2"><span class="text-xl">🎙️</span><div><p class="text-sm font-black t-1">Podcast Sponsorship</p><p class="text-xs t-3 font-semibold">Leverage newsletter</p></div></div><span class="text-xs font-black accent">+$250/mo</span></div></div>
 <div class="p-4 cursor-pointer bg-4" style="border:2px solid var(--frame)" onclick="launchAssetFlow('tracker')"><div class="flex justify-between"><div class="flex items-center gap-2"><span class="text-xl">📊</span><div><p class="text-sm font-black t-1">Investment Tracker</p><p class="text-xs t-3 font-semibold">Premium Notion template</p></div></div><span class="text-xs font-black accent">+$200/mo</span></div></div>
-<div class="p-4 cursor-pointer" style="border:2px solid var(--accent);background:var(--bg-3);box-shadow:var(--shadow)" onclick="launchAssetFlow('membership')"><div class="flex justify-between"><div class="flex items-center gap-2"><span class="text-xl">🏆</span><div><p class="text-sm font-black t-1">Membership Community</p><p class="text-xs t-3 font-semibold">$29/mo curated</p></div></div><span class="text-xs font-black accent">+$870/mo</span></div></div>
+<div class="p-4 cursor-pointer" style="border:2px solid var(--accent);background:var(--bg-3);box-shadow:none" onclick="launchAssetFlow('membership')"><div class="flex justify-between"><div class="flex items-center gap-2"><span class="text-xl">🏆</span><div><p class="text-sm font-black t-1">Membership Community</p><p class="text-xs t-3 font-semibold">$29/mo curated</p></div></div><span class="text-xs font-black accent">+$870/mo</span></div></div>
 </div>
 </div>
 </div>
