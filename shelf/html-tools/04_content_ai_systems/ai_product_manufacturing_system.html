@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIGITALLYDEFINED | AI Digital Product Manufacturing System</title>
+    <title>DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> | AI Digital Product Manufacturing System</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Inter:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #F18B25; }
     </style>
   <style>
-/* ===== DigitallyDefined Brand Compliance Sweep — Flat Soft Brutalism ===== */
+/* ===== DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> Brand Compliance Sweep — Flat Soft Brutalism ===== */
 *, *::before, *::after {
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -90,7 +90,7 @@
                 STOP PLANNING.<br>START MANUFACTURING.
             </h1>
             <p class="text-base sm:text-lg text-ink font-body max-w-2xl mx-auto">
-                No more educational outlines or placeholders. Input your expertise to scan market demand, select a validated concept, and manufacture <strong>complete, ready-to-sell digital product packages</strong> for Gumroad, Etsy, and DigitallyDefined.
+                No more educational outlines or placeholders. Input your expertise to scan market demand, select a validated concept, and manufacture <strong>complete, ready-to-sell digital product packages</strong> for Gumroad, Etsy, and DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>.
             </p>
         </section>
 
@@ -300,7 +300,7 @@
 
     <footer class="w-full py-6 px-6 border-t border-black bg-bone text-center text-xs font-body text-ink/80 mt-12">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p><strong>DIGITALLYDEFINED</strong> © 2026. OWN YOUR POWER. NO MORE EXCUSES.</p>
+            <p><strong>DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></strong> © 2026. OWN YOUR POWER. NO MORE EXCUSES.</p>
             <p class="font-heading text-[10px] uppercase tracking-widest text-dd-orange">MANUFACTURING SYSTEM COMPLIANT</p>
         </div>
     </footer>
@@ -443,7 +443,7 @@
             document.getElementById('loading-sub').textContent = "Scanning market opportunities, competitor pricing, and audience fit...";
             animateLoader(10, 85, 3000);
 
-            const systemPrompt = `You are the Lead Digital Product Architect for DIGITALLYDEFINED. Analyze market demand and generate 5 validated digital product opportunities formatted strictly as JSON.`;
+            const systemPrompt = `You are the Lead Digital Product Architect for DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>. Analyze market demand and generate 5 validated digital product opportunities formatted strictly as JSON.`;
             const userQuery = `Zone of Genius: "${expertise}" | Target Audience: "${targetAudience}" | Preferred Format: "${assetTypeFilter}"`;
 
             const payload = {
@@ -530,7 +530,7 @@
             document.getElementById('loading-sub',).textContent = `Writing complete deliverables, sales copy, and bonuses for: "${opportunity.title}"`;
             animateLoader(10, 90, 6000);
 
-            const systemPrompt = `You are the Lead Digital Product Manufacturer for DIGITALLYDEFINED. Do not output outlines, placeholders, or summaries. Manufacture the complete, fully written digital product package ready for Gumroad and Etsy. Output strictly JSON matching the schema.`;
+            const systemPrompt = `You are the Lead Digital Product Manufacturer for DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>. Do not output outlines, placeholders, or summaries. Manufacture the complete, fully written digital product package ready for Gumroad and Etsy. Output strictly JSON matching the schema.`;
             const userQuery = `Manufacture complete product package for Opportunity: "${opportunity.title}" (${opportunity.productType}). Target Audience: "${currentParameters.targetAudience}".`;
 
             const payload = {
@@ -638,7 +638,7 @@
 
         document.getElementById('copy-package-btn').addEventListener('click', () => {
             if (!manufacturedPackage) return;
-            let text = `DIGITALLYDEFINED MANUFACTURED PACKAGE\nTitle: ${manufacturedPackage.productTitle}\nPrice: ${manufacturedPackage.pricing}\n\n`;
+            let text = `DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> MANUFACTURED PACKAGE\nTitle: ${manufacturedPackage.productTitle}\nPrice: ${manufacturedPackage.pricing}\n\n`;
             manufacturedPackage.productAssets.forEach(a => { text += `[ASSET: ${a.assetTitle}]\n${a.fullContent}\n\n`; });
             navigator.clipboard.writeText(text).then(() => alert("Package copied to clipboard!"));
         });
