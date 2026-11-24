@@ -29,8 +29,8 @@
                         'dmsans': ['DM Sans', 'sans-serif']
                     },
                     boxShadow: {
-                        'brutal': '2px 2px 0px 0px rgba(0,0,0,0.25)',
-                        'brutal-sm': '1px 1px 0px 0px rgba(0,0,0,0.25)',
+                        'brutal': 'none',
+                        'brutal-sm': 'none',
                         'brutal-hover': '0px 0px 0px 0px rgba(0,0,0,0)',
                     }
                 }
@@ -150,286 +150,14 @@
 .dd-logo, .logo, [class*='dd-logo']:not(.dd-brandmark) { display: none !important; }
 </style>
 
-<!-- DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> Canonical Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<!-- DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> Brand Standards (Strict 0px Soft-Brutalism) -->
-<style id="dd-brand-standard">
-/* ============================================================================
-   DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> — Official Brand Standard v2.0
-   Source of truth for every digital product. See brand/README.md.
-   Inlined into each product's <style id="dd-brand-standard"> by
-   scripts/apply_brand.py — do not hand-edit the copies.
 
-   Spec (from the official brand file):
-     • 3-colour system: #F18B25 primary, #47B7D4 secondary, #C20F0A important
-     • 1px solid #111111 frame on every card, button, badge, input
-     • rounded-none: 0px radius everywhere
-     • flat: no box-shadows, no gradients-as-decoration
-     • Inter 900 italic "DEFINED." logotype beside upright "DIGITALLY"
-     • Inter for headings / UI / buttons, DM Sans for body copy
-     • Outcome-first, non-technical, Gen X voice
-   ========================================================================= */
-
-:root {
-  /* ── 1. Brand roles ─────────────────────────────────────────────────── */
-  --dd-orange: #F18B25 !important;   /* PRIMARY   — CTAs, active state, default accent */
-  --dd-blue:   #47B7D4 !important;   /* SECONDARY — supporting modules, metrics, tech */
-  --dd-red:    #C20F0A !important;   /* IMPORTANT — alerts, security, critical only  */
-
-  /* ── 2. Surfaces ────────────────────────────────────────────────────── */
-  --dd-bg:             #FFFCF9 !important;  /* page */
-  --dd-card:           #FFFFFF !important;  /* card / panel face */
-  --dd-panel:          #FFFAF5 !important;  /* inset well */
-  --dd-dark:           #111111 !important;  /* brutal-dark block */
-  --dd-accent-surface: #FFFC97 !important;  /* brand banner strip */
-
-  /* Derived washes — tints of the 3 roles, no new hues introduced */
-  --dd-wash-orange: #FFF0DE !important;
-  --dd-wash-blue:   #E6F5F9 !important;
-  --dd-wash-red:    #FBEAEA !important;
-
-  /* ── 3. Ink & line ──────────────────────────────────────────────────── */
-  --dd-ink:   #111111 !important;
-  --dd-muted: #5F5F5F !important;
-  --dd-line:  #111111 !important;
-  --dd-bdr:   #111111 !important;   /* colour only — pair with `1px solid` */
-
-  /* ── 4. Structure: always square, always flat ───────────────────────── */
-  --dd-radius: 0px !important;
-  --dd-shadow: none !important;
-
-  /* ── 5. Type ────────────────────────────────────────────────────────── */
-  --dd-font-head: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
-  --dd-font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
-
-  /* ── 6. Legacy aliases ──────────────────────────────────────────────────
-     Every variable name used across the catalogue, pointing at the token
-     it should have been. Colour tokens only — structural vars are colours,
-     and every `border:` declaration is rewritten to `1px solid var(...)`
-     so the shorthand can never resolve to an invalid value.              */
-  --bg: var(--dd-bg) !important;
-  --cream-bg: var(--dd-bg) !important;
-  --cream: var(--dd-bg) !important;
-  --card-bg: var(--dd-card) !important;
-  --card: var(--dd-card) !important;
-  --dd-card-bg: var(--dd-card) !important;
-  --pure-white: #FFFFFF !important;
-  --white: #FFFFFF !important;
-  --dd-white: #FFFFFF !important;
-  --panel: var(--dd-panel) !important;
-  --light-gray: var(--dd-panel) !important;
-
-  --text: var(--dd-ink) !important;
-  --dd-text: var(--dd-ink) !important;
-  --ink: var(--dd-ink) !important;
-  --dk: var(--dd-ink) !important;
-  --black: var(--dd-ink) !important;
-  --dark-grey: var(--dd-ink) !important;
-  --medium-grey: var(--dd-muted) !important;
-  --muted: var(--dd-muted) !important;
-
-  --border: var(--dd-line) !important;
-  --dd-border: var(--dd-line) !important;
-  --bdr: var(--dd-line) !important;
-  --line: var(--dd-line) !important;
-  --frame: var(--dd-line) !important;
-  --dd-frame: var(--dd-line) !important;
-  --dd-frame-sm: var(--dd-line) !important;
-  --black-border: var(--dd-line) !important;
-  --border-gray: var(--dd-line) !important;
-
-  --or: var(--dd-orange) !important;
-  --orange: var(--dd-orange) !important;
-  --orange-highlight: var(--dd-orange) !important;
-  --accent: var(--dd-orange) !important;
-  --primary: var(--dd-orange) !important;
-
-  --bl: var(--dd-blue) !important;
-  --aqua: var(--dd-blue) !important;
-  --dd-aqua: var(--dd-blue) !important;
-  --aqua-blue: var(--dd-blue) !important;
-  --secondary: var(--dd-blue) !important;
-  --dd-accent-primary: var(--dd-orange) !important;
-  --dd-accent-secondary: var(--dd-blue) !important;
-
-  --rd: var(--dd-red) !important;
-  --red: var(--dd-red) !important;
-  --deep-red-warning: var(--dd-red) !important;
-  --tertiary: var(--dd-red) !important;
-  --dd-accent-tertiary: var(--dd-red) !important;
-
-  --dark: var(--dd-dark) !important;
-
-  --font-head: var(--dd-font-head) !important;
-  --font-body: var(--dd-font-body) !important;
-  --font-sans: var(--dd-font-body) !important;
-  --font-mono: var(--dd-font-head) !important;
-}
-
-/* ── Flat + square: the two non-negotiable brutalist rules ─────────────── */
-*,
-*::before,
-*::after {
-  border-radius: 0px !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-}
-
-/* ── Type system ───────────────────────────────────────────────────────── */
-body {
-  background-color: var(--dd-bg) !important;
-  color: var(--dd-ink) !important;
-  font-family: var(--dd-font-body) !important;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-}
-
-h1, h2, h3, h4, h5, h6, .dd-h {
-  font-family: var(--dd-font-head) !important;
-  color: var(--dd-ink) !important;
-  letter-spacing: -0.025em !important;
-}
-
-h1, h2, h3 { font-weight: 900 !important; }
-h4, h5, h6 { font-weight: 800 !important; }
-
-/* Body copy stays DM Sans — inputs included, so nothing falls back to Arial */
-p, li, td, dd, dt, blockquote, figcaption,
-input, select, textarea, optgroup, option {
-  font-family: var(--dd-font-body);
-}
-
-/* Action controls are Inter, 800 — per spec */
-button,
-.btn,
-.cta,
-.dd-btn,
-input[type="submit"],
-input[type="button"] {
-  font-family: var(--dd-font-head) !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.02em !important;
-}
-
-/* Third typefaces retired: Inter covers metric / label duty */
-code, pre, kbd, samp,
-.mono, .font-mono, .dd-badge, .badge, .tag, .eyebrow {
-  font-family: var(--dd-font-head) !important;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em !important;
-}
-
-/* ── 1px frame for every Tailwind border-width utility ─────────────────── */
-.border-2, .border-4, .border-8 { border-width: 1px !important; }
-.border-t-2, .border-t-4 { border-top-width: 1px !important; }
-.border-b-2, .border-b-4 { border-bottom-width: 1px !important; }
-.border-l-2, .border-l-4 { border-left-width: 1px !important; }
-.border-r-2, .border-r-4 { border-right-width: 1px !important; }
-.border-x-2, .border-x-4 { border-left-width: 1px !important; border-right-width: 1px !important; }
-.border-y-2, .border-y-4 { border-top-width: 1px !important; border-bottom-width: 1px !important; }
-
-/* ── Focus state: brand orange, always visible (shadows are gone) ─────── */
-:focus-visible,
-input:focus, select:focus, textarea:focus, button:focus, a:focus {
-  outline: 2px solid var(--dd-orange) !important;
-  outline-offset: 2px !important;
-}
-
-/* ── Official brand bar ───────────────────────────────────────────────── */
-.dd-brandbar {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 12px !important;
-  flex: 0 0 auto !important;
-  width: 100% !important;
-  padding: 10px 16px !important;
-  background: var(--dd-card) !important;
-  border: 0 !important;
-  border-bottom: 1px solid var(--dd-line) !important;
-  font-family: var(--dd-font-head) !important;
-}
-
-.dd-brandmark {
-  display: inline-block;
-  font-family: var(--dd-font-head) !important;
-  font-weight: 900 !important;
-  font-size: 15px;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  color: var(--dd-ink);
-  text-decoration: none;
-}
-
-.dd-brandmark em {
-  font-style: italic;
-  color: var(--dd-orange);
-}
-
-.dd-brandbar-label {
-  font-family: var(--dd-font-head) !important;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--dd-muted);
-  text-align: right;
-}
-
-/* Existing in-page logo slots are upgraded to the official lockup */
-.dd-logo-name,
-.logo-text {
-  font-family: var(--dd-font-head) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.04em !important;
-  text-transform: uppercase;
-}
-
-.dd-logo-name em,
-.logo-text em {
-  font-style: italic !important;
-  color: var(--dd-orange) !important;
-}
-
-@media print {
-  .dd-brandbar { display: none !important; }
-}
-
-</style>
-  <style>
-/* ===== DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> Brand Compliance Sweep — Flat Soft Brutalism ===== */
-*, *::before, *::after {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  background-image: none !important;
-}
-[style] { box-shadow: none !important; }
-  </style>
-</head>
-<body class="min-h-screen p-4 md:p-8 font-dmsans selection:bg-dd-blue selection:text-white">
-<!-- DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em> Official Header -->
-<nav class="dd-brand-topbar" style="background:#FFFCF9; border-bottom:1px solid #111111; padding:0.9rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; font-family:'Inter', sans-serif; position:sticky; top:0; z-index:9999;">
-  <div style="display:flex; align-items:center; gap:0.6rem;">
-    <a href="https://dashboard.DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>.agency" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:#111111;">
-      <span style="font-weight:800; font-size:1.05rem; letter-spacing:-0.03em; border:1px solid #111111; background:#FFFFFF; padding:0.35rem 0.65rem; display:inline-block;">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></span>
-    </a>
-    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#5F5F5F; display:none;">Faceless Digital Real Estate</span>
-  </div>
-  <div style="display:flex; align-items:center; gap:0.6rem;">
-    <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; border:1px solid #111111; background:#FFFFFF; padding:0.3rem 0.6rem; font-family:'Inter', monospace;">Automated Wealth Snapshot</span>
-    <a href="https://dashboard.DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em>.agency/quiz" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; background:#F18B25; color:#111111; border:1px solid #111111; padding:0.3rem 0.7rem; text-decoration:none;">Take Free Quiz →</a>
-  </div>
-</nav>
 
 
     <div class="max-w-6xl mx-auto space-y-8">
         
-        <header class="bg-white p-6 border border-dd-black shadow-brutal flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <header class="bg-white p-6 border border-dd-black  flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-dd-orange border border-dd-black flex items-center justify-center shadow-brutal-sm">
+                <div class="w-12 h-12 bg-dd-orange border border-dd-black flex items-center justify-center -sm">
                     <!-- 2D Flat Icon -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
                         <rect x="2" y="4" width="20" height="16"></rect>
@@ -444,13 +172,13 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
             </div>
             
             <div class="flex flex-wrap gap-3 font-inter text-sm">
-                <button onclick="switchTab('tab1')" id="btn-tab1" class="tab-btn px-4 py-2 font-bold bg-dd-orange text-white border border-dd-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                <button onclick="switchTab('tab1')" id="btn-tab1" class="tab-btn px-4 py-2 font-bold bg-dd-orange text-white border border-dd-black  hover:-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
                     1. Cash Flow Audit
                 </button>
-                <button onclick="switchTab('tab2')" id="btn-tab2" class="tab-btn px-4 py-2 font-bold bg-white text-dd-text border border-dd-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                <button onclick="switchTab('tab2')" id="btn-tab2" class="tab-btn px-4 py-2 font-bold bg-white text-dd-text border border-dd-black  hover:-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
                     2. Sinking Funds
                 </button>
-                <button onclick="switchTab('tab3')" id="btn-tab3" class="tab-btn px-4 py-2 font-bold bg-white text-dd-text border border-dd-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                <button onclick="switchTab('tab3')" id="btn-tab3" class="tab-btn px-4 py-2 font-bold bg-white text-dd-text border border-dd-black  hover:-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
                     3. Progress Meter
                 </button>
             </div>
@@ -460,28 +188,28 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
             
             <!-- KPI Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white p-6 border border-dd-black shadow-brutal relative overflow-hidden">
+                <div class="bg-white p-6 border border-dd-black  relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-8 h-8 bg-dd-blue border-b border-l border-dd-black"></div>
                     <p class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest">Total Income</p>
                     <p class="text-3xl font-inter font-bold text-dd-text mt-2" id="t1-total-income">$0.00</p>
                 </div>
-                <div class="bg-white p-6 border border-dd-black shadow-brutal relative overflow-hidden">
+                <div class="bg-white p-6 border border-dd-black  relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-8 h-8 bg-dd-orange border-b border-l border-dd-black"></div>
                     <p class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest">Total Outflow</p>
                     <p class="text-3xl font-inter font-bold text-dd-text mt-2" id="t1-total-outflow">$0.00</p>
                 </div>
-                <div class="bg-white p-6 border border-dd-black shadow-brutal relative overflow-hidden">
+                <div class="bg-white p-6 border border-dd-black  relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-8 h-8 bg-dd-text border-b border-l border-dd-black"></div>
                     <p class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest">Net Monthly Flow</p>
                     <p class="text-3xl font-inter font-bold mt-2" id="t1-net-flow">$0.00</p>
                 </div>
-                <div class="bg-white p-6 border border-dd-black shadow-brutal flex flex-col justify-center items-start">
+                <div class="bg-white p-6 border border-dd-black  flex flex-col justify-center items-start">
                     <p class="text-xs font-inter font-bold text-gray-500 uppercase tracking-widest mb-3">Reality Check</p>
                     <span id="t1-reality-check" class="badge badge-neutral text-sm px-4 py-2">AWAITING DATA</span>
                 </div>
             </div>
 
-            <div class="bg-white border border-dd-black shadow-brutal overflow-hidden">
+            <div class="bg-white border border-dd-black  overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full dd-table" id="cashflow-table">
                         <thead>
@@ -624,7 +352,7 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
         </div>
 
         <div id="tab2" class="tab-content space-y-8">
-            <div class="bg-white border border-dd-black shadow-brutal overflow-hidden">
+            <div class="bg-white border border-dd-black  overflow-hidden">
                 <div class="section-header !bg-dd-text text-xl py-4">PREDICTIVE OUTLAY ALLOCATION</div>
                 <div class="overflow-x-auto">
                     <table class="w-full dd-table" id="sinking-table">
@@ -746,7 +474,7 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
         <div id="tab3" class="tab-content space-y-8">
             
             <!-- Hero KPI -->
-            <div class="bg-dd-black text-white p-8 border border-dd-black shadow-brutal flex justify-between items-center relative overflow-hidden">
+            <div class="bg-dd-black text-white p-8 border border-dd-black  flex justify-between items-center relative overflow-hidden">
                 <!-- Abstract 2D BG element -->
                 <div class="absolute -right-10 -bottom-10 opacity-20">
                     <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="square">
@@ -765,7 +493,7 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
                 </div>
             </div>
 
-            <div class="bg-white border border-dd-black shadow-brutal overflow-hidden">
+            <div class="bg-white border border-dd-black  overflow-hidden">
                 <div class="section-header !bg-dd-orange py-4 text-lg text-dd-black border-b border-dd-black">LIQUID EMERGENCY BUFFER MILESTONES</div>
                 <div class="overflow-x-auto">
                     <table class="w-full dd-table" id="milestones-table">
@@ -832,7 +560,7 @@ input:focus, select:focus, textarea:focus, button:focus, a:focus {
                 </div>
             </div>
 
-            <div class="bg-white border border-dd-black shadow-brutal overflow-hidden">
+            <div class="bg-white border border-dd-black  overflow-hidden">
                 <div class="section-header py-4 text-lg">GROWTH & WEALTH-BUILDING ASSETS</div>
                 <div class="overflow-x-auto">
                     <table class="w-full dd-table" id="assets-table">

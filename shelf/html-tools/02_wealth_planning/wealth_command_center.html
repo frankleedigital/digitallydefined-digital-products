@@ -23,8 +23,8 @@ tailwind.config={theme:{extend:{fontFamily:{sans:['DM Sans','Inter','system-ui',
   --text:#2D3748;--text-2:#4A5568;--text-3:#718096;--text-4:#A0AEC0;--text-inv:#FFFFFF;
   --frame:#000000;--frame-2:#2D3748;--frame-3:#E2E8F0;
   --accent:#47B7D4;--accent-2:#F18B25;--accent-3:#c20f0a;
-  --success:#2a9d5c;--danger:#ef4444;
-  --shadow:4px 4px 0 var(--frame);--shadow-sm:2px 2px 0 var(--frame);
+  --success:#2a9d5c;--danger:#C20F0A;
+  --shadow:none;--shadow-sm:none;
   --btn-bg:var(--frame);--btn-text:var(--bg);
   --toast-bg:var(--frame);--toast-text:var(--bg);
   --nav-active:var(--bg-3);
@@ -35,7 +35,7 @@ tailwind.config={theme:{extend:{fontFamily:{sans:['DM Sans','Inter','system-ui',
   --frame:#F7FAFC;--frame-2:#2D3548;--frame-3:#2d3748;
   --accent:#47B7D4;--accent-2:#F18B25;--accent-3:#c20f0a;
   --success:#2A9D5C;--danger:#C20F0A;
-  --shadow:4px 4px 0 rgba(71,183,212,0.4);--shadow-sm:2px 2px 0 rgba(71,183,212,0.3);
+  --shadow:none;--shadow-sm:none;
   --btn-bg:var(--accent);--btn-text:var(--text-inv);
   --toast-bg:var(--accent);--toast-text:var(--text-inv);
   --nav-active:rgba(71,183,212,0.1);
@@ -76,7 +76,7 @@ html,body{background:var(--bg);color:var(--text);transition:background .25s,colo
 @keyframes livePulse{0%,100%{opacity:1}50%{opacity:.4}}
 .live-dot{animation:livePulse 1.5s infinite}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-.skeleton{background:background(90deg,var(--frame-3) 25%,var(--bg-4) 50%,var(--frame-3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton{background: var(--bg-3) 25%,var(--bg-4) 50%,var(--frame-3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{animation:spin 1s linear infinite}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
@@ -108,10 +108,10 @@ body{overflow-x:hidden}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:900}
 .saved-btn.saved{color:var(--accent-2)}
 .progress-bar{height:8px;background:var(--frame-3);overflow:hidden}
-.progress-fill{height:100%;background:background(90deg,var(--accent),var(--accent-2));transition:width 1s}
+.progress-fill{height:100%;background: var(--bg-3),var(--accent-2));transition:width 1s}
 .stat-number{font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-.02em}
 .section-label{font-family:'Inter',sans-serif;font-weight:900;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-3);padding:4px 8px;background:var(--bg-3);border:1px solid var(--frame-3);display:inline-block}
-.hero-gradient{background:background(135deg,var(--bg-2) 0%,var(--bg-3) 100%);border:2px solid var(--frame);position:relative;overflow:hidden}
+.hero-gradient{background: var(--bg-3) 0%,var(--bg-3) 100%);border:2px solid var(--frame);position:relative;overflow:hidden}
 .theme-flash{position:fixed;inset:0;z-index:9999;pointer-events:none;background:var(--accent);opacity:0;transition:opacity .2s}
 .theme-flash.active{opacity:.15}
 /* ★ AUTH STATUS INDICATOR ★ */
@@ -144,7 +144,7 @@ body{overflow-x:hidden}
 <svg class="w-6 h-6" style="color:var(--accent)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
 </div>
 <div>
-<h1 class="text-lg font-black tracking-tight t-1">DIGITALLY<br>DEFINED</h1>
+<h1 class="text-xl font-black tracking-tighter t-1">DIGITALLY<em style="color:#F18B25;font-style:italic">DEFINED</em></h1>
 <p class="text-[10px] font-bold uppercase tracking-widest t-3">Wealth Command</p>
 </div>
 </div>
@@ -251,7 +251,7 @@ body{overflow-x:hidden}
 
 <!-- ============ PAGE: DASHBOARD ============ -->
 <div id="p-dashboard" class="page active p-4 sm:p-6 lg:p-8 space-y-6">
-<div class="hero-gradient p-5 sm:p-8">
+<div class="dd-card-b p-5 sm:p-8">
 <div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center">
 <div class="flex-1 w-full">
 <span class="section-label mb-3" style="background:var(--accent);color:var(--text-inv);border-color:var(--frame)">● YOUR FREEDOM NUMBER · LIVE</span>
@@ -355,8 +355,8 @@ body{overflow-x:hidden}
 <h3 class="font-black text-lg t-1 mb-4">Annual Yield by Account</h3>
 <div class="space-y-4">
 <div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Taxable Brokerage</span><span class="text-sm font-black success">$12,480/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Traditional IRA</span><span class="text-sm font-black success">$8,920/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:60%;background:background(90deg,#8b5cf6,#a78bfa)"></div></div></div>
-<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">401(k)</span><span class="text-sm font-black success">$5,760/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:39%;background:background(90deg,#47B7D4,#47B7D4)"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Traditional IRA</span><span class="text-sm font-black success">$8,920/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:60%;background: var(--bg-3)"></div></div></div>
+<div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">401(k)</span><span class="text-sm font-black success">$5,760/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:39%;background: var(--bg-3)"></div></div></div>
 <div><div class="flex justify-between mb-1"><span class="text-sm font-bold t-1">Roth IRA</span><span class="text-sm font-black success">$3,840/yr</span></div><div class="progress-bar"><div class="progress-fill" style="width:26%"></div></div></div>
 </div>
 <div class="mt-4 pt-4 grid grid-cols-3 gap-4" style="border-top:2px solid var(--frame)"><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Annual</p><p class="text-xl font-black stat-number success">$31,000</p></div><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Monthly</p><p class="text-xl font-black stat-number success">$2,583</p></div><div><p class="text-[10px] t-3 font-black uppercase tracking-wider">Yield</p><p class="text-xl font-black stat-number t-1">3.7%</p></div></div>
